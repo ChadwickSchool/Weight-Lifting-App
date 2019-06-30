@@ -1,6 +1,6 @@
 import { browser, by, element, Ptor, protractor } from 'protractor';
-import {AdminComponent} from '../../src/app/admin/admin.component';
-import {PostDialogComponent} from '../../src/app/post-dialog/post-dialog.component';
+import { AdminComponent } from '../../src/app/admin/admin.component';
+import { PostDialogComponent } from '../../src/app/post-dialog/post-dialog.component';
 
 describe('Admin Component e2e test', () => {
   beforeAll(() => {
@@ -29,12 +29,15 @@ describe('Admin Component e2e test', () => {
     comments.click();
     comments.sendKeys('No comment');
     element(by.id('submit-button')).click();
-    // console.log(element(by.id('name-cell')).getText());
-    expect(element(by.id('table'))).toContain('tim');
-    expect(element(by.id('table'))).toContain('50');
-    expect(element(by.id('table'))).toContain('20');
-    expect(element(by.id('table'))).toContain('100');
-
+    const EC = protractor.ExpectedConditions;
+    browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
+    element(by.id('exerciseTable'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('tim'),
+        expect(text).toContain('50');
+        expect(text).toContain('20');
+        expect(text).toContain('100');
+      });
   });
-
 });

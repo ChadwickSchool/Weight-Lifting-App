@@ -1,44 +1,60 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-        <table id="table" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table
+    id="exerciseTable"
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <!-- Sets Column -->
+    <ng-container matColumnDef="sets">
+      <th mat-header-cell *matHeaderCellDef>Sets</th>
+      <td mat-cell id="sets-cell" *matCellDef="let element">
+        {{ element.sets }}
+      </td>
+    </ng-container>
 
-                <!--- Note that these columns can be defined in any order.
-                      The actual rendered columns are set as a property on the row definition" -->
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Exercise</th>
+      <td mat-cell id="name-cell" *matCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
 
-                <!-- Sets Column -->
-                <ng-container matColumnDef="sets">
-                  <th mat-header-cell *matHeaderCellDef> Sets </th>
-                  <td mat-cell id="sets-cell" *matCellDef="let element"> {{element.sets}} </td>
-                </ng-container>
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
+      <td mat-cell id="weight-cell" *matCellDef="let element">
+        {{ element.weight }}
+      </td>
+    </ng-container>
 
-                <!-- Name Column -->
-                <ng-container matColumnDef="name">
-                  <th mat-header-cell *matHeaderCellDef> Exercise </th>
-                  <td mat-cell id="name-cell" *matCellDef="let element"> {{element.name}} </td>
-                </ng-container>
+    <!-- Reps Column -->
+    <ng-container matColumnDef="reps">
+      <th mat-header-cell *matHeaderCellDef>Reps</th>
+      <td mat-cell id="reps-cell" *matCellDef="let element">
+        {{ element.reps }}
+      </td>
+    </ng-container>
 
-                <!-- Weight Column -->
-                <ng-container matColumnDef="weight">
-                  <th mat-header-cell *matHeaderCellDef> Weight </th>
-                  <td mat-cell id="weight-cell" *matCellDef="let element"> {{element.weight}} </td>
-                </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
 
-                <!-- Reps Column -->
-                <ng-container matColumnDef="reps">
-                  <th mat-header-cell *matHeaderCellDef> Reps </th>
-                  <td mat-cell id="reps-cell" *matCellDef="let element"> {{element.reps}} </td>
-                </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
+  <div class="container">
     <div class="container">
-        <div class="container">
-          <div fxLayout="column" fxLayoutAlign="center center" class="content">
-              <div class="blocks">
-                  <button (click)="openDialog()" button="submit" mat-raised-button color="primary">
-                      <mat-icon id="add-button">add</mat-icon> Add Exercise
-                  </button>
-              </div>
+      <div fxLayout="column" fxLayoutAlign="center center" class="content">
+        <div class="blocks">
+          <button
+            (click)="openDialog()"
+            button="submit"
+            mat-raised-button
+            color="primary"
+          >
+            <mat-icon id="add-button">add</mat-icon> Add Exercise
+          </button>
         </div>
+      </div>
     </div>
+  </div>
 </div>
