@@ -15,21 +15,22 @@ export default class TestUtils {
   static getTestGroup(name = 'Test Group', users?: Array<User>): Group {
     if (!users) {
       users = [
-        new UserClass('Test User 1', 'test1@email.com', false),
-        new UserClass('Test User 2', 'test2@email.com', false),
-        new UserClass('Test User 3', 'test3@email.com', false)
+        new UserClass('1', 'Test User 1', 'test1@email.com', false),
+        new UserClass('2', 'Test User 2', 'test2@email.com', false),
+        new UserClass('3', 'Test User 3', 'test3@email.com', false)
       ];
     }
     return new GroupClass(name, users);
   }
 
   static getTestUser(
+    uid = '1',
     name = 'Test User',
     email = 'test@gmail.com',
     isAdmin = false,
     groups?: Array<Group>
   ): User {
-    return new UserClass(name, email, isAdmin, groups);
+    return new UserClass(uid, name, email, isAdmin, groups);
   }
 
   static getTestRecommendedExercise(
