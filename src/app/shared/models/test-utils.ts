@@ -10,6 +10,8 @@ import { StudentWorkout } from './student-workout.model';
 import StudentWorkoutClass from './student-workout';
 import { Workout } from './workout.model';
 import WorkoutClass from './workout';
+import { ComponentFixture } from '@angular/core/testing';
+import { ComponentRef } from '@angular/core';
 
 export default class TestUtils {
   static getTestGroup(name = 'Test Group', users?: Array<User>): Group {
@@ -68,5 +70,10 @@ export default class TestUtils {
     date = new Date('3000-01-02')
     ): Workout {
       return new WorkoutClass(name, recExercise, users, date);
+    }
+
+    static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
+      const element: HTMLElement = fixture.nativeElement as HTMLElement;
+      return element;
     }
 }
