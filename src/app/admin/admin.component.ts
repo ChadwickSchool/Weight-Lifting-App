@@ -22,10 +22,10 @@ export class AdminComponent implements OnInit {
       width: '600px',
       data: 'Add Post'
     });
-    dialogRef.componentInstance.event.subscribe(result => {
-      this.dataService.addPost(result.data);
-      this.dataSource = new PostDataSource(this.dataService);
-    });
+    // dialogRef.componentInstance.event.subscribe(result => {
+    //   this.dataService.addPost(result.data);
+    //   this.dataSource = new PostDataSource(this.dataService);
+    // });
   }
 
   ngOnInit() {
