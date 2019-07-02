@@ -1,0 +1,51 @@
+<mat-sidenav-content>
+  <mat-toolbar color="primary">
+    <div fxHide.gt-xs>
+      <button mat-icon-button (click)="toggleSidenav.emit()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <div>
+      <a routerLink="/">
+        Get Big
+      </a>
+    </div>
+    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+      <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+        <li>
+          <a routerLink='/'>
+            <mat-icon id="home-icon" class="icon">home</mat-icon>
+            <span class="label">Home</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/today-workout-student">
+            <div *ngIf="auth.user$ | async as user;">
+                <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
+              <div *ngIf="user.isAdmin; then admin else student"></div>
+            <ng-template #admin>
+              <span class="label">Create Workout</span>
+            </ng-template>
+            <ng-template #student>
+            <span id="workout-label" class="label">Today's Workout</span>
+          </ng-template>
+          </div>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
+            <div *ngIf="auth.user$ | async; then user else guest"></div>
+            <ng-template #user>
+              <span class="label" (click)="auth.signOut()">Logout</span>
+            </ng-template>
+            <ng-template #guest>
+              <span class="label" (click)="auth.googleSignin()">Login</span>
+            </ng-template>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </mat-toolbar>
+</mat-sidenav-content>

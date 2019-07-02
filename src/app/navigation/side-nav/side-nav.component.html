@@ -1,0 +1,28 @@
+<mat-nav-list>
+  <a mat-list-item>
+    <mat-icon id="account-icon" class="icon">account_circle</mat-icon>
+    <div *ngIf="auth.user$ | async; then user else guest"></div>
+    <ng-template #user>
+      <span class="label" (click)="auth.signOut()">Logout</span>
+    </ng-template>
+    <ng-template #guest>
+      <span class="label" (click)="auth.googleSignin()">Login</span>
+    </ng-template>
+  </a>
+  <a mat-list-item type="button">
+    <mat-icon id="home-icon" class="icon">home</mat-icon>
+    <span class="label">Home</span>
+  </a>
+  <a mat-list-item>
+    <div *ngIf="auth.user$ | async as user">
+        <mat-icon id="sidenav-dash-icon" class="icon">fitness_center</mat-icon>
+      <div *ngIf="user.isAdmin; then admin else studentBlock"></div>
+      <ng-template #admin>
+        <span class="label">Create<span id="workout">Workout</span></span>
+      </ng-template>
+      <ng-template #studentBlock>
+        <span class="label">Today's Workout</span>
+      </ng-template>
+    </div>
+  </a>
+</mat-nav-list>

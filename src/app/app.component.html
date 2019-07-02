@@ -1,4 +1,9 @@
-<main>
-  <app-navbar></app-navbar>
-    <router-outlet></router-outlet>
-</main>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <wla-sidenav></wla-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <wla-navbar (toggleSidenav)="sidenav.toggle()"></wla-navbar>
+      <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

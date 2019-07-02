@@ -17,7 +17,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import {environment} from '../environments/environment';
-import { NavbarComponent } from './navbar/navbar.component';
+import { NavbarComponent } from './navigation/navbar/navbar.component';
+import { SideNavComponent} from './navigation/side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NavbarComponent } from './navbar/navbar.component';
     TodayWorkoutComponent,
     AdminComponent,
     PostDialogComponent,
-    NavbarComponent
+    NavbarComponent,
+    SideNavComponent
   ],
   imports: [
     BrowserModule,

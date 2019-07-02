@@ -7,7 +7,7 @@ import { PostDialogComponent } from '../post-dialog/post-dialog.component';
 import { MatDialog } from '@angular/material';
 
 @Component({
-  selector: 'app-admin',
+  selector: 'wla-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss']
 })
@@ -28,7 +28,9 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log("Loaded admin component");
+  }
 }
 
 export class PostDataSource extends DataSource<any> {

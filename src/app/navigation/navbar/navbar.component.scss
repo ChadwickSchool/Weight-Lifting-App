@@ -3,10 +3,9 @@ mat-sidenav-container, mat-sidenav-content, mat-sidenav {
 }
 
 mat-sidenav {
-  width: 250px;
+  width: 15rem;
   color: blue;
 }
-
 a {
   text-decoration: none;
   color: white;
@@ -35,7 +34,7 @@ a:active {
 }
 
 .label {
-  display: inline-block;
+  // display: inline-block;
   line-height: 30px;
   margin: 0;
   width: 85%;
@@ -45,7 +44,8 @@ a:active {
     margin-top: 0.1rem;
 }
 #home-icon,
-#out-icon {
+#dash-icon,
+#sidenav-dash-icon {
   margin-right: 0.6rem;
 }
 #workout-label {
