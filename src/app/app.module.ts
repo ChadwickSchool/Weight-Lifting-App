@@ -19,6 +19,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SideNavComponent} from './navigation/side-nav/side-nav.component';
+import { RecommendedExerciseService } from './services/exercise.service';
+import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,12 +42,13 @@ import { SideNavComponent} from './navigation/side-nav/side-nav.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     PostDialogComponent
   ],
-  providers: [DataService],
+  providers: [DataService, RecommendedExerciseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

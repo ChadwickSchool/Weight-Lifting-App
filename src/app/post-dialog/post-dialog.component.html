@@ -1,21 +1,21 @@
 <div class="dialog">
 <h1 mat-dialog-title>{{data}}</h1>
 <div mat-dialog-content>
-  <form class="example-form" (ngSubmit)="onSubmit()">
+  <form class="example-form" (ngSubmit)="submitForm()">
     <mat-form-field>
-      <input id="name-input" matInput placeholder="Exercise Name" type="text" required [(ngModel)]="blogPost.name" name="name">
+      <input id="name-input" matInput placeholder="Exercise Name" type="text" required [(ngModel)]="recommendedExercise.name" name="name">
     </mat-form-field>
     <mat-form-field>
-      <input id="sets-input" matInput placeholder="Number of Sets" type="text" required [(ngModel)]="blogPost.sets" name="body">
+      <input id="sets-input" matInput placeholder="Number of Sets" type="text" required [(ngModel)]="recommendedExercise.sets" name="sets">
     </mat-form-field>
     <mat-form-field>
-        <input id="reps-input" matInput placeholder="Number of Reps" type="text" required [(ngModel)]="blogPost.reps" name="name">
+        <input id="reps-input" matInput placeholder="Number of Reps" type="text" required [(ngModel)]="recommendedExercise.reps" name="reps">
     </mat-form-field>
     <mat-form-field>
-        <input id="weight-input" matInput placeholder="Weight Range" type="text" required [(ngModel)]="blogPost.weight" name="name">
+        <input id="weight-input" matInput placeholder="Weight Range" type="text" required [(ngModel)]="recommendedExercise.weight" name="weight">
     </mat-form-field>
     <mat-form-field>
-        <input id="comments-input" matInput placeholder="Comments" type="text" (ngModel)="blogPost.comments" name="name">
+        <input id="comments-input" matInput placeholder="Comments" type="text" [(ngModel)]="recommendedExercise.coachComment" name="coachComment">
     </mat-form-field>
     <button id="submit-button" mat-raised-button type="submit" color="primary">Save</button>
   </form>
