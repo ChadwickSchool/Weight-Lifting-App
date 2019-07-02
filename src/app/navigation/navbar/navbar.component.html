@@ -19,15 +19,19 @@
           </a>
         </li>
         <li>
-          <a routerLink="/today-workout-student">
+          <a>
             <div *ngIf="auth.user$ | async as user;">
                 <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
               <div *ngIf="user.isAdmin; then admin else student"></div>
             <ng-template #admin>
+              <a routerLink="/today-workout-admin">
               <span class="label">Create Workout</span>
+            </a>
             </ng-template>
             <ng-template #student>
+              <a routerLink="/today-workout-student">
             <span id="workout-label" class="label">Today's Workout</span>
+            </a>
           </ng-template>
           </div>
           </a>
