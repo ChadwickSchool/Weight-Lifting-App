@@ -19,7 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SideNavComponent} from './navigation/side-nav/side-nav.component';
-import { RecommendedExerciseService } from './services/exercise.service';
+import { RecommendedExerciseService } from './services/recommended-exercise.service';
 import { ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({

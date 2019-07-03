@@ -7,17 +7,14 @@ import {Observable, of} from 'rxjs';
 })
 export class DataService {
   ELEMENT_DATA: WorkoutElement[] = [
-    {name: 'Arnold Shoulder Press', sets: 3, reps: 15, weight: '5-10 lbs'},
-    {name: 'Lateral Raises', sets: 3, reps: 4, weight: '15-25 lbs'},
-    {name: 'Lorem Ipsum', sets: 2, reps: 7, weight: '40-55 lbs'},
-    {name: 'Ipsum Lorem', sets: 3, reps: 10, weight: '30-35 lbs'}
+    {name: 'Arnold Shoulder Press', sets: 3, reps: 15, weight: '5-10 lbs'}
   ];
   categories = [
     {value: 'Web-Development', viewValue: 'Web Development'},
     {value: 'Android-Development', viewValue: 'Android Development'},
     {value: 'IOS-Development', viewValue: 'IOS Development'}
   ];
-  
+
   constructor() { }
 
   getData(): Observable<WorkoutElement[]> {

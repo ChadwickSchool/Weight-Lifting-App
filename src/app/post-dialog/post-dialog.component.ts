@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DataService } from '../data/data.service';
 import RecommendedExerciseClass from '../shared/models/recommended-exercise';
-import { RecommendedExerciseService } from '../services/exercise.service';
+import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -44,4 +44,5 @@ export class PostDialogComponent implements OnInit {
     }
     this.recommendedExerciseService.addExercise(this.recommendedExercise);
   }
+
 }

@@ -25,6 +25,7 @@ export class RecommendedExerciseService {
   }
 
   getAddedExercises(): Observable<any> {
+    this.recommendedExercises.subscribe(result => console.log(result));
     return this.recommendedExercises;
     // return this.afs.list('exercises').valueChanges();
   }
