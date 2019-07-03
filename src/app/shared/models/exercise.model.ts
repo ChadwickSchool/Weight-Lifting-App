@@ -1,6 +1,7 @@
 import { User } from './user.model';
 
 export interface Exercise {
+  uid: string;
   name: string;
   setNumber: number;
   reps: number;

@@ -1,6 +1,7 @@
 import { User } from './user.model';
 
 export default class ExerciseClass {
+  uid: string;
   name: string;
   setNumber: number;
   reps: number;
@@ -10,6 +11,7 @@ export default class ExerciseClass {
   userComment?: string;
 
   constructor(
+    uid: string,
     name: string,
     setNumber: number,
     reps: number,
@@ -18,6 +20,7 @@ export default class ExerciseClass {
     date: Date,
     userComment?: string
   ) {
+    this.uid = uid;
     this.name = name;
     this.setNumber = setNumber;
     this.reps = reps;

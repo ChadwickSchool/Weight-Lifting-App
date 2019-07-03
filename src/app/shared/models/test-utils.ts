@@ -52,6 +52,7 @@ export default class TestUtils {
     date = new Date('2016-12-19'),
     exercise = [
       new ExerciseClass(
+        '1',
         'Test Exercise',
         3,
         10,
