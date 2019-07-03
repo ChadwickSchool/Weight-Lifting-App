@@ -38,7 +38,8 @@ export class RecommendedExerciseService {
       recommendedExercise.sets,
       recommendedExercise.reps,
       recommendedExercise.weight,
-      recommendedExercise.coachComment
+      recommendedExercise.coachComment,
+      recommendedExercise.rest
     );
     console.log(recExercise);
     this.recommendedExercisesRef.doc(id).set(Object.assign({}, recExercise));

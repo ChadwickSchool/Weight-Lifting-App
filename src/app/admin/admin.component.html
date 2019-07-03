@@ -37,6 +37,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="rest">
+      <th mat-header-cell *matHeaderCellDef>Rest</th>
+      <td mat-cell id="rest-cell" *matCellDef="let element">
+        {{ element.rest }}
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

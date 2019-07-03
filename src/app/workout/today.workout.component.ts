@@ -12,6 +12,7 @@ export interface RecExerciseData {
   reps: string;
   weight: string;
   coachComment: string;
+  rest: string;
 }
 
 @Component({
@@ -26,7 +27,7 @@ export class TodayWorkoutComponent implements OnInit {
     private dataService: DataService,
     private recExerciseService: RecommendedExerciseService
   ) {}
-  displayedColumns = ['name', 'sets', 'reps', 'weight'];
+  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
 
   ngOnInit() {
     this.showExercises();
@@ -38,14 +39,3 @@ export class TodayWorkoutComponent implements OnInit {
     });
   }
 }
-
-// export class PostDataSource extends DataSource<any> {
-//   constructor(private dataService: DataService) {
-//     super();
-//   }
-
-//   connect(): Observable<WorkoutElement[]> {
-//     return this.dataService.getData();
-//   }
-//   disconnect() {}
-// }

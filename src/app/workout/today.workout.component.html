@@ -28,6 +28,13 @@
           <td mat-cell *matCellDef="let element"> {{element.reps}} </td>
         </ng-container>
 
+        <ng-container matColumnDef="rest">
+          <th mat-header-cell *matHeaderCellDef>Rest</th>
+          <td mat-cell id="rest-cell" *matCellDef="let element">
+            {{ element.rest }}
+          </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
@@ -35,7 +42,7 @@
       <div fxFlex fxLayout fxLayoutAlign="center center">
             <form class="example-form">
                     <mat-form-field class="example-full-width">
-                      <input matInput placeholder="Exercise" value="Arnold Shoulder Press">
+                      <input matInput placeholder="Exercise">
                     </mat-form-field>
                 <div fxflex="row">
                     <mat-form-field class="example-half-width reps">

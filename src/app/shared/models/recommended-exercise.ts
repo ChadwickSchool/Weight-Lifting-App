@@ -7,6 +7,7 @@ export default class RecommendedExerciseClass implements RecommendedExercise {
   reps: string;
   weight?: string;
   coachComment?: string;
+  rest?: string;
 
   constructor(
     uid: string,
@@ -14,7 +15,8 @@ export default class RecommendedExerciseClass implements RecommendedExercise {
     sets: string,
     reps: string,
     weight?: string,
-    coachComment?: string
+    coachComment?: string,
+    rest?: string
   ) {
     this.uid = uid;
     this.name = name;
@@ -22,5 +24,6 @@ export default class RecommendedExerciseClass implements RecommendedExercise {
     this.reps = reps;
     this.weight = weight;
     this.coachComment = coachComment;
+    this.rest = rest;
   }
 }

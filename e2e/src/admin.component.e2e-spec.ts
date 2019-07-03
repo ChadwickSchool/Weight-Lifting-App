@@ -30,11 +30,13 @@ describe('Admin Component e2e test', () => {
     comments.sendKeys('No comment');
     element(by.id('submit-button')).click();
     const EC = protractor.ExpectedConditions;
-    browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
+    // console.log(element(by.id('exerciseTable')));
+    // browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
     element(by.id('exerciseTable'))
       .getText()
       .then(text => {
-        expect(text).toContain('tim'),
+        console.log('recieve text');
+        expect(text).toContain('tim');
         expect(text).toContain('50');
         expect(text).toContain('20');
         expect(text).toContain('100');

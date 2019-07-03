@@ -24,6 +24,7 @@ export class PostDialogComponent implements OnInit {
     reps: '',
     weight: '',
     coachComment: '',
+    rest: '',
     date_posted: new Date()
   };
 
@@ -41,6 +42,9 @@ export class PostDialogComponent implements OnInit {
   addExercise() {
     if (this.recommendedExercise.coachComment === '') {
       this.recommendedExercise.coachComment = 'none';
+    }
+    if (this.recommendedExercise.rest === '') {
+      this.recommendedExercise.rest = ' ';
     }
     this.recommendedExerciseService.addExercise(this.recommendedExercise);
   }
