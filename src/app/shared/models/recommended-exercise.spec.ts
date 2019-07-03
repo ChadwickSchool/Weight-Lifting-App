@@ -29,6 +29,7 @@ describe('RecommendedExercise Class', () => {
 
   it('should set weight correctly through constructor', () => {
     recExercise = new RecommendedExerciseClass(
+      '1',
       'Test Recommended Exercise',
       '2-3',
       '8-10',
@@ -39,6 +40,7 @@ describe('RecommendedExercise Class', () => {
 
   it('should set coach comment correctly through constructor', () => {
     recExercise = new RecommendedExerciseClass(
+      '1',
       'Test Recommended Exercise',
       '2-3',
       '8-10',

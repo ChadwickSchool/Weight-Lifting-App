@@ -36,13 +36,14 @@ export default class TestUtils {
   }
 
   static getTestRecommendedExercise(
+    uid = '1',
     name = 'Test Recommended Exercise',
     sets = '2-3',
     reps = '8-10',
     weight?: string,
     coachComment?: string
   ): RecommendedExercise {
-    return new RecommendedExerciseClass(name, sets, reps, weight, coachComment);
+    return new RecommendedExerciseClass(uid, name, sets, reps, weight, coachComment);
   }
 
   static getStudentWorkout(
