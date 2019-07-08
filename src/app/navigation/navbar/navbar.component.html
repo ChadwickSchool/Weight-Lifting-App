@@ -44,7 +44,7 @@
               <span class="label" (click)="auth.signOut()">Logout</span>
             </ng-template>
             <ng-template #guest>
-              <span class="label" (click)="auth.googleSignin()">Login</span>
+              <span class="label" id="login" (click)="auth.googleSignin()">Login</span>
             </ng-template>
           </a>
         </li>
