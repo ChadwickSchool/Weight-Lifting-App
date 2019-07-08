@@ -31,7 +31,7 @@ import { ExerciseService} from './services/exercise.service';
     AdminComponent,
     PostDialogComponent,
     NavbarComponent,
-    SideNavComponent
+    SideNavComponent,
   ],
   imports: [
     BrowserModule,

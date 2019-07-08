@@ -10,7 +10,8 @@ import {
   MatButtonModule,
   MatDialogModule,
   MatSelectModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatMenuModule
 } from '@angular/material';
 
 import {MatIconModule} from '@angular/material/icon';
@@ -27,7 +28,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ],
   exports: [
     MatSidenavModule,
@@ -40,7 +42,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule {}

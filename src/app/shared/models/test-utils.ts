@@ -57,7 +57,7 @@ export default class TestUtils {
         3,
         10,
         20,
-        this.getTestUser(),
+        '14jafa',
         new Date('2016-12-19')
       )
     ]

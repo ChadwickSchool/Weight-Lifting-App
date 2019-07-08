@@ -15,7 +15,7 @@ import { switchMap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user$: Observable<User>;
-
+  userID: string;
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -36,12 +36,16 @@ export class AuthService {
     return this.updateUserData(credential.user);
   }
 
+  getUserID(): string {
+    return this.userID;
+  }
+
   private updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-
+    this.userID = user.uid;
     const data = {
       uid: user.uid,
       name: user.displayName,
@@ -54,6 +58,5 @@ export class AuthService {
 
   async signOut() {
     await this.afAuth.auth.signOut();
-    //this.router.navigate(['/']);
   }
 }
