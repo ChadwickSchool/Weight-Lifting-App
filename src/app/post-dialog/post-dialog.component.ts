@@ -18,6 +18,7 @@ export class PostDialogComponent implements OnInit {
     private recommendedExerciseService: RecommendedExerciseService,
     private formBuilder: FormBuilder
   ) {}
+
   recommendedExercise = {
     name: '',
     sets: '',
