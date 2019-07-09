@@ -41,7 +41,7 @@
             <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
             <div *ngIf="auth.user$ | async; then user else guest"></div>
             <ng-template #user>
-              <span class="label" (click)="auth.signOut()">Logout</span>
+              <span class="label" id="logout" (click)="auth.signOut()">Logout</span>
             </ng-template>
             <ng-template #guest>
               <span class="label" id="login" (click)="auth.googleSignin()">Login</span>
