@@ -11,7 +11,7 @@ import { TodayWorkoutComponent } from './workout/today.workout.component';
 import {AppRouters} from './app.routes';
 import {DataService} from './data/data.service';
 import { AdminComponent } from './admin/admin.component';
-import { PostDialogComponent } from './post-dialog/post-dialog.component';
+import { RecommendedExercisesDialogComponent } from './recommended-exercises-dialog/recommended-exercises-dialog.component';
 import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -29,7 +29,7 @@ import { ExerciseService} from './services/exercise.service';
     WelcomeComponent,
     TodayWorkoutComponent,
     AdminComponent,
-    PostDialogComponent,
+    RecommendedExercisesDialogComponent,
     NavbarComponent,
     SideNavComponent,
   ],
@@ -47,7 +47,7 @@ import { ExerciseService} from './services/exercise.service';
     ReactiveFormsModule
   ],
   entryComponents: [
-    PostDialogComponent
+    RecommendedExercisesDialogComponent
   ],
   providers: [DataService, RecommendedExerciseService, ExerciseService],
   bootstrap: [AppComponent]

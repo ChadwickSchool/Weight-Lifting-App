@@ -1,6 +1,6 @@
 import { browser, by, element, Ptor, protractor } from 'protractor';
 import { AdminComponent } from '../../src/app/admin/admin.component';
-import { PostDialogComponent } from '../../src/app/post-dialog/post-dialog.component';
+import { RecommendedExercisesDialogComponent } from '../../src/app/recommended-exercises-dialog/recommended-exercises-dialog.component';
 
 describe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;
@@ -8,9 +8,9 @@ describe('Admin Component e2e test', () => {
     browser.get('/' + 'today-workout-admin');
   });
 
-  it('should find Add Exercise button', () => {
-    expect(document).toContain(element(by.id('dialog')));
-  });
+  // it('should find Add Exercise button', () => {
+  //   expect(document).toContain(element(by.id('dialog')));
+  // });
 
   it('should set correct value of all attributes', () => {
     const name = element(by.id('name-input'));
@@ -38,7 +38,7 @@ describe('Admin Component e2e test', () => {
       .getText()
       .then(text => {
         console.log('recieve text');
-        expect(text).toContain('tim');
+        expect(text).toContain('test');
         expect(text).toContain('50');
         expect(text).toContain('20');
         expect(text).toContain('100');

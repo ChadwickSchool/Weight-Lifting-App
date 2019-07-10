@@ -6,7 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8" id="recommended-exercises-table">
         <!-- Sets Column -->
         <ng-container matColumnDef="sets">
           <th mat-header-cell *matHeaderCellDef> Sets </th>
@@ -92,7 +92,7 @@
   </mat-expansion-panel>
   <h2>Set {{setNumber}}</h2>
   <div fxFlex fxLayout fxLayoutAlign="center center">
-    <form class="example-form">
+    <form class="example-form" id="exercise-form">
         <mat-select [(value)]="exercise.name">
             <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name">
             {{recExercise.name}}
