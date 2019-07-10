@@ -1,13 +1,12 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
   <mat-expansion-panel>
-    <mat-expansion-panel-header id="recommended-workout-header">
+    <mat-expansion-panel-header>
       <mat-panel-title>
         Recommended Workout
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8"
-      id="recommended-exercises-table">
+    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8">
         <!-- Sets Column -->
         <ng-container matColumnDef="sets">
           <th mat-header-cell *matHeaderCellDef> Sets </th>
@@ -44,8 +43,7 @@
       </table>
 
   </mat-expansion-panel>
-  <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"> -->
-  <mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Your Workout
@@ -94,7 +92,7 @@
   </mat-expansion-panel>
   <h2>Set {{setNumber}}</h2>
   <div fxFlex fxLayout fxLayoutAlign="center center">
-    <form class="example-form" id="exercise-form">
+    <form class="example-form">
         <mat-select [(value)]="exercise.name">
             <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name">
             {{recExercise.name}}

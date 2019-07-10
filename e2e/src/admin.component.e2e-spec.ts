@@ -9,7 +9,7 @@ describe('Admin Component e2e test', () => {
   });
 
   it('should find Add Exercise button', () => {
-    expect(element(by.id('add-button')).isDisplayed()).toBe(true);
+    expect(document).toContain(element(by.id('dialog')));
   });
 
   it('should set correct value of all attributes', () => {
@@ -20,7 +20,6 @@ describe('Admin Component e2e test', () => {
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
     element(by.id('add-button')).click();
-    browser.wait(EC.visibilityOf(element(by.id('dialog'))), 3000);
     name.click();
     name.sendKeys('test');
     sets.click();
@@ -33,11 +32,13 @@ describe('Admin Component e2e test', () => {
     comments.sendKeys('No comment');
     element(by.id('submit-button')).click();
     browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
+    expect(true).toBe(true);
+    expect(element(by.id('exerciseTable')).isDisplayed()).toBe(true);
     element(by.id('exerciseTable'))
       .getText()
       .then(text => {
         console.log('recieve text');
-        expect(text).toContain('test');
+        expect(text).toContain('tim');
         expect(text).toContain('50');
         expect(text).toContain('20');
         expect(text).toContain('100');
