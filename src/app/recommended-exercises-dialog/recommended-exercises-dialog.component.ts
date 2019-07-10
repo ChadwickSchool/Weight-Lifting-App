@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DataService } from '../data/data.service';
-import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'wla-recommended-exercises-dialog',
@@ -15,9 +13,7 @@ export class RecommendedExercisesDialogComponent implements OnInit {
     public dialogRef: MatDialogRef<RecommendedExercisesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dataService: DataService,
-    private recommendedExerciseService: RecommendedExerciseService,
-    private formBuilder: FormBuilder
-  ) {}
+    private recommendedExerciseService: RecommendedExerciseService  ) {}
 
   recommendedExercise = {
     name: '',

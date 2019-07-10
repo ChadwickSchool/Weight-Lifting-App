@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {WorkoutElement} from '../workout.table.interface';
 import {Observable, of} from 'rxjs';
+import { WorkoutElement } from '../shared/models/workout-table.model';
 
 @Injectable({
   providedIn: 'root'

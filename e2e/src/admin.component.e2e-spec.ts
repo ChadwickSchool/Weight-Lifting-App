@@ -1,6 +1,4 @@
-import { browser, by, element, Ptor, protractor } from 'protractor';
-import { AdminComponent } from '../../src/app/admin/admin.component';
-import { RecommendedExercisesDialogComponent } from '../../src/app/recommended-exercises-dialog/recommended-exercises-dialog.component';
+import { browser, by, element, protractor } from 'protractor';
 
 describe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;
@@ -20,6 +18,7 @@ describe('Admin Component e2e test', () => {
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
     element(by.id('add-button')).click();
+    browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
     name.click();
     name.sendKeys('test');
     sets.click();

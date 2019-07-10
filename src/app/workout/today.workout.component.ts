@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data/data.service';
-import { WorkoutElement } from '../workout.table.interface';
-import { DataSource } from '@angular/cdk/table';
-import { Observable } from 'rxjs';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { ExerciseService } from '../services/exercise.service';
-import ExerciseClass from '../shared/models/exercise';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 

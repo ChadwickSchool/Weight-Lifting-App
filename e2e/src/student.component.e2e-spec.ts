@@ -1,4 +1,4 @@
-import { browser, by, element, Ptor, protractor } from 'protractor';
+import { browser, by, element, protractor } from 'protractor';
 
 describe('Student Component e2e tests', () => {
   const GOOGLE_USERNAME = 'test.angular.wla.student@gmail.com';
@@ -7,13 +7,12 @@ describe('Student Component e2e tests', () => {
   const BROWSER_WAIT = 8000;
 
   /**
- *[selectWindow Focus the browser to the index window.
- * @param  {[Object]} index [Is the index of the window. E.g., 0=browser, 1=FBpopup]
- * @return {[!webdriver.promise.Promise.<void>]}
- */
-  const selectWindow = async function(index: number) {
+   * [selectWindow Focus the browser to the index window.
+   * @param  index [Is the index of the window. E.g., 0=browser, 1=FBpopup]
+   */
+  const selectWindow = async (index: number) => {
     // wait for handles[index] to exist
-    browser.wait(async function() {
+    browser.wait(async () => {
       const handles = await browser.getAllWindowHandles();
       /**
        * Assume that handles.length >= 1 and index >=0.
@@ -25,8 +24,8 @@ describe('Student Component e2e tests', () => {
       }
     }, 30000);
     // switch to the window
-    const handles_1 = await browser.getAllWindowHandles();
-    return browser.switchTo().window(handles_1[index]);
+    const handlesPromise = await browser.getAllWindowHandles();
+    return browser.switchTo().window(handlesPromise[index]);
   };
   beforeAll(() => {
     browser.get('/' + 'today-workout-student');
@@ -70,33 +69,31 @@ describe('Student Component e2e tests', () => {
   it('should find Exercise Form', () => {
     expect(element(by.id('exercise-form')).isDisplayed()).toBe(true);
   });
-});
 
-it('should find Logout button', () => {
-  console.log("Log out is here");
-  element(by.id('logout')).getText().then(text => {
-    console.log(text);
+  it('should open the Recommended Excercise table', () => {
+    const recExercises = element.all(by.css('mat-expansion-panel')).get(0);
+    recExercises.click();
+    browser.wait(ec.visibilityOf(element(by.id('recommended-exercises-table'))), this.BROWSER_WAIT);
+    expect(element(by.id('recommended-exercises-table')).isDisplayed()).toBe(true);
+    // close the expansion panel
+    recExercises.click();
   });
-  expect(element(by.id('logout')).isPresent()).toBe(true);
-});
 
-it('should open the Recommended Excercise table', () => {
-  const ec = protractor.ExpectedConditions;
-  const recExercises = element.all(by.css('mat-expansion-panel')).get(0);
-  recExercises.click();
-  browser.wait(ec.visibilityOf(element(by.id('recommended-exercises-table'))), this.BROWSER_WAIT);
-  expect(element(by.id('recommended-exercises-table')).isDisplayed()).toBe(true);
-  // close the expansion panel
-  recExercises.click();
-});
+  it('should open the Today\'s Workout table', () => {
+    console.log(element.all(by.css('mat-expansion-panel')).count());
+    const todayExercises = element.all(by.css('mat-expansion-panel')).get(1);
+    todayExercises.click();
+    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), this.BROWSER_WAIT);
+    expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
+    // close the expansion panel
+    todayExercises.click();
+  });
 
-it('should open the Today\'s Workout table', () => {
-  const ec = protractor.ExpectedConditions;
-  console.log(element.all(by.css('mat-expansion-panel')).count());
-  const todayExercises = element.all(by.css('mat-expansion-panel')).get(1);
-  todayExercises.click();
-  browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), this.BROWSER_WAIT);
-  expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
-  // close the expansion panel
-  todayExercises.click();
+  it('should find Logout button', () => {
+    console.log('Log out is here');
+    element(by.id('logout')).getText().then(text => {
+      console.log(text);
+    });
+    expect(element(by.id('logout')).isPresent()).toBe(true);
+  });
 });

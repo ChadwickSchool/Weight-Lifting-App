@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../data/data.service';
-import { WorkoutElement } from '../workout.table.interface';
-import { DataSource } from '@angular/cdk/table';
-import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
+import { DataService } from '../data/data.service';
 import { RecommendedExercisesDialogComponent } from '../recommended-exercises-dialog/recommended-exercises-dialog.component';
 
 export interface ExerciseData {
@@ -23,7 +20,9 @@ export interface ExerciseData {
 })
 export class AdminComponent implements OnInit {
   recExercisesDataSource: ExerciseData[];
-  constructor(public dialog: MatDialog, private dataService: DataService, private recExerciseService: RecommendedExerciseService) {}
+  dataService: DataService;
+  dataSource: Array<ExerciseData>;
+  constructor(public dialog: MatDialog, private recExerciseService: RecommendedExerciseService) {}
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];

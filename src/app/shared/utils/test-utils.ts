@@ -1,15 +1,14 @@
-import { User } from './user.model';
-import UserClass from './user';
-import GroupClass from './group';
-import { Group } from './group.model';
-import { Exercise } from './exercise.model';
-import { RecommendedExercise } from './recommended-exercise.model';
-import RecommendedExerciseClass from './recommended-exercise';
-import ExerciseClass from './exercise';
-import { StudentWorkout } from './student-workout.model';
-import StudentWorkoutClass from './student-workout';
-import { Workout } from './workout.model';
-import WorkoutClass from './workout';
+import { User } from '../models/user.model';
+import UserClass from '../models/user';
+import GroupClass from '../models/group';
+import { Group } from '../models/group.model';
+import { RecommendedExercise } from '../models/recommended-exercise.model';
+import RecommendedExerciseClass from '../models/recommended-exercise';
+import ExerciseClass from '../models/exercise';
+import { StudentWorkout } from '../models/student-workout.model';
+import StudentWorkoutClass from '../models/student-workout';
+import { Workout } from '../models/workout.model';
+import WorkoutClass from '../models/workout';
 import { ComponentFixture } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
 
