@@ -32,7 +32,7 @@ describe('Student Workout Class tests', () => {
         3,
         10,
         20,
-        'user',
+        '14jafa',
         new Date('2016-12-19')
       )
     ];

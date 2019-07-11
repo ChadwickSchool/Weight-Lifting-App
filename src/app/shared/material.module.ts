@@ -11,10 +11,9 @@ import {
   MatDialogModule,
   MatSelectModule,
   MatExpansionModule,
-  MatMenuModule
+  MatMenuModule,
+  MatIconModule
 } from '@angular/material';
-
-import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   imports: [
