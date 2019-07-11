@@ -27,6 +27,7 @@ describe('Student Workout Class tests', () => {
   it('should set exercise correctly through constructor', () => {
     const testExercise = [
       new ExerciseClass(
+        '1',
         'Test Exercise',
         3,
         10,
@@ -56,6 +57,7 @@ describe('Student Workout Class tests', () => {
   it('should set and get exercise correctly', () => {
     const testExercise = [
       new ExerciseClass(
+        '1',
         'Test Exercise 2',
         3,
         10,

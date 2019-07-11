@@ -7,6 +7,7 @@ describe('Exercise Class tests', () => {
   beforeEach(() => {
     const user = TestUtils.getTestUser();
     exercise = new ExerciseClass(
+      '1',
       'Test Exercise',
       2,
       3,
