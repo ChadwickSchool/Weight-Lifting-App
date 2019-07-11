@@ -1,5 +1,5 @@
 import StudentWorkoutClass from './student-workout';
-import TestUtils from './test-utils';
+import TestUtils from '../utils/test-utils';
 import ExerciseClass from './exercise';
 
 describe('Student Workout Class tests', () => {
@@ -27,11 +27,12 @@ describe('Student Workout Class tests', () => {
   it('should set exercise correctly through constructor', () => {
     const testExercise = [
       new ExerciseClass(
+        '1',
         'Test Exercise',
         3,
         10,
         20,
-        TestUtils.getTestUser(),
+        'user',
         new Date('2016-12-19')
       )
     ];
@@ -56,11 +57,12 @@ describe('Student Workout Class tests', () => {
   it('should set and get exercise correctly', () => {
     const testExercise = [
       new ExerciseClass(
+        '1',
         'Test Exercise 2',
         3,
         10,
         20,
-        TestUtils.getTestUser(),
+        'user',
         new Date('2016-12-19')
       )
     ];

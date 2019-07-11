@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NavbarComponent } from './navbar.component';
 import { MaterialModule } from '../../shared/material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import TestUtils from '../../shared/models/test-utils';
+import TestUtils from '../../shared/utils/test-utils';
 import { useAnimation } from '@angular/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
