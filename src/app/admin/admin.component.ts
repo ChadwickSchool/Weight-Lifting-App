@@ -47,4 +47,8 @@ export class AdminComponent implements OnInit {
       this.recExercisesDataSource = recExercises;
     });
   }
+
+  saveWorkout() {
+
+  }
 }
