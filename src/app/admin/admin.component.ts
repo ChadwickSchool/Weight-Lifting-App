@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { DataService } from '../data/data.service';
 import { RecommendedExercisesDialogComponent } from '../recommended-exercises-dialog/recommended-exercises-dialog.component';
+import { Router } from '@angular/router';
 
 export interface ExerciseData {
   name: string;
@@ -22,7 +23,7 @@ export class AdminComponent implements OnInit {
   recExercisesDataSource: ExerciseData[];
   dataService: DataService;
   dataSource: Array<ExerciseData>;
-  constructor(public dialog: MatDialog, private recExerciseService: RecommendedExerciseService) {}
+  constructor(public dialog: MatDialog, private recExerciseService: RecommendedExerciseService, private router: Router) {}
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
@@ -49,6 +50,6 @@ export class AdminComponent implements OnInit {
   }
 
   saveWorkout() {
-
+    this.router.navigate(['']);
   }
 }
