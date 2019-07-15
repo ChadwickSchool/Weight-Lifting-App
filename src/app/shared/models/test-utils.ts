@@ -2,7 +2,6 @@ import { User } from './user.model';
 import UserClass from './user';
 import GroupClass from './group';
 import { Group } from './group.model';
-import { Exercise } from './exercise.model';
 import { RecommendedExercise } from './recommended-exercise.model';
 import RecommendedExerciseClass from './recommended-exercise';
 import ExerciseClass from './exercise';
@@ -14,15 +13,8 @@ import { ComponentFixture } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
 
 export default class TestUtils {
-  static getTestGroup(name = 'Test Group', users?: Array<User>): Group {
-    if (!users) {
-      users = [
-        new UserClass('1', 'Test User 1', 'test1@email.com', false),
-        new UserClass('2', 'Test User 2', 'test2@email.com', false),
-        new UserClass('3', 'Test User 3', 'test3@email.com', false)
-      ];
-    }
-    return new GroupClass(name, users);
+  static getTestGroup(name = 'Basketball', id = '1'): Group {
+    return new GroupClass(name, id);
   }
 
   static getTestUser(
@@ -69,9 +61,11 @@ export default class TestUtils {
     name = 'Test Workout',
     recExercise = [this.getTestRecommendedExercise()],
     users = [this.getTestUser()],
-    date = new Date('3000-01-02')
+    date = new Date('3000-01-02'),
+    dateCreated = new Date('3000-01-01'),
+    group = this.getTestGroup()
     ): Workout {
-      return new WorkoutClass(name, recExercise, users, date);
+      return new WorkoutClass(name, recExercise, users, date, dateCreated, group);
     }
 
     static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
