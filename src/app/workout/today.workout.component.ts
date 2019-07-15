@@ -8,6 +8,8 @@ import { ExerciseService } from '../services/exercise.service';
 import ExerciseClass from '../shared/models/exercise';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
+import { GroupService } from '../services/groups.service';
+import { Group } from '../shared/models/group.model';
 
 // export interface RecExerciseData {
 //   name: string;
@@ -38,10 +40,12 @@ export class ExpansionOverviewExample {
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
   exerciseDataSource: Exercise;
+  groupDataSource: Group;
   setNumber: number;
   constructor(
     private recExerciseService: RecommendedExerciseService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private groupService: GroupService
   ) {
     this.setNumber = 0;
   }
@@ -51,11 +55,16 @@ export class TodayWorkoutComponent implements OnInit {
     weight: '',
     comment: ''
   };
+
+  group = {
+    name: ''
+  };
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
   displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight'];
 
   ngOnInit() {
     this.showExercises();
+    this.showGroups();
   }
 
   showExercises() {
@@ -64,6 +73,12 @@ export class TodayWorkoutComponent implements OnInit {
     });
     this.exerciseService.getAddedExercises().subscribe(exercises => {
       this.exerciseDataSource = exercises;
+    });
+  }
+
+  showGroups() {
+    this.groupService.getAddedGroups().subscribe(groups => {
+      this.groupDataSource = groups;
     });
   }
 

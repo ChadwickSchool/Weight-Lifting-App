@@ -22,6 +22,7 @@ import { SideNavComponent} from './navigation/side-nav/side-nav.component';
 import { RecommendedExerciseService } from './services/recommended-exercise.service';
 import { ReactiveFormsModule} from '@angular/forms';
 import { ExerciseService} from './services/exercise.service';
+import { GroupService } from './services/groups.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { ExerciseService} from './services/exercise.service';
   entryComponents: [
     PostDialogComponent
   ],
-  providers: [DataService, RecommendedExerciseService, ExerciseService],
+  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

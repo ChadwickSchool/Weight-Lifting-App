@@ -1,4 +1,13 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <mat-form-field id="group-select" >
+        <mat-label>Select Your Group</mat-label>
+  <mat-select [(value)]="group.name">
+
+      <mat-option *ngFor="let group of groupDataSource" [value]="group.name">
+      {{group.name}}
+      </mat-option>
+  </mat-select>
+  </mat-form-field>
   <mat-expansion-panel>
     <mat-expansion-panel-header id="recommended-workout-header">
       <mat-panel-title>
@@ -95,11 +104,14 @@
   <h2>Set {{setNumber}}</h2>
   <div fxFlex fxLayout fxLayoutAlign="center center">
     <form class="example-form" id="exercise-form">
+      <mat-form-field id="exercise-select">
+        <mat-label>Select Your Current Exercise</mat-label>
         <mat-select [(value)]="exercise.name">
             <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name">
             {{recExercise.name}}
             </mat-option>
         </mat-select>
+      </mat-form-field>
       <div fxflex="row">
         <mat-form-field class="example-half-width reps">
           <input type="number" matInput placeholder="Reps" [(ngModel)]="exercise.reps" name="reps">
