@@ -1,31 +1,31 @@
 import { User } from './user.model';
 
 export default class ExerciseClass {
-  uid: string;
+  id: string;
   name: string;
   setNumber: number;
   reps: number;
   weight: number;
-  user: User;
+  userID: string;
   date: Date;
   userComment?: string;
 
   constructor(
-    uid: string,
+    id: string,
     name: string,
     setNumber: number,
     reps: number,
     weight: number,
-    user: User,
+    userID: string,
     date: Date,
     userComment?: string
   ) {
-    this.uid = uid;
+    this.id = id;
     this.name = name;
     this.setNumber = setNumber;
     this.reps = reps;
     this.weight = weight;
-    this.user = user;
+    this.userID = userID;
     this.date = date;
     this.userComment = userComment;
   }

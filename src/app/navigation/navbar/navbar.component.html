@@ -25,7 +25,7 @@
               <div *ngIf="user.isAdmin; then admin else student"></div>
             <ng-template #admin>
               <a routerLink="/today-workout-admin">
-              <span class="label">Create Workout</span>
+              <span id="create-workout" class="label">Create Workout</span>
             </a>
             </ng-template>
             <ng-template #student>
@@ -41,10 +41,10 @@
             <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
             <div *ngIf="auth.user$ | async; then user else guest"></div>
             <ng-template #user>
-              <span class="label" (click)="auth.signOut()">Logout</span>
+              <span class="label" id="logout" (click)="auth.signOut()">Logout</span>
             </ng-template>
             <ng-template #guest>
-              <span class="label" (click)="auth.googleSignin()">Login</span>
+              <span class="label" id="login" (click)="auth.googleSignin()">Login</span>
             </ng-template>
           </a>
         </li>

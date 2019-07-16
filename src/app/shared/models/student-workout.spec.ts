@@ -1,5 +1,5 @@
 import StudentWorkoutClass from './student-workout';
-import TestUtils from './test-utils';
+import TestUtils from '../utils/test-utils';
 import ExerciseClass from './exercise';
 
 describe('Student Workout Class tests', () => {
@@ -32,7 +32,7 @@ describe('Student Workout Class tests', () => {
         3,
         10,
         20,
-        TestUtils.getTestUser(),
+        '14jafa',
         new Date('2016-12-19')
       )
     ];
@@ -62,7 +62,7 @@ describe('Student Workout Class tests', () => {
         3,
         10,
         20,
-        TestUtils.getTestUser(),
+        'user',
         new Date('2016-12-19')
       )
     ];

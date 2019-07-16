@@ -6,7 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8" id="recommended-exercises-table">
         <!-- Sets Column -->
         <ng-container matColumnDef="sets">
           <th mat-header-cell *matHeaderCellDef> Sets </th>
@@ -50,15 +50,15 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="exerciseDataSource" class="mat-elevation-z8">
+    <table mat-table [dataSource]="exerciseDataSource" class="mat-elevation-z8" id="student-exercise-table">
 
         <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
 
         <!-- Position Column -->
-        <ng-container matColumnDef="sets">
-          <th mat-header-cell *matHeaderCellDef> Sets </th>
-          <td mat-cell *matCellDef="let element"> {{element.sets}} </td>
+        <ng-container matColumnDef="setNumber">
+          <th mat-header-cell *matHeaderCellDef> Set Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.setNumber}} </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -89,29 +89,27 @@
         <tr mat-header-row *matHeaderRowDef="displayedExerciseColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedExerciseColumns;"></tr>
       </table>
-
   </mat-expansion-panel>
-  <h2>Set 1</h2>
+  <h2>Set {{setNumber}}</h2>
   <div fxFlex fxLayout fxLayoutAlign="center center">
-    <form class="example-form">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="Exercise">
-      </mat-form-field>
+    <form class="example-form" id="exercise-form">
+        <mat-select [(value)]="exercise.name">
+            <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name">
+            {{recExercise.name}}
+            </mat-option>
+        </mat-select>
       <div fxflex="row">
         <mat-form-field class="example-half-width reps">
-          <input type="number" matInput placeholder="Reps">
+          <input type="number" matInput placeholder="Reps" [(ngModel)]="exercise.reps" name="reps">
         </mat-form-field>
         <span></span>
         <mat-form-field id="input-weight" class="example-half-width weight">
-          <input type="number" matInput placeholder="Weight">
+          <input type="number" matInput placeholder="Weight" [(ngModel)]="exercise.weight" name="weight">
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Comments"></textarea>
+        <textarea matInput placeholder="Comments" [(ngModel)]="exercise.comment" name="comment"></textarea>
       </mat-form-field>
-      <mat-form-field class="example-half-width setNumber">
-          <input type="number" matInput placeholder="Set Number">
-        </mat-form-field>
     </form>
   </div>
   <div fxFlex fxLayout fxLayoutAlign="center center">

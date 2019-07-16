@@ -1,6 +1,6 @@
 import UserClass from './user';
 import GroupClass from './group';
-import TestUtils from './test-utils';
+import TestUtils from '../utils/test-utils';
 
 describe('User class tests', () => {
   let user: UserClass = null;

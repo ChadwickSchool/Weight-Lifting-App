@@ -10,44 +10,43 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 import ExercisesClass from '../shared/models/exercise';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class ExerciseService {
   exercisesRef: AngularFirestoreCollection<Exercise>;
   exercisesDoc: AngularFirestoreDocument<Exercise>;
   exercises: Observable<Exercise[]>;
-  constructor(private afs: AngularFirestore) {
+  constructor(private afs: AngularFirestore, private authService: AuthService) {
     this.exercisesRef = afs.collection<Exercise>(
       'exercises'
     );
     this.exercises = this.exercisesRef.valueChanges();
-
   }
 
   getAddedExercises(): Observable<any> {
-    // this.exercises.subscribe(result => console.log(result));
     return this.exercises;
-    // return this.afs.list('exercises').valueChanges();
   }
 
-  addExercise(exercises: any) {
+  addExercise(exercises: any, setNumber: number) {
     const id = this.afs.createId();
     const exercise = new ExercisesClass(
       id,
       exercises.name,
-      exercises.setNumber,
+      setNumber,
       exercises.reps,
       exercises.weight,
-      exercises.user,
-      exercises.date,
+      this.authService.getUserID(),
+      new Date(),
       exercises.comment
     );
+    console.log(exercise);
     this.exercisesRef.doc(id).set(Object.assign({}, exercise));
   }
 
   updateExercise(exercises: Exercise) {
     console.log('Updating exercise');
-    this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.uid}`);
+    this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.id}`);
     this.exercisesDoc.update(exercises);
     }
 
