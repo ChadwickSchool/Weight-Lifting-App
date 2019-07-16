@@ -1,19 +1,20 @@
-import { User } from './user.model';
-import UserClass from './user';
-import GroupClass from './group';
-import { Group } from './group.model';
-import { RecommendedExercise } from './recommended-exercise.model';
-import RecommendedExerciseClass from './recommended-exercise';
-import ExerciseClass from './exercise';
-import { StudentWorkout } from './student-workout.model';
-import StudentWorkoutClass from './student-workout';
-import { Workout } from './workout.model';
-import WorkoutClass from './workout';
+import { User } from '../models/user.model';
+import UserClass from '../models/user';
+import GroupClass from '../models/group';
+import { Group } from '../models/group.model';
+import { RecommendedExercise } from '../models/recommended-exercise.model';
+import RecommendedExerciseClass from '../models/recommended-exercise';
+import ExerciseClass from '../models/exercise';
+import { StudentWorkout } from '../models/student-workout.model';
+import StudentWorkoutClass from '../models/student-workout';
+import { Workout } from '../models/workout.model';
+import WorkoutClass from '../models/workout';
 import { ComponentFixture } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
+import { Exercise } from '../models/exercise.model';
 
 export default class TestUtils {
-  static getTestGroup(name = 'Basketball', id = '1'): Group {
+  static getTestGroup(name = 'Test Group', id = '1'): Group {
     return new GroupClass(name, id);
   }
 
@@ -36,6 +37,19 @@ export default class TestUtils {
     coachComment?: string
   ): RecommendedExercise {
     return new RecommendedExerciseClass(uid, name, sets, reps, weight, coachComment);
+  }
+
+  static getTestExercise(
+    id = '1',
+    name = 'test exercise',
+    setNumber = 5,
+    reps = 10,
+    weight = 30,
+    userID = '2',
+    date = new Date(),
+    userComment?: string
+  ): Exercise {
+    return new ExerciseClass(id, name, setNumber, reps, weight, userID, date, userComment);
   }
 
   static getStudentWorkout(

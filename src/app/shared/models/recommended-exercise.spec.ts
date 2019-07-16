@@ -1,5 +1,5 @@
 import RecommendedExerciseClass from './recommended-exercise';
-import TestUtils from './test-utils';
+import TestUtils from '../utils/test-utils';
 
 describe('RecommendedExercise Class', () => {
   let recExercise: RecommendedExerciseClass = null;

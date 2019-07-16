@@ -25,7 +25,7 @@
               <div *ngIf="user.isAdmin; then admin else student"></div>
             <ng-template #admin>
               <a routerLink="/today-workout-admin">
-              <span class="label">Create Workout</span>
+              <span id="create-workout" class="label">Create Workout</span>
             </a>
             </ng-template>
             <ng-template #student>

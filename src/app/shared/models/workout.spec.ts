@@ -1,5 +1,5 @@
 import WorkoutClass from './workout';
-import TestUtils from './test-utils';
+import TestUtils from '../utils/test-utils';
 
 describe('Workout Test Cases', () => {
   let workout: WorkoutClass = null;

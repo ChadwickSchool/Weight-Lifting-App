@@ -1,4 +1,5 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h1>Your Workout</h1>
   <table
     id="exerciseTable"
     mat-table
@@ -56,10 +57,11 @@
             (click)="openDialog()"
             button="submit"
             mat-raised-button
-            color="primary"
+            color="secondary"
           >
             <mat-icon id="add-button">add</mat-icon> Add Exercise
           </button>
+          <button id="workout-button" (click)="saveWorkout()" button="submit" mat-raised-button color="primary">Save Workout</button>
         </div>
       </div>
     </div>

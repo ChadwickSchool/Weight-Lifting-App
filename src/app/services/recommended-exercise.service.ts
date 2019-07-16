@@ -14,7 +14,6 @@ import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 @Injectable()
 export class RecommendedExerciseService {
   recommendedExercisesRef: AngularFirestoreCollection<RecommendedExercise>;
-  recommendedExercisesDoc: AngularFirestoreDocument<RecommendedExercise>;
   recommendedExercises: Observable<RecommendedExercise[]>;
   constructor(private afs: AngularFirestore) {
     this.recommendedExercisesRef = afs.collection<RecommendedExercise>(
@@ -45,11 +44,11 @@ export class RecommendedExerciseService {
     this.recommendedExercisesRef.doc(id).set(Object.assign({}, recExercise));
   }
 
-  updateExercise(recommendedExercise: RecommendedExercise) {
-    console.log('Updating exercise');
-    this.recommendedExercisesDoc = this.afs.doc<RecommendedExercise>(`student-exercises/${recommendedExercise.uid}`);
-    this.recommendedExercisesDoc.update(recommendedExercise);
-    }
+  // updateExercise(recommendedExercise: RecommendedExercise) {
+  //   console.log('Updating exercise');
+  //   this.recommendedExercisesDoc = this.afs.doc<RecommendedExercise>(`student-exercises/${recommendedExercise.uid}`);
+  //   this.recommendedExercisesDoc.update(recommendedExercise);
+  //   }
 
     // this.afs.object('exercises/' + key).update(exercise);
   }

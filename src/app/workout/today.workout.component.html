@@ -9,14 +9,13 @@
   </mat-select>
   </mat-form-field>
   <mat-expansion-panel>
-    <mat-expansion-panel-header id="recommended-workout-header">
+    <mat-expansion-panel-header>
       <mat-panel-title>
         Recommended Workout
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8"
-      id="recommended-exercises-table">
+    <table mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8" id="recommended-exercises-table">
         <!-- Sets Column -->
         <ng-container matColumnDef="sets">
           <th mat-header-cell *matHeaderCellDef> Sets </th>
@@ -53,8 +52,7 @@
       </table>
 
   </mat-expansion-panel>
-  <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false"> -->
-  <mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Your Workout

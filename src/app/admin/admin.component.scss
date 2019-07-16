@@ -1,3 +1,7 @@
+h1 {
+  color: rgb(98, 98, 98);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
 table {
     width: 70%;
     margin-top: 1rem;
@@ -25,4 +29,8 @@ h2 {
 }
 .reps {
     margin-right: 3rem;
+}
+#workout-button {
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }

@@ -1,23 +1,19 @@
-import { Component, EventEmitter, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DataService } from '../data/data.service';
-import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'wla-post-dialog',
-  templateUrl: './post-dialog.component.html',
-  styleUrls: ['./post-dialog.component.scss']
+  selector: 'wla-recommended-exercises-dialog',
+  templateUrl: './recommended-exercises-dialog.component.html',
+  styleUrls: ['./recommended-exercises-dialog.component.scss']
 })
-export class PostDialogComponent implements OnInit {
+export class RecommendedExercisesDialogComponent implements OnInit {
   constructor(
-    public dialogRef: MatDialogRef<PostDialogComponent>,
+    public dialogRef: MatDialogRef<RecommendedExercisesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dataService: DataService,
-    private recommendedExerciseService: RecommendedExerciseService,
-    private formBuilder: FormBuilder
-  ) {}
+    private recommendedExerciseService: RecommendedExerciseService  ) {}
 
   recommendedExercise = {
     name: '',
