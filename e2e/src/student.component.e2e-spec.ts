@@ -1,11 +1,11 @@
 // import { browser, by, element, protractor } from 'protractor';
-
+//
 // describe('Student Component e2e tests', () => {
 //   const GOOGLE_USERNAME = 'test.angular.wla.student@gmail.com';
 //   const GOOGLE_PASSWORD = 'testPassword19';
 //   const ec = protractor.ExpectedConditions;
 //   const BROWSER_WAIT = 8000;
-
+//
 //   /**
 //    * [selectWindow Focus the browser to the index window.
 //    * @param  index [Is the index of the window. E.g., 0=browser, 1=FBpopup]
@@ -35,14 +35,14 @@
 //     this.passwordNextButton = element(by.id('passwordNext'));
 //     this.signInButton = element(by.id('login'));
 //     this.approveAccess = element(by.id('submit_approve_access'));
-
+//
 //     this.loginToGoogle = function() {
 //       const self = this;
-
+//
 //       /* Entering non angular site, it instructs webdriver to switch
 //        to synchronous mode. At this point I assume we are on google
 //        login page */
-
+//
 //       browser.waitForAngularEnabled(false);
 //       browser
 //         .wait(ec.visibilityOf(self.emailInput), BROWSER_WAIT)
@@ -58,18 +58,19 @@
 //             });
 //         });
 //     };
-
-//     // this.signInButton.click();
-//     // selectWindow(1);
-//     // this.loginToGoogle();
-//     // selectWindow(0);
-//     // browser.wait(ec.visibilityOf(element(by.id('exercise-form'))), BROWSER_WAIT);
+//
+//     this.signInButton.click();
+//     selectWindow(1);
+//     this.loginToGoogle();
+//     selectWindow(0);
+//     browser.wait(ec.visibilityOf(element(by.id('workout-label'))), BROWSER_WAIT);
+//     element(by.id('workout-label')).click();
 //   });
-
+//
 //   it('should find Exercise Form', () => {
 //     expect(element(by.id('exercise-form')).isDisplayed()).toBe(true);
 //   });
-
+//
 //   it('should open the Recommended Excercise table', () => {
 //     const recExercises = element.all(by.css('mat-expansion-panel')).get(0);
 //     recExercises.click();
@@ -78,7 +79,7 @@
 //     // close the expansion panel
 //     recExercises.click();
 //   });
-
+//
 //   it('should open the Today\'s Workout table', () => {
 //     console.log(element.all(by.css('mat-expansion-panel')).count());
 //     const todayExercises = element.all(by.css('mat-expansion-panel')).get(1);
@@ -88,7 +89,7 @@
 //     // close the expansion panel
 //     todayExercises.click();
 //   });
-
+//
 //   // it('should find Logout button', () => {
 //   //   console.log('Log out is here');
 //   //   element(by.id('logout')).getText().then(text => {

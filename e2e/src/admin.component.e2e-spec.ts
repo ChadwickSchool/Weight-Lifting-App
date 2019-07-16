@@ -63,8 +63,8 @@ describe('Admin Component e2e test', () => {
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
 
+    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
     element(by.id('create-workout')).click();
   });
 
@@ -79,6 +79,7 @@ describe('Admin Component e2e test', () => {
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
+    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT);
     element(by.id('add-button')).click();
     browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
     name.click();
