@@ -1,9 +1,10 @@
 import { browser, by, element, protractor } from 'protractor';
+import { ADMIN_USERNAME, ADMIN_PASSWORD } from './google-info';
 
 describe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;
-  const GOOGLE_USERNAME = 'test.angular.wla.student@gmail.com';
-  const GOOGLE_PASSWORD = 'testPassword19';
+  const GOOGLE_USERNAME = ADMIN_USERNAME;
+  const GOOGLE_PASSWORD = ADMIN_PASSWORD;
   const BROWSER_WAIT = 8000;
 
   /**
