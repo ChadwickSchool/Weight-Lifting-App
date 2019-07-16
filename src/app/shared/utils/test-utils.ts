@@ -11,17 +11,11 @@ import { Workout } from '../models/workout.model';
 import WorkoutClass from '../models/workout';
 import { ComponentFixture } from '@angular/core/testing';
 import { ComponentRef } from '@angular/core';
+import { Exercise } from '../models/exercise.model';
 
 export default class TestUtils {
-  static getTestGroup(name = 'Test Group', users?: Array<User>): Group {
-    if (!users) {
-      users = [
-        new UserClass('1', 'Test User 1', 'test1@email.com', false),
-        new UserClass('2', 'Test User 2', 'test2@email.com', false),
-        new UserClass('3', 'Test User 3', 'test3@email.com', false)
-      ];
-    }
-    return new GroupClass(name, users);
+  static getTestGroup(name = 'Test Group', id = '1'): Group {
+    return new GroupClass(name, id);
   }
 
   static getTestUser(
@@ -43,6 +37,19 @@ export default class TestUtils {
     coachComment?: string
   ): RecommendedExercise {
     return new RecommendedExerciseClass(uid, name, sets, reps, weight, coachComment);
+  }
+
+  static getTestExercise(
+    id = '1',
+    name = 'test exercise',
+    setNumber = 5,
+    reps = 10,
+    weight = 30,
+    userID = '2',
+    date = new Date(),
+    userComment?: string
+  ): Exercise {
+    return new ExerciseClass(id, name, setNumber, reps, weight, userID, date, userComment);
   }
 
   static getStudentWorkout(
