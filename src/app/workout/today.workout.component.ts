@@ -35,12 +35,10 @@ export class ExpansionOverviewExample {
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
   exerciseDataSource: Exercise;
-  groupDataSource: Group;
   setNumber: number;
   constructor(
     private recExerciseService: RecommendedExerciseService,
     private exerciseService: ExerciseService,
-    private groupService: GroupService
   ) {
     this.setNumber = 0;
   }
@@ -51,15 +49,13 @@ export class TodayWorkoutComponent implements OnInit {
     comment: ''
   };
 
-  group = {
-    name: ''
-  };
+
+
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
   displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight'];
 
   ngOnInit() {
     this.showExercises();
-    this.showGroups();
   }
 
   showExercises() {
@@ -71,11 +67,7 @@ export class TodayWorkoutComponent implements OnInit {
     });
   }
 
-  showGroups() {
-    this.groupService.getAddedGroups().subscribe(groups => {
-      this.groupDataSource = groups;
-    });
-  }
+
 
   submitForm() {
     this.addExercise();
