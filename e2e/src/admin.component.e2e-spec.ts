@@ -1,5 +1,5 @@
 import { browser, by, element, protractor } from 'protractor';
-import { ADMIN_USERNAME, ADMIN_PASSWORD } from './google-info';
+import { ADMIN_USERNAME, ADMIN_PASSWORD } from './google-login-info';
 
 describe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;

@@ -1,5 +1,5 @@
 import { browser, by, element, protractor } from 'protractor';
-import { STUDENT_USERNAME, STUDENT_PASSWORD } from './google-info';
+import { STUDENT_USERNAME, STUDENT_PASSWORD } from './google-login-info';
 
 describe('Student Component e2e tests', () => {
   const GOOGLE_USERNAME = STUDENT_USERNAME;
