@@ -1,9 +1,10 @@
 import { browser, by, element, protractor } from 'protractor';
+import { ADMIN_USERNAME, ADMIN_PASSWORD } from './google-login-info';
 
 describe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;
-  const GOOGLE_USERNAME = 'test.angular.wla.student@gmail.com';
-  const GOOGLE_PASSWORD = 'testPassword19';
+  const GOOGLE_USERNAME = ADMIN_USERNAME;
+  const GOOGLE_PASSWORD = ADMIN_PASSWORD;
   const BROWSER_WAIT = 8000;
 
   /**
@@ -63,8 +64,8 @@ describe('Admin Component e2e test', () => {
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
 
+    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
     element(by.id('create-workout')).click();
   });
 
@@ -79,6 +80,7 @@ describe('Admin Component e2e test', () => {
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
+    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT);
     element(by.id('add-button')).click();
     browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
     name.click();
