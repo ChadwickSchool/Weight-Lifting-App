@@ -1,13 +1,9 @@
-<<<<<<< Updated upstream
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-=======
 import {
   async,
   ComponentFixture,
   TestBed,
   fakeAsync
 } from '@angular/core/testing';
->>>>>>> Stashed changes
 
 import { TodayWorkoutComponent } from './today.workout.component';
 import { MaterialModule } from '../shared/material.module';
@@ -17,12 +13,6 @@ import { of, Observable } from 'rxjs';
 import { ExerciseService } from '../services/exercise.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import TestUtils from '../shared/utils/test-utils';
-<<<<<<< Updated upstream
-
-describe('TodayWorkoutComponent', () => {
-  let component: TodayWorkoutComponent;
-  let fixture: ComponentFixture<TodayWorkoutComponent>;
-=======
 import { browser, element } from 'protractor';
 import { GroupService } from '../services/groups.service';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
@@ -37,7 +27,6 @@ describe('TodayWorkoutComponent', () => {
 
   let options: HTMLElement[];
   let selectMenu: SelectMenuTestHelper;
->>>>>>> Stashed changes
 
   const recExercisesStub = {
     getAddedExercises(): Observable<any> {
@@ -106,8 +95,6 @@ describe('TodayWorkoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-<<<<<<< Updated upstream
-=======
 
   it('should display the dropdown', () => {
     const d = componentElement.querySelector('mat-form-field');
@@ -120,5 +107,4 @@ describe('TodayWorkoutComponent', () => {
     expect(squatsElement).not.toBeNull();
     expect(benchPressElement).not.toBeNull();
   });
->>>>>>> Stashed changes
 });

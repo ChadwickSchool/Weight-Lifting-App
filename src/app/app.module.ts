@@ -23,6 +23,7 @@ import { ReactiveFormsModule} from '@angular/forms';
 import { ExerciseService} from './services/exercise.service';
 import { GroupService } from './services/groups.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { RouterTestingModule } from '@angular/router/testing';
     RecommendedExercisesDialogComponent,
     NavbarComponent,
     SideNavComponent,
+    AdminHomeComponent,
   ],
   imports: [
     BrowserModule,

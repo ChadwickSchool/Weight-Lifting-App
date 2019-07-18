@@ -1,0 +1,10 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <mat-form-field id="group-form-field">
+    <mat-label>Select Your Group</mat-label>
+    <mat-select id="group-select" [(value)]="group.name">
+      <mat-option *ngFor="let group of groups$ | async as groups" [value]="group.name">
+        {{ group.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

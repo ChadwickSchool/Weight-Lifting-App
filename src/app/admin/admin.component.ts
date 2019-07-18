@@ -23,8 +23,11 @@ export class AdminComponent implements OnInit {
   recExercisesDataSource: ExerciseData[];
   dataService: DataService;
   dataSource: Array<ExerciseData>;
-  constructor(public dialog: MatDialog, private recExerciseService: RecommendedExerciseService, private router: Router) {}
-
+  constructor(
+    public dialog: MatDialog,
+    private recExerciseService: RecommendedExerciseService,
+    private router: Router
+  ) {}
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
 

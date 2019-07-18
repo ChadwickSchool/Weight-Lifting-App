@@ -24,7 +24,7 @@ export class GroupService {
     const currentGroup = new GroupClass(
       group.name,
       id
-    )
+    );
     this.groupsRef.doc(id).set(Object.assign({}, currentGroup));
   }
 
