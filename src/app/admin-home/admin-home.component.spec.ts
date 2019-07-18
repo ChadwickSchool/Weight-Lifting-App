@@ -29,7 +29,7 @@ describe('AdminHomeComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule],
       declarations: [ AdminHomeComponent ],
@@ -41,7 +41,7 @@ describe('AdminHomeComponent', () => {
       ]
     })
     .compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AdminHomeComponent);
@@ -52,16 +52,13 @@ describe('AdminHomeComponent', () => {
     fixture.detectChanges();
   });
 
-  beforeEach(fakeAsync(() => {
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-  }));
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should display groups correctly in the dropdown menu', () => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
     const basketballElement = selectMenu.getOptionByKey(options, 'Basketball');
     const soccerElement = selectMenu.getOptionByKey(options, 'Soccer');
     const volleyballElement = selectMenu.getOptionByKey(options, 'Volleyball');
