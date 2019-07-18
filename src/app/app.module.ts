@@ -7,7 +7,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TodayWorkoutComponent } from './workout/today.workout.component';
 import {DataService} from './data/data.service';
-import { AdminComponent } from './admin/admin.component';
+import { CreateWorkoutComponent } from './create-workout/create-workout.component';
 import { RecommendedExercisesDialogComponent } from './recommended-exercises-dialog/recommended-exercises-dialog.component';
 import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
@@ -29,7 +29,7 @@ import { AppRoutingModule } from './app-routing.module';
     AppComponent,
     WelcomeComponent,
     TodayWorkoutComponent,
-    AdminComponent,
+    CreateWorkoutComponent,
     RecommendedExercisesDialogComponent,
     NavbarComponent,
     SideNavComponent,
