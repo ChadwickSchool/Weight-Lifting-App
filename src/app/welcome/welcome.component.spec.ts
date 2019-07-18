@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WelcomeComponent } from './welcome.component';
 import { Observable, of } from 'rxjs';
@@ -55,15 +55,6 @@ describe('WelcomeComponent', () => {
     selectMenu = new SelectMenuTestHelper(fixture);
   });
 
-  beforeEach(fakeAsync(() => {
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-  }));
-
-  afterEach(() => {
-    selectMenu.cleanup();
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -79,6 +70,8 @@ describe('WelcomeComponent', () => {
   });
 
   it('should display groups correctly in the dropdown', () => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
     const basketballElement = selectMenu.getOptionByKey(options, 'basketball');
     const waterpoloElement = selectMenu.getOptionByKey(options, 'waterpolo');
     expect(basketballElement).not.toBeNull();

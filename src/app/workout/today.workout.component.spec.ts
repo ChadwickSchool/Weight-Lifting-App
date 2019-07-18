@@ -1,8 +1,7 @@
 import {
   async,
   ComponentFixture,
-  TestBed,
-  fakeAsync
+  TestBed
 } from '@angular/core/testing';
 
 import { TodayWorkoutComponent } from './today.workout.component';
@@ -13,11 +12,8 @@ import { of, Observable } from 'rxjs';
 import { ExerciseService } from '../services/exercise.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import TestUtils from '../shared/utils/test-utils';
-import { browser, element } from 'protractor';
-import { GroupService } from '../services/groups.service';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('TodayWorkoutComponent', () => {
   let component: TodayWorkoutComponent;
@@ -83,15 +79,6 @@ describe('TodayWorkoutComponent', () => {
     selectMenu = new SelectMenuTestHelper(fixture);
   });
 
-  beforeEach(fakeAsync(() => {
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-  }));
-
-  afterEach(() => {
-    selectMenu.cleanup();
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -102,6 +89,8 @@ describe('TodayWorkoutComponent', () => {
   });
 
   it('should display exercises correctly in the dropdown', () => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
     const squatsElement = selectMenu.getOptionByKey(options, 'squats');
     const benchPressElement = selectMenu.getOptionByKey(options, 'bench press');
     expect(squatsElement).not.toBeNull();
