@@ -8,10 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupService } from '../services/groups.service';
 import { DebugElement } from '@angular/core';
-import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
-import { AppRoutingModule } from '../app-routing.module';
 import { TodayWorkoutComponent } from '../workout/today.workout.component';
 import { AdminComponent } from '../admin/admin.component';
+import { AdminHomeComponent } from '../admin-home/admin-home.component';
+import { AppRoutingModule } from '../app-routing.module';
+import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 
 describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
@@ -36,7 +37,7 @@ describe('WelcomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule, AppRoutingModule],
-      declarations: [WelcomeComponent, TodayWorkoutComponent, AdminComponent],
+      declarations: [WelcomeComponent, TodayWorkoutComponent, AdminComponent, AdminHomeComponent],
       providers: [
         {
           provide: GroupService,

@@ -21,6 +21,10 @@ export class AdminHomeComponent implements OnInit {
     this.groups$ = this.groupService.getAddedGroups();
   }
 
+  createWorkout() {
+
+  }
+
   // showGroups() {
   //   this.groupService.getAddedGroups().subscribe(group => {
   //     this.groupsDataSource = group;
