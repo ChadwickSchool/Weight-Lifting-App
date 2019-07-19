@@ -18,15 +18,15 @@ import { map, tap } from 'rxjs/operators';
 //   let fixture: ComponentFixture<any>;
 
 //   const authServiceStub = {
-//     user$: of(null),
+    // user$: of(null),
 
-//     async googleSignin() {
-//       this.user$ = of(TestUtils.getTestUser());
-//     },
+    // async googleSignin() {
+    //   this.user$ = of(TestUtils.getTestUser());
+    // },
 
-//     async signOut() {
-//       this.user$ = of(null);
-//     }
+    // async signOut() {
+    //   this.user$ = of(null);
+    // }
 //   };
 
   // beforeEach(async(() => {

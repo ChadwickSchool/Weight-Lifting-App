@@ -13,6 +13,7 @@ import { CreateWorkoutComponent } from '../create-workout/create-workout.compone
 import { AdminHomeComponent } from '../admin-home/admin-home.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
+import { LoginComponent } from '../login/login.component';
 
 describe('StudentHomeComponent', () => {
   let component: StudentHomeComponent;
@@ -37,7 +38,7 @@ describe('StudentHomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule, AppRoutingModule],
-      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent],
+      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent, LoginComponent],
       providers: [
         {
           provide: GroupService,

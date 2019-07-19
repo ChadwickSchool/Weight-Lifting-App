@@ -25,6 +25,9 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CurrentGroupSelectedService } from './services/current-group-selected.service';
 
+import { LoginComponent } from './login/login.component';
+import { LoginGuard } from './shared/guards/login.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +38,7 @@ import { CurrentGroupSelectedService } from './services/current-group-selected.s
     NavbarComponent,
     SideNavComponent,
     AdminHomeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,7 @@ import { CurrentGroupSelectedService } from './services/current-group-selected.s
   entryComponents: [
     RecommendedExercisesDialogComponent
   ],
-  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService, CurrentGroupSelectedService],
+  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService, CurrentGroupSelectedService, LoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

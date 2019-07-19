@@ -15,12 +15,13 @@ import { switchMap } from 'rxjs/operators';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user$: Observable<User>;
-  userID: string;
+  private userID: string;
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         // Logged in
         if (user) {
+          this.userID = user.uid;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -43,6 +44,8 @@ export class AuthService {
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
+    this.userID = credential.user.uid;
+    console.log('User id in googleSignIn is ' + this.userID);
     // check to see if the user exists in the database
     // if user is not in database
     const userRef: AngularFirestoreDocument = this.afs.doc<User>(`users/${credential.user.uid}`);
@@ -81,6 +84,7 @@ export class AuthService {
   }
 
   async signOut() {
+    this.userID = undefined;
     await this.afAuth.auth.signOut();
   }
 }
