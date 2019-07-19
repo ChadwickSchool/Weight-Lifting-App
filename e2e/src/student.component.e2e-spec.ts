@@ -7,6 +7,7 @@ describe('Student Component e2e tests', () => {
   const ec = protractor.ExpectedConditions;
   const BROWSER_WAIT = 8000;
 
+
   /**
    * [selectWindow Focus the browser to the index window.
    * @param  index [Is the index of the window. E.g., 0=browser, 1=FBpopup]
@@ -97,4 +98,28 @@ describe('Student Component e2e tests', () => {
   //   });
   //   expect(element(by.id('logout')).isPresent()).toBe(true);
   // });
+
+  it('should set correct value of all attributes', () => {
+    const reps = element(by.id('reps-input'));
+    const weight = element(by.id('weight-input'));
+    const dropdown = element(by.id('exercise-select'));
+    browser.waitForAngularEnabled(false);
+    dropdown.click();
+    element.all(by.css('.mat-option')).first().click();
+    reps.click();
+    reps.sendKeys('20');
+    weight.click();
+    weight.sendKeys('100');
+    element(by.id('next-btn')).click();
+    browser.sleep(5000);
+    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), 3000);
+    expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('student-exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('squat');
+        expect(text).toContain('20');
+        expect(text).toContain('100');
+      });
+  });
 });
