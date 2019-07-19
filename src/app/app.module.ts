@@ -7,7 +7,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TodayWorkoutComponent } from './workout/today.workout.component';
 import {DataService} from './data/data.service';
-import { AdminComponent } from './admin/admin.component';
+import { CreateWorkoutComponent } from './create-workout/create-workout.component';
 import { RecommendedExercisesDialogComponent } from './recommended-exercises-dialog/recommended-exercises-dialog.component';
 import {FormsModule} from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
@@ -23,13 +23,14 @@ import { GroupService } from './services/groups.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CurrentGroupSelectedService } from './services/current-group-selected.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     TodayWorkoutComponent,
-    AdminComponent,
+    CreateWorkoutComponent,
     RecommendedExercisesDialogComponent,
     NavbarComponent,
     SideNavComponent,
@@ -51,7 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [
     RecommendedExercisesDialogComponent
   ],
-  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService],
+  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService, CurrentGroupSelectedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

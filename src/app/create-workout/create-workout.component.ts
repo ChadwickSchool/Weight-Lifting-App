@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { DataService } from '../data/data.service';
 import { RecommendedExercisesDialogComponent } from '../recommended-exercises-dialog/recommended-exercises-dialog.component';
 import { Router } from '@angular/router';
+import { Group } from '../shared/models/group.model';
+import TestUtils from '../shared/utils/test-utils';
 
 export interface ExerciseData {
   name: string;
@@ -15,14 +17,15 @@ export interface ExerciseData {
 }
 
 @Component({
-  selector: 'wla-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  selector: 'wla-create-workout',
+  templateUrl: './create-workout.component.html',
+  styleUrls: ['./create-workout.component.scss']
 })
-export class AdminComponent implements OnInit {
+export class CreateWorkoutComponent implements OnInit {
   recExercisesDataSource: ExerciseData[];
   dataService: DataService;
   dataSource: Array<ExerciseData>;
+  group: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,

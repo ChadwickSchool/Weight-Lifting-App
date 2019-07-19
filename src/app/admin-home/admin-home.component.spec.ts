@@ -9,6 +9,9 @@ import { MaterialModule } from '../shared/material.module';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupService } from '../services/groups.service';
+import { Group } from '../shared/models/group.model';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import GroupClass from '../shared/models/group';
 
 describe('AdminHomeComponent', () => {
   let component: AdminHomeComponent;
@@ -18,7 +21,7 @@ describe('AdminHomeComponent', () => {
 
   let options: HTMLElement[];
   let selectMenu: SelectMenuTestHelper;
-
+  let groupSelectedSpy: jasmine.Spy;
   const groupServiceStub = {
     getAddedGroups(): Observable<any> {
       return of([
@@ -29,7 +32,13 @@ describe('AdminHomeComponent', () => {
     }
   };
 
-  beforeEach(async(() => {
+  const currentGroupSelectedServiceStub = {
+    setCurrentGroup() {
+
+    }
+  };
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule],
       declarations: [ AdminHomeComponent ],
@@ -37,11 +46,16 @@ describe('AdminHomeComponent', () => {
         {
           provide: GroupService,
           useValue: groupServiceStub
+        },
+        {
+          provide: CurrentGroupSelectedService,
+          useValue: currentGroupSelectedServiceStub
         }
       ]
     })
     .compileComponents();
-  }));
+    groupSelectedSpy = spyOn(TestBed.get(CurrentGroupSelectedService), 'setCurrentGroup');
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AdminHomeComponent);
@@ -52,16 +66,13 @@ describe('AdminHomeComponent', () => {
     fixture.detectChanges();
   });
 
-  beforeEach(fakeAsync(() => {
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-  }));
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should display groups correctly in the dropdown menu', () => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
     const basketballElement = selectMenu.getOptionByKey(options, 'Basketball');
     const soccerElement = selectMenu.getOptionByKey(options, 'Soccer');
     const volleyballElement = selectMenu.getOptionByKey(options, 'Volleyball');
@@ -70,5 +81,12 @@ describe('AdminHomeComponent', () => {
     expect(volleyballElement).not.toBeNull();
   });
 
+  it('should call setCurrentGroupSelected() on click', fakeAsync(() => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    const basketballElement = selectMenu.getOptionByKey(options, 'Basketball');
+    selectMenu.selectOption(basketballElement);
+    expect(groupSelectedSpy).toHaveBeenCalledWith(TestUtils.getTestGroup('Basketball'));
+  }));
 
 });
