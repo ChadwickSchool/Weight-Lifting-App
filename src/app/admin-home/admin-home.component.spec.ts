@@ -9,6 +9,9 @@ import { MaterialModule } from '../shared/material.module';
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupService } from '../services/groups.service';
+import { Group } from '../shared/models/group.model';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import GroupClass from '../shared/models/group';
 
 describe('AdminHomeComponent', () => {
   let component: AdminHomeComponent;
@@ -18,7 +21,7 @@ describe('AdminHomeComponent', () => {
 
   let options: HTMLElement[];
   let selectMenu: SelectMenuTestHelper;
-
+  let groupSelectedSpy: jasmine.Spy;
   const groupServiceStub = {
     getAddedGroups(): Observable<any> {
       return of([
@@ -26,6 +29,12 @@ describe('AdminHomeComponent', () => {
         TestUtils.getTestGroup('Soccer'),
         TestUtils.getTestGroup('Volleyball')
       ]);
+    }
+  };
+
+  const currentGroupSelectedServiceStub = {
+    setCurrentGroup() {
+
     }
   };
 
@@ -37,10 +46,15 @@ describe('AdminHomeComponent', () => {
         {
           provide: GroupService,
           useValue: groupServiceStub
+        },
+        {
+          provide: CurrentGroupSelectedService,
+          useValue: currentGroupSelectedServiceStub
         }
       ]
     })
     .compileComponents();
+    groupSelectedSpy = spyOn(TestBed.get(CurrentGroupSelectedService), 'setCurrentGroup');
   });
 
   beforeEach(() => {
@@ -67,5 +81,12 @@ describe('AdminHomeComponent', () => {
     expect(volleyballElement).not.toBeNull();
   });
 
+  it('should call setCurrentGroupSelected() on click', fakeAsync(() => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    const basketballElement = selectMenu.getOptionByKey(options, 'Basketball');
+    selectMenu.selectOption(basketballElement);
+    expect(groupSelectedSpy).toHaveBeenCalledWith(TestUtils.getTestGroup('Basketball'));
+  }));
 
 });

@@ -23,6 +23,7 @@ import { GroupService } from './services/groups.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CurrentGroupSelectedService } from './services/current-group-selected.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,7 @@ import { AppRoutingModule } from './app-routing.module';
   entryComponents: [
     RecommendedExercisesDialogComponent
   ],
-  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService],
+  providers: [DataService, RecommendedExerciseService, ExerciseService, GroupService, CurrentGroupSelectedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

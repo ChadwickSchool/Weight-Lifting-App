@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Group } from '../shared/models/group.model';
 import { GroupService } from '../services/groups.service';
 import { Observable } from 'rxjs';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
 @Component({
   selector: 'wla-admin-home',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class AdminHomeComponent implements OnInit {
   groups$: Observable<Array<Group>>;
-  constructor(private groupService: GroupService) { }
+  constructor(private groupService: GroupService, private currentGroupSelectedService: CurrentGroupSelectedService) { }
 
   group = {
     name: '',
@@ -23,6 +24,10 @@ export class AdminHomeComponent implements OnInit {
 
   createWorkout() {
 
+  }
+
+  setCurrentGroupSelected(group: Group) {
+    this.currentGroupSelectedService.setCurrentGroup(group);
   }
 
   // showGroups() {
