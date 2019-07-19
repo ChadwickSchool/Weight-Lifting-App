@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material.module';
 import {FlexLayoutModule} from '@angular/flex-layout';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { StudentHomeComponent } from './student-home/student-home.component';
 import { TodayWorkoutComponent } from './workout/today.workout.component';
 import {DataService} from './data/data.service';
 import { CreateWorkoutComponent } from './create-workout/create-workout.component';
@@ -28,7 +28,7 @@ import { CurrentGroupSelectedService } from './services/current-group-selected.s
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent,
+    StudentHomeComponent,
     TodayWorkoutComponent,
     CreateWorkoutComponent,
     RecommendedExercisesDialogComponent,

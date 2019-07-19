@@ -7,10 +7,11 @@
         id="group-options"
         *ngFor="let group of groupDataSource"
         [value]="group.name"
+        (click)="isDisabled = false"
       >
         {{ group.name }}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button id="workout-button" routerLink='today-workout-student' button="submit" mat-raised-button color="primary">See Today's Workout</button>
+  <button id="workout-button" routerLink='today-workout-student' button="submit" mat-raised-button color="primary" [disabled]="isDisabled">See Today's Workout</button>
 </div>

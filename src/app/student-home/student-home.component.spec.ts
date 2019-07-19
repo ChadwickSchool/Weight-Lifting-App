@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WelcomeComponent } from './welcome.component';
+import { StudentHomeComponent } from './student-home.component';
 import { Observable, of } from 'rxjs';
 import TestUtils from '../shared/utils/test-utils';
 import { MaterialModule } from '../shared/material.module';
@@ -14,9 +14,9 @@ import { AdminHomeComponent } from '../admin-home/admin-home.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 
-describe('WelcomeComponent', () => {
-  let component: WelcomeComponent;
-  let fixture: ComponentFixture<WelcomeComponent>;
+describe('StudentHomeComponent', () => {
+  let component: StudentHomeComponent;
+  let fixture: ComponentFixture<StudentHomeComponent>;
   let componentDebug: DebugElement;
   let componentElement: HTMLElement;
   let options: HTMLElement[];
@@ -37,7 +37,7 @@ describe('WelcomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule, AppRoutingModule],
-      declarations: [WelcomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent],
+      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent],
       providers: [
         {
           provide: GroupService,
@@ -48,7 +48,7 @@ describe('WelcomeComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WelcomeComponent);
+    fixture = TestBed.createComponent(StudentHomeComponent);
     component = fixture.componentInstance;
     componentDebug = fixture.debugElement;
     componentElement = componentDebug.nativeElement;
@@ -78,4 +78,17 @@ describe('WelcomeComponent', () => {
     expect(basketballElement).not.toBeNull();
     expect(waterpoloElement).not.toBeNull();
   });
+
+  it('should disable the button when not selecting an option', () => {
+    expect(componentElement.querySelector('button').disabled).toBeTruthy();
+  });
+
+  it('should enable the button when selecting an option', () => {
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    selectMenu.getOptionByKey(options, 'basketball').click();
+    fixture.detectChanges();
+    expect(componentElement.querySelector('button').disabled).toBeFalsy();
+  });
+
 });

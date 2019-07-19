@@ -4,13 +4,16 @@ import { GroupService } from '../services/groups.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'wla-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss']
+  selector: 'wla-student-home',
+  templateUrl: './student-home.component.html',
+  styleUrls: ['./student-home.component.scss']
 })
-export class WelcomeComponent implements OnInit {
+export class StudentHomeComponent implements OnInit {
   groupDataSource: Group;
-  constructor(private groupService: GroupService, private router: Router) { }
+  isDisabled: boolean;
+  constructor(private groupService: GroupService, private router: Router) {
+    this.isDisabled = true;
+  }
 
   group = {
     name: '',
