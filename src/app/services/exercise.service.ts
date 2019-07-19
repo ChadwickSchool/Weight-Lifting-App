@@ -15,7 +15,6 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class ExerciseService {
   exercisesRef: AngularFirestoreCollection<Exercise>;
-  exercisesDoc: AngularFirestoreDocument<Exercise>;
   exercises: Observable<Exercise[]>;
   constructor(private afs: AngularFirestore, private authService: AuthService) {
     this.exercisesRef = afs.collection<Exercise>(
@@ -44,11 +43,11 @@ export class ExerciseService {
     this.exercisesRef.doc(id).set(Object.assign({}, exercise));
   }
 
-  updateExercise(exercises: Exercise) {
-    console.log('Updating exercise');
-    this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.id}`);
-    this.exercisesDoc.update(exercises);
-    }
+  // updateExercise(exercises: Exercise) {
+  //   console.log('Updating exercise');
+  //   this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.id}`);
+  //   this.exercisesDoc.update(exercises);
+  //   }
 
     // this.afs.object('exercises/' + key).update(exercise);
   }

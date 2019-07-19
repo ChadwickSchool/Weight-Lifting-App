@@ -42,6 +42,14 @@ describe('TodayWorkoutComponent', () => {
           undefined,
           undefined,
           undefined
+        ),
+        TestUtils.getTestRecommendedExercise(
+          undefined,
+          'deadlift',
+          undefined,
+          undefined,
+          undefined,
+          undefined
         )
       ]);
     }
@@ -49,7 +57,25 @@ describe('TodayWorkoutComponent', () => {
 
   const exercisesStub = {
     getAddedExercises(): Observable<any> {
-      return of([TestUtils.getTestExercise(), TestUtils.getTestExercise()]);
+      return of([TestUtils.getTestExercise(
+        undefined,
+        'squats',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      ), TestUtils.getTestExercise(
+        undefined,
+        'bench press',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      )]);
     }
   };
 
@@ -93,7 +119,15 @@ describe('TodayWorkoutComponent', () => {
     options = selectMenu.getOptions();
     const squatsElement = selectMenu.getOptionByKey(options, 'squats');
     const benchPressElement = selectMenu.getOptionByKey(options, 'bench press');
+    const deadliftElement = selectMenu.getOptionByKey(options, 'deadlift');
     expect(squatsElement).not.toBeNull();
     expect(benchPressElement).not.toBeNull();
+    expect(deadliftElement).not.toBeNull();
+  });
+
+  it('should have exercises in the Your Workout table', () => {
+    const d = componentElement.querySelector('#student-exercise-table');
+    expect(d.textContent).toContain('squat');
+    expect(d.textContent).toContain('bench press');
   });
 });

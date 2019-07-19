@@ -21,6 +21,7 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
+          this.userID = user.uid;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
@@ -48,6 +49,8 @@ export class AuthService {
     const userRef: AngularFirestoreDocument = this.afs.doc<User>(`users/${credential.user.uid}`);
 
     userRef.valueChanges().subscribe(user => {
+      this.userID = credential.user.uid;
+      console.log("userID" + this.userID);
       if (user) {
         return user;
       } else {
@@ -68,7 +71,6 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-    this.userID = user.uid;
 
     const data = {
       uid: user.uid,

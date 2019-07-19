@@ -3,25 +3,6 @@ import { RecommendedExerciseService } from '../services/recommended-exercise.ser
 import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
-import { GroupService } from '../services/groups.service';
-import { Group } from '../shared/models/group.model';
-
-// export interface RecExerciseData {
-//   name: string;
-//   sets: string;
-//   reps: string;
-//   weight: string;
-//   coachComment: string;
-//   rest: string;
-// }
-
-// export interface ExerciseData {
-//   name: string;
-//   set: number;
-//   reps: number;
-//   weight: number;
-//   userComment: string;
-// }
 
 export class ExpansionOverviewExample {
   panelOpenState = false;
@@ -84,5 +65,6 @@ export class TodayWorkoutComponent implements OnInit {
       this.setNumber = 1;
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
+    console.log('submit');
   }
 }
