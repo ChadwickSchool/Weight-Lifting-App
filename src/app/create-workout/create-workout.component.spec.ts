@@ -32,6 +32,10 @@ describe('CreateWorkoutComponent', () => {
       return of(
         TestUtils.getTestGroup()
       );
+    },
+
+    setCurrentGroup(group: Group) {
+      component.group = group;
     }
   };
 
@@ -68,8 +72,10 @@ describe('CreateWorkoutComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should display selected group', () => {
-  //   const headerElement = componentElement.querySelector('h1');
-  //   expect(headerElement.textContent).toContain('Test Group');
-  // });
+  it('should display selected group', () => {
+    currentGroupSelectedServiceStub.setCurrentGroup(TestUtils.getTestGroup());
+    const headerElement = componentElement.querySelector('h1');
+    fixture.detectChanges();
+    expect(headerElement.textContent).toContain('Test Group');
+  });
 });

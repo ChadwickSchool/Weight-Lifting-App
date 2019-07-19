@@ -6,6 +6,8 @@ import { RecommendedExercisesDialogComponent } from '../recommended-exercises-di
 import { Router } from '@angular/router';
 import { Group } from '../shared/models/group.model';
 import TestUtils from '../shared/utils/test-utils';
+import { Observable } from 'rxjs';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
 export interface ExerciseData {
   name: string;
@@ -22,15 +24,18 @@ export interface ExerciseData {
   styleUrls: ['./create-workout.component.scss']
 })
 export class CreateWorkoutComponent implements OnInit {
-  recExercisesDataSource: ExerciseData[];
+  recExercises$: Observable<Array<ExerciseData>>;
   dataService: DataService;
   dataSource: Array<ExerciseData>;
   group: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private groupSelectedService: CurrentGroupSelectedService
+  ) {
+
+  }
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
 
@@ -39,20 +44,11 @@ export class CreateWorkoutComponent implements OnInit {
       width: '600px',
       data: 'Add Exercise'
     });
-    // dialogRef.componentInstance.event.subscribe(result => {
-    //   this.dataService.addPost(result.data);
-    //   this.dataSource = new PostDataSource(this.dataService);
-    // });
   }
 
   ngOnInit() {
-    this.showExercises();
-  }
-
-  showExercises() {
-    this.recExerciseService.getAddedExercises().subscribe(recExercises => {
-      this.recExercisesDataSource = recExercises;
-    });
+    this.recExercises$ = this.recExerciseService.getAddedExercises();
+    this.group = this.groupSelectedService.getCurrentGroup();
   }
 
   saveWorkout() {

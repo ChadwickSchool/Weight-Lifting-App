@@ -3,7 +3,7 @@
   <table
     id="exerciseTable"
     mat-table
-    [dataSource]="recExercisesDataSource"
+    [dataSource]="recExercises$ | async"
     class="mat-elevation-z8"
   >
     <!-- Sets Column -->
