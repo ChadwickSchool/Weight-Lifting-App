@@ -1,4 +1,10 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import {
+  async,
+  ComponentFixture,
+  TestBed,
+  tick,
+  fakeAsync
+} from '@angular/core/testing';
 
 import { CreateWorkoutComponent } from './create-workout.component';
 import { element, by } from 'protractor';
@@ -10,6 +16,7 @@ import { of, Observable } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { Group } from '../shared/models/group.model';
+import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 
 describe('CreateWorkoutComponent', () => {
   let component: CreateWorkoutComponent;
@@ -29,9 +36,7 @@ describe('CreateWorkoutComponent', () => {
 
   const currentGroupSelectedServiceStub = {
     getCurrentGroup(): Observable<Group> {
-      return of(
-        TestUtils.getTestGroup()
-      );
+      return of(TestUtils.getTestGroup());
     },
 
     setCurrentGroup(group: Group) {
@@ -39,10 +44,20 @@ describe('CreateWorkoutComponent', () => {
     }
   };
 
+  const currentDateSelectedServiceStub = {
+    get getCurrentDate(): Date {
+      return TestUtils.getTestDate();
+    },
+
+    setCurrentDate(date: Date) {
+      component.date = date;
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ MaterialModule ],
-      declarations: [ CreateWorkoutComponent ],
+      imports: [MaterialModule],
+      declarations: [CreateWorkoutComponent],
       providers: [
         {
           provide: RecommendedExerciseService,
@@ -54,10 +69,13 @@ describe('CreateWorkoutComponent', () => {
         {
           provide: CurrentGroupSelectedService,
           useValue: currentGroupSelectedServiceStub
+        },
+        {
+          provide: CurrentDateSelectedService,
+          useValue: currentDateSelectedServiceStub
         }
       ]
-    })
-    .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -77,5 +95,12 @@ describe('CreateWorkoutComponent', () => {
     const headerElement = componentElement.querySelector('h1');
     fixture.detectChanges();
     expect(headerElement.textContent).toContain('Test Group');
+  });
+
+  it('should display selected date', () => {
+    currentDateSelectedServiceStub.setCurrentDate(TestUtils.getTestDate());
+    const headerElement = componentElement.querySelector('h2');
+    fixture.detectChanges();
+    expect(headerElement.textContent).toContain('May 17, 1937');
   });
 });

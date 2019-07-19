@@ -8,6 +8,7 @@ import { Group } from '../shared/models/group.model';
 import TestUtils from '../shared/utils/test-utils';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 
 export interface ExerciseData {
   name: string;
@@ -25,14 +26,14 @@ export interface ExerciseData {
 })
 export class CreateWorkoutComponent implements OnInit {
   recExercises$: Observable<Array<ExerciseData>>;
-  dataService: DataService;
-  dataSource: Array<ExerciseData>;
+  date: Date;
   group: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
     private router: Router,
-    private groupSelectedService: CurrentGroupSelectedService
+    private groupSelectedService: CurrentGroupSelectedService,
+    private dateSelectedService: CurrentDateSelectedService
   ) {
 
   }
@@ -49,6 +50,7 @@ export class CreateWorkoutComponent implements OnInit {
   ngOnInit() {
     this.recExercises$ = this.recExerciseService.getAddedExercises();
     this.group = this.groupSelectedService.getCurrentGroup();
+    this.date = this.dateSelectedService.getCurrentDate();
   }
 
   saveWorkout() {

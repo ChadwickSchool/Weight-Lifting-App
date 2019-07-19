@@ -7,5 +7,10 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button routerLink="/today-workout-admin" id="next-btn" button="submit" mat-raised-button color="primary" (click)="createWorkout()">Create a Workout</button>
+  <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  <button routerLink="/today-workout-admin" id="next-btn" button="submit" mat-raised-button color="primary" (click)="setCurrentDateSelected(date)">Create a Workout</button>
 </div>
