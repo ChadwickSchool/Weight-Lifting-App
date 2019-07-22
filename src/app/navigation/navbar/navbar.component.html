@@ -1,21 +1,20 @@
-<mat-sidenav-content>
-  <mat-toolbar color="primary">
-    <div fxHide.gt-xs>
-      <button mat-icon-button (click)="toggleSidenav.emit()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div>
-      <a routerLink="/">
-        Get Big
-      </a>
-    </div>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-      <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-        <ng-container *ngIf="auth.user$ | async as user; else guest">
-            <li>
-                <a>
-          <div *ngIf="user.isAdmin; then adminhome; else studenthome"></div>
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/">
+      Get Big
+    </a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+      <ng-container *ngIf="auth.user$ | async as user; else guest">
+        <li>
+          <a>
+            <div *ngIf="user.isAdmin; then adminhome; else studenthome"></div>
             <ng-template #adminhome>
               <a routerLink="/admin-home">
                 <mat-icon id="home-icon" class="icon">home</mat-icon>
@@ -29,39 +28,42 @@
               </a>
             </ng-template>
           </a>
-          </li>
-          <li>
-            <a>
-              <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
-              <div *ngIf="user.isAdmin; then admin; else student"></div>
-              <ng-template #admin>
-                <a routerLink="/today-workout-admin">
-                  <span id="create-workout" class="label">Create Workout</span>
-                </a>
-              </ng-template>
-              <ng-template #student>
-                <a routerLink="/today-workout-student">
-                  <span id="workout-label" class="label">Today's Workout</span>
-                </a>
-              </ng-template>
-            </a>
-          </li>
-          <li>
-            <a>
-              <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
-              <span class="label" id="logout" (click)="auth.signOut()">Logout</span>
-            </a>
-          </li>
-        </ng-container>
-        <ng-template #guest>
-          <li>
-            <a>
-              <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
-              <span class="label" id="login" (click)="auth.googleSignin()">Login</span>
-            </a>
-          </li>
-        </ng-template>
-      </ul>
-    </div>
-  </mat-toolbar>
-</mat-sidenav-content>
+        </li>
+        <li>
+          <a>
+            <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
+            <div *ngIf="user.isAdmin; then admin; else student"></div>
+            <ng-template #admin>
+              <a routerLink="/today-workout-admin">
+                <span id="create-workout" class="label">Create Workout</span>
+              </a>
+            </ng-template>
+            <ng-template #student>
+              <a routerLink="/today-workout-student">
+                <span id="workout-label" class="label">Today's Workout</span>
+              </a>
+            </ng-template>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
+            <span class="label" id="logout" (click)="auth.signOut()"
+              >Logout</span
+            >
+          </a>
+        </li>
+      </ng-container>
+      <ng-template #guest>
+        <li>
+          <a>
+            <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
+            <span class="label" id="login" (click)="auth.googleSignin()"
+              >Login</span
+            >
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</mat-toolbar>

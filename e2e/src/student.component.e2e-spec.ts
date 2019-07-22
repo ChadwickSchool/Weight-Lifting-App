@@ -61,11 +61,15 @@ describe('Student Component e2e tests', () => {
         });
     };
 
-    // this.signInButton.click();
-    // selectWindow(1);
-    // this.loginToGoogle();
-    // selectWindow(0);
-    // browser.wait(ec.visibilityOf(element(by.id('exercise-form'))), BROWSER_WAIT);
+    this.signInButton.click();
+    selectWindow(1);
+    this.loginToGoogle();
+    selectWindow(0);
+    browser.wait(ec.visibilityOf(element(by.id('logout'))), BROWSER_WAIT, 'timed out waiting for Logout button to appear');
+  });
+
+  afterAll(() => {
+    element(by.id('logout')).click();
   });
 
   it('should find Exercise Form', () => {
@@ -91,19 +95,14 @@ describe('Student Component e2e tests', () => {
     todayExercises.click();
   });
 
-  // it('should find Logout button', () => {
-  //   console.log('Log out is here');
-  //   element(by.id('logout')).getText().then(text => {
-  //     console.log(text);
-  //   });
-  //   expect(element(by.id('logout')).isPresent()).toBe(true);
-  // });
+  it('should find today\'s workout button', () => {
+    expect(element(by.id('workout-label')).isPresent()).toBe(true);
+  });
 
   it('should set correct value of all attributes', () => {
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
     const dropdown = element(by.id('exercise-select'));
-    browser.waitForAngularEnabled(false);
     dropdown.click();
     element.all(by.css('.mat-option')).first().click();
     reps.click();
@@ -111,8 +110,11 @@ describe('Student Component e2e tests', () => {
     weight.click();
     weight.sendKeys('100');
     element(by.id('next-btn')).click();
-    browser.sleep(5000);
     browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), 3000);
+    // putting browser.waitForAngularEnabled any lower in the code or removing it
+    // causes a timeout error
+    // TODO: investigate why browser.waitForAngularEnabled is needed.
+    browser.waitForAngularEnabled(false);
     expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
     element(by.id('student-exercise-table'))
       .getText()
@@ -120,6 +122,7 @@ describe('Student Component e2e tests', () => {
         expect(text).toContain('squat');
         expect(text).toContain('20');
         expect(text).toContain('100');
+        browser.waitForAngularEnabled(true);
       });
   });
 });

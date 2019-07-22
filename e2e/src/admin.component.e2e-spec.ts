@@ -69,6 +69,10 @@ describe('Admin Component e2e test', () => {
     element(by.id('create-workout')).click();
   });
 
+  afterAll(() => {
+    element(by.id('logout')).click();
+  });
+
   // it('should find Add Exercise button', () => {
   //   expect(document).toContain(element(by.id('dialog')));
   // });
@@ -80,7 +84,7 @@ describe('Admin Component e2e test', () => {
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
-    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT);
+    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT, 'timed out waiting for add-button');
     element(by.id('add-button')).click();
     browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
     name.click();
@@ -106,8 +110,8 @@ describe('Admin Component e2e test', () => {
       });
   });
 
-  it('should return to home page after clicking "save workout"', () => {
-    element(by.id('workout-button')).click();
-    expect(element(by.id('home')).isDisplayed()).toBe(true);
-  });
+  // it('should return to home page after clicking "save workout"', () => {
+  //   element(by.id('workout-button')).click();
+  //   expect(element(by.id('home')).isDisplayed()).toBe(true);
+  // });
 });
