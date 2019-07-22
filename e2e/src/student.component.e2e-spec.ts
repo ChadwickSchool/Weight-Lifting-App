@@ -68,9 +68,10 @@ describe('Student Component e2e tests', () => {
     browser.wait(ec.visibilityOf(element(by.id('logout'))), BROWSER_WAIT, 'timed out waiting for Logout button to appear');
   });
 
-  afterAll(() => {
-    element(by.id('logout')).click();
-  });
+  // Causes timeout error for the test
+  // afterAll(() => {
+  //   element(by.id('logout')).click();
+  // });
 
   it('should find Exercise Form', () => {
     expect(element(by.id('exercise-form')).isDisplayed()).toBe(true);
@@ -86,7 +87,6 @@ describe('Student Component e2e tests', () => {
   });
 
   it('should open the Today\'s Workout table', () => {
-    console.log(element.all(by.css('mat-expansion-panel')).count());
     const todayExercises = element.all(by.css('mat-expansion-panel')).get(1);
     todayExercises.click();
     browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), this.BROWSER_WAIT);

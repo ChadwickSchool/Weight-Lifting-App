@@ -6,46 +6,54 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table
-      mat-table
+    <mat-table
       [dataSource]="recExercisesDataSource"
       class="mat-elevation-z8"
       id="recommended-exercises-table"
     >
+      <!-- Exercise Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          {{ row.name }}
+        </mat-cell>
+      </ng-container>
+
       <!-- Sets Column -->
       <ng-container matColumnDef="sets">
-        <th mat-header-cell *matHeaderCellDef>Sets</th>
-        <td mat-cell *matCellDef="let element">{{ element.sets }}</td>
-      </ng-container>
-
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Exercise</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-      </ng-container>
-
-      <!-- Weight Column -->
-      <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef>Weight</th>
-        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        <mat-header-cell *matHeaderCellDef> Sets </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="sets">
+          {{ row.sets }}
+        </mat-cell>
       </ng-container>
 
       <!-- Reps Column -->
       <ng-container matColumnDef="reps">
-        <th mat-header-cell *matHeaderCellDef>Reps</th>
-        <td mat-cell *matCellDef="let element">{{ element.reps }}</td>
+        <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="reps">
+          {{ row.reps }}
+        </mat-cell>
       </ng-container>
 
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="weight">
+          {{ row.weight }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Rest Column -->
       <ng-container matColumnDef="rest">
-        <th mat-header-cell *matHeaderCellDef>Rest</th>
-        <td mat-cell id="rest-cell" *matCellDef="let element">
-          {{ element.rest }}
-        </td>
+        <mat-header-cell *matHeaderCellDef> Rest </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="rest">
+          {{ row.rest }}
+        </mat-cell>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+    </mat-table>
   </mat-expansion-panel>
   <mat-expansion-panel
     (opened)="panelOpenState = true"
@@ -57,49 +65,57 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <table
-      mat-table
+    <mat-table
       [dataSource]="exerciseDataSource"
       class="mat-elevation-z8"
       id="student-exercise-table"
     >
-      <!--- Note that these columns can be defined in any order.
-                  The actual rendered columns are set as a property on the row definition" -->
-
-      <!-- Position Column -->
-      <ng-container matColumnDef="setNumber">
-        <th mat-header-cell *matHeaderCellDef>Set Number</th>
-        <td mat-cell *matCellDef="let element">{{ element.setNumber }}</td>
+      <!-- Exercise Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          {{ row.name }}
+        </mat-cell>
       </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Exercise</th>
-        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      <!-- Sets Column -->
+      <ng-container matColumnDef="setNumber">
+        <mat-header-cell *matHeaderCellDef> Set Number </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="set number">
+          {{ row.setNumber }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Reps Column -->
+      <ng-container matColumnDef="reps">
+        <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="reps">
+          {{ row.reps }}
+        </mat-cell>
       </ng-container>
 
       <!-- Weight Column -->
       <ng-container matColumnDef="weight">
-        <th mat-header-cell *matHeaderCellDef>Weight</th>
-        <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="weight">
+          {{ row.weight }}
+        </mat-cell>
       </ng-container>
 
-      <!-- Symbol Column -->
-      <ng-container matColumnDef="reps">
-        <th mat-header-cell *matHeaderCellDef>Reps</th>
-        <td mat-cell *matCellDef="let element">{{ element.reps }}</td>
+      <!-- Comments Column -->
+      <ng-container matColumnDef="comments">
+        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="comments">
+          {{ row.userComment }}
+        </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="rest">
-        <th mat-header-cell *matHeaderCellDef>Rest</th>
-        <td mat-cell id="rest-cell" *matCellDef="let element">
-          {{ element.rest }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedExerciseColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedExerciseColumns"></tr>
-    </table>
+      <mat-header-row
+        *matHeaderRowDef="displayedExerciseColumns"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
+      </mat-row>
+    </mat-table>
   </mat-expansion-panel>
   <h2>Set {{ setNumber }}</h2>
   <div fxFlex fxLayout fxLayoutAlign="center center">
@@ -147,14 +163,9 @@
           name="comment"
         ></textarea>
       </mat-form-field>
-      <button
-      id="next-btn"
-      type="submit"
-      mat-raised-button
-      color="primary"
-    >
-      Next Set
-    </button>
+      <button id="next-btn" type="submit" mat-raised-button color="primary">
+        Next Set
+      </button>
     </form>
   </div>
 </div>

@@ -127,7 +127,7 @@ describe('TodayWorkoutComponent', () => {
 
   it('should have exercises in the Your Workout table', () => {
     const d = componentElement.querySelector('#student-exercise-table');
-    expect(d.textContent).toContain('squat');
+    expect(d.textContent).toContain('squats');
     expect(d.textContent).toContain('bench press');
   });
 });

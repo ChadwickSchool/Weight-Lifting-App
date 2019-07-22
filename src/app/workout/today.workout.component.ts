@@ -33,7 +33,7 @@ export class TodayWorkoutComponent implements OnInit {
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
-  displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight'];
+  displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight', 'comments'];
 
   ngOnInit() {
     this.showExercises();
