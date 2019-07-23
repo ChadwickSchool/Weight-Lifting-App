@@ -10,7 +10,7 @@
         <div *ngIf="user.isAdmin; then admin; else studentBlock"></div>
         <ng-template #admin>
           <a routerLink="/today-workout-admin">
-            <span class="label">Create<span id="workout">Workout</span></span>
+            <span class="label">Create Workout</span>
           </a>
         </ng-template>
         <ng-template #studentBlock>
