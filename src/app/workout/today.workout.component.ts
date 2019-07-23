@@ -15,7 +15,7 @@ export class ExpansionOverviewExample {
 })
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
-  exerciseDataSource: Exercise;
+  exerciseDataSource: Array<Exercise>;
   setNumber: number;
   constructor(
     private recExerciseService: RecommendedExerciseService,

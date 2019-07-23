@@ -58,10 +58,11 @@
   <mat-expansion-panel
     (opened)="panelOpenState = true"
     (closed)="panelOpenState = false"
+    [disabled]="exercise.name === ''"
   >
     <mat-expansion-panel-header>
       <mat-panel-title>
-        Your Workout
+        {{ exercise.name }}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
@@ -144,7 +145,7 @@
           />
         </mat-form-field>
         <span></span>
-        <mat-form-field id="input-weight" class="example-half-width weight">
+        <mat-form-field class="example-half-width weight">
           <input
             type="number"
             id="weight-input"
@@ -158,6 +159,7 @@
       <mat-form-field class="example-full-width">
         <textarea
           matInput
+          id="comments-input"
           placeholder="Comments"
           [(ngModel)]="exercise.comment"
           name="comment"

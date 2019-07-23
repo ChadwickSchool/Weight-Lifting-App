@@ -27,20 +27,19 @@ export class ExerciseService {
     return this.exercises;
   }
 
-  addExercise(exercises: any, setNumber: number) {
+  addExercise(exercise: any, setNumber: number) {
     const id = this.afs.createId();
-    const exercise = new ExercisesClass(
+    const newEntry = new ExercisesClass(
       id,
-      exercises.name,
+      exercise.name,
       setNumber,
-      exercises.reps,
-      exercises.weight,
+      exercise.reps,
+      exercise.weight,
       this.authService.getUserID(),
       new Date(),
-      exercises.comment
+      exercise.comment
     );
-    console.log(exercise);
-    this.exercisesRef.doc(id).set(Object.assign({}, exercise));
+    this.exercisesRef.doc(id).set(Object.assign({}, newEntry));
   }
 
   // updateExercise(exercises: Exercise) {
