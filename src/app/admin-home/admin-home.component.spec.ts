@@ -12,6 +12,7 @@ import { GroupService } from '../services/groups.service';
 import { Group } from '../shared/models/group.model';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import GroupClass from '../shared/models/group';
+import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 
 describe('AdminHomeComponent', () => {
   let component: AdminHomeComponent;
@@ -38,6 +39,7 @@ describe('AdminHomeComponent', () => {
     }
   };
 
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule],
@@ -50,6 +52,9 @@ describe('AdminHomeComponent', () => {
         {
           provide: CurrentGroupSelectedService,
           useValue: currentGroupSelectedServiceStub
+        },
+        {
+          provide: CurrentDateSelectedService
         }
       ]
     })

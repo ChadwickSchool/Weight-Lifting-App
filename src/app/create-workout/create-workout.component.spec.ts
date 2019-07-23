@@ -45,7 +45,7 @@ describe('CreateWorkoutComponent', () => {
   };
 
   const currentDateSelectedServiceStub = {
-    get getCurrentDate(): Date {
+    getCurrentDate(): Date {
       return TestUtils.getTestDate();
     },
 
@@ -101,6 +101,6 @@ describe('CreateWorkoutComponent', () => {
     currentDateSelectedServiceStub.setCurrentDate(TestUtils.getTestDate());
     const headerElement = componentElement.querySelector('h2');
     fixture.detectChanges();
-    expect(headerElement.textContent).toContain('May 17, 1937');
+    expect(headerElement.textContent).toContain('Apr 17, 1937');
   });
 });

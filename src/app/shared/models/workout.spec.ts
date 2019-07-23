@@ -20,7 +20,7 @@ describe('Workout Test Cases', () => {
   });
 
   it('should set date correctly through constructor', () => {
-    expect(workout.date).toEqual(new Date('3000-01-02'));
+    expect(workout.date).toEqual(new Date(1937, 3, 17));
   });
 
   it('should set recExercise correctly through constructor', () => {

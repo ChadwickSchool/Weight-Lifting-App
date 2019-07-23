@@ -14,7 +14,7 @@ import { ComponentRef } from '@angular/core';
 import { Exercise } from '../models/exercise.model';
 
 export default class TestUtils {
-  static getTestDate(year = 1937, month = 4, date = 17): Date {
+  static getTestDate(year = 1937, month = 3, date = 17): Date {
     return new Date(year, month, date);
   }
 
@@ -95,7 +95,6 @@ export default class TestUtils {
     name = 'Test Workout',
     recExercise = [this.getTestRecommendedExercise()],
     users = [this.getTestUser()],
-    // date = new Date('3000-01-02'),
     date = this.getTestDate(),
     dateCreated = new Date('3000-01-01'),
     group = this.getTestGroup()
