@@ -14,6 +14,10 @@ import { ComponentRef } from '@angular/core';
 import { Exercise } from '../models/exercise.model';
 
 export default class TestUtils {
+  static getTestDate(year = 1937, month = 4, date = 17): Date {
+    return new Date(year, month, date);
+  }
+
   static getTestGroup(name = 'Test Group', id = '1'): Group {
     return new GroupClass(name, id);
   }
@@ -36,7 +40,14 @@ export default class TestUtils {
     weight?: string,
     coachComment?: string
   ): RecommendedExercise {
-    return new RecommendedExerciseClass(uid, name, sets, reps, weight, coachComment);
+    return new RecommendedExerciseClass(
+      uid,
+      name,
+      sets,
+      reps,
+      weight,
+      coachComment
+    );
   }
 
   static getTestExercise(
@@ -49,7 +60,16 @@ export default class TestUtils {
     date = new Date(),
     userComment?: string
   ): Exercise {
-    return new ExerciseClass(id, name, setNumber, reps, weight, userID, date, userComment);
+    return new ExerciseClass(
+      id,
+      name,
+      setNumber,
+      reps,
+      weight,
+      userID,
+      date,
+      userComment
+    );
   }
 
   static getStudentWorkout(
@@ -75,15 +95,16 @@ export default class TestUtils {
     name = 'Test Workout',
     recExercise = [this.getTestRecommendedExercise()],
     users = [this.getTestUser()],
-    date = new Date('3000-01-02'),
+    // date = new Date('3000-01-02'),
+    date = this.getTestDate(),
     dateCreated = new Date('3000-01-01'),
     group = this.getTestGroup()
-    ): Workout {
-      return new WorkoutClass(name, recExercise, users, date, dateCreated, group);
-    }
+  ): Workout {
+    return new WorkoutClass(name, recExercise, users, date, dateCreated, group);
+  }
 
-    static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
-      const element: HTMLElement = fixture.nativeElement as HTMLElement;
-      return element;
-    }
+  static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {
+    const element: HTMLElement = fixture.nativeElement as HTMLElement;
+    return element;
+  }
 }

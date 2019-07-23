@@ -3,6 +3,7 @@ import { Group } from '../shared/models/group.model';
 import { GroupService } from '../services/groups.service';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 
 @Component({
   selector: 'wla-admin-home',
@@ -11,23 +12,32 @@ import { CurrentGroupSelectedService } from '../services/current-group-selected.
 })
 export class AdminHomeComponent implements OnInit {
   groups$: Observable<Array<Group>>;
-  constructor(private groupService: GroupService, private currentGroupSelectedService: CurrentGroupSelectedService) { }
+  constructor(
+    private groupService: GroupService,
+    private currentGroupSelectedService: CurrentGroupSelectedService,
+    private currentDateSelectedService: CurrentDateSelectedService
+  ) {}
 
   group = {
     name: '',
     id: ''
   };
 
+  date = '';
+
   ngOnInit() {
     this.groups$ = this.groupService.getAddedGroups();
   }
 
-  createWorkout() {
-
-  }
+  createWorkout() {}
 
   setCurrentGroupSelected(group: Group) {
     this.currentGroupSelectedService.setCurrentGroup(group);
+  }
+
+  setCurrentDateSelected(date: Date) {
+    console.log('Current Date is: ' + date);
+    this.currentDateSelectedService.setCurrentDate(date);
   }
 
   // showGroups() {
@@ -35,5 +45,4 @@ export class AdminHomeComponent implements OnInit {
   //     this.groupsDataSource = group;
   //   });
   // }
-
 }
