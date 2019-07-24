@@ -67,7 +67,7 @@
     </mat-expansion-panel-header>
 
     <mat-table
-      [dataSource]="exerciseDataSource"
+      [dataSource]="exerciseDataSource | async"
       class="mat-elevation-z8"
       id="student-exercise-table"
     >
@@ -123,7 +123,7 @@
     <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
-        <mat-select [(value)]="exercise.name">
+        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()">
           <mat-option
             *ngFor="let recExercise of recExercisesDataSource"
             [value]="recExercise.name"

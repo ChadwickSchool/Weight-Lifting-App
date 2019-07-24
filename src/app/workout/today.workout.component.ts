@@ -3,6 +3,7 @@ import { RecommendedExerciseService } from '../services/recommended-exercise.ser
 import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
+import { Observable, of } from 'rxjs';
 
 export class ExpansionOverviewExample {
   panelOpenState = false;
@@ -15,7 +16,7 @@ export class ExpansionOverviewExample {
 })
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
-  exerciseDataSource: Array<Exercise>;
+  exerciseDataSource: Observable<Array<Exercise>>;
   setNumber: number;
   constructor(
     private recExerciseService: RecommendedExerciseService,
@@ -25,8 +26,8 @@ export class TodayWorkoutComponent implements OnInit {
   }
   exercise = {
     name: '',
-    reps: '',
-    weight: '',
+    reps: 0,
+    weight: 0,
     comment: ''
   };
 
@@ -37,15 +38,21 @@ export class TodayWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.showExercises();
+    this.exerciseDataSource = of(null);
   }
 
   showExercises() {
     this.recExerciseService.getAddedExercises().subscribe(recExercises => {
       this.recExercisesDataSource = recExercises;
     });
-    this.exerciseService.getAddedExercises().subscribe(exercises => {
-      this.exerciseDataSource = exercises;
-    });
+    // this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
+    //   this.exerciseDataSource = exercises;
+    // });
+  }
+
+  updateStudentTable() {
+    this.exerciseDataSource = this.exerciseService.getExercises(this.exercise.name);
+    console.log('called update student table');
   }
 
 

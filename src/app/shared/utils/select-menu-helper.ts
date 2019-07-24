@@ -24,23 +24,23 @@ export class SelectMenuTestHelper {
   }
 
   public getOptions(): HTMLElement[] {
-    return Array.from(this.containerElement.querySelectorAll(
-      'mat-option'
-    ));
+    return Array.from(this.containerElement.querySelectorAll('mat-option'));
   }
 
-  public selectOption(option: HTMLElement) {
+  public selectOption(option: HTMLElement, shouldFlush = true) {
     option.click();
     this.fixture.detectChanges();
     this.trigger.click();
     this.fixture.detectChanges();
-    flush();
+    if (shouldFlush) {
+      flush();
+    }
   }
 
-  public selectOptionByKey(options: HTMLElement[], key: string) {
+  public selectOptionByKey(options: HTMLElement[], key: string, shouldFlush = true) {
     options.forEach((option: HTMLElement) => {
       if (option.innerText.trim() === key) {
-        this.selectOption(option);
+        this.selectOption(option, shouldFlush);
       }
     });
   }

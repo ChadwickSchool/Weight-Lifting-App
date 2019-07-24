@@ -23,8 +23,13 @@ export class ExerciseService {
     this.exercises = this.exercisesRef.valueChanges();
   }
 
-  getAddedExercises(): Observable<any> {
-    return this.exercises;
+  // getAddedExercises(): Observable<any> {
+  //   return this.exercises;
+  // }
+
+  getExercises(name: string): Observable<Exercise[]> {
+    const query = this.afs.collection<Exercise>('exercises', ref => ref.where('name', '==', name));
+    return query.valueChanges();
   }
 
   addExercise(exercise: any, setNumber: number) {

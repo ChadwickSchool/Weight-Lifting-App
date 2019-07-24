@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
 
 import { AdminHomeComponent } from './admin-home.component';
 import { DebugElement } from '@angular/core';
@@ -91,6 +91,7 @@ describe('AdminHomeComponent', () => {
     options = selectMenu.getOptions();
     const basketballElement = selectMenu.getOptionByKey(options, 'Basketball');
     selectMenu.selectOption(basketballElement);
+    flush();
     expect(groupSelectedSpy).toHaveBeenCalledWith(TestUtils.getTestGroup('Basketball'));
   }));
 
