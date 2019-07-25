@@ -8,9 +8,9 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+      <input matInput [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="setCurrentDateSelected($event)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-  <button routerLink="/today-workout-admin" id="next-btn" button="submit" mat-raised-button color="primary" (click)="setCurrentDateSelected(date)">Create a Workout</button>
+  <button routerLink="/today-workout-admin" id="next-btn" button="submit" mat-raised-button color="primary">Create a Workout</button>
 </div>

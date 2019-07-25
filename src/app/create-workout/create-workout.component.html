@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <h1> {{ group?.name }} </h1>
-  <h2>{{ date | date }}</h2>
+  <h1 *ngIf="group$ | async as group"> {{ group.name }} </h1>
+  <h2 *ngIf="date$ | async as selectedDate">{{ selectedDate | date }}</h2>
   <table
     id="exerciseTable"
     mat-table

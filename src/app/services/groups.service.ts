@@ -8,14 +8,16 @@ import GroupClass from '../shared/models/group';
 export class GroupService {
   groupsRef: AngularFirestoreCollection<Group>;
   groups: Observable<Group[]>;
+
   constructor(private afs: AngularFirestore) {
-  this.groupsRef = afs.collection<Group>(
-    'groups'
-  );
-  this.groups = this.groupsRef.valueChanges();
-}
+    this.groupsRef = afs.collection<Group>(
+      'groups'
+    );
+    this.groups = this.groupsRef.valueChanges();
+  }
 
   getAddedGroups(): Observable<any> {
+    console.log('called getAddedGroups');
     return this.groups;
   }
 
