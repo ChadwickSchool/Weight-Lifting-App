@@ -1,7 +1,7 @@
 import { browser, by, element, protractor } from 'protractor';
 import { STUDENT_USERNAME, STUDENT_PASSWORD } from './google-login-info';
 
-describe('Student Component e2e tests', () => {
+fdescribe('Student Component e2e tests', () => {
   const GOOGLE_USERNAME = STUDENT_USERNAME;
   const GOOGLE_PASSWORD = STUDENT_PASSWORD;
   const ec = protractor.ExpectedConditions;
@@ -86,13 +86,14 @@ describe('Student Component e2e tests', () => {
     recExercises.click();
   });
 
-  it('should open the Today\'s Workout table', () => {
-    const todayExercises = element.all(by.css('mat-expansion-panel')).get(1);
-    todayExercises.click();
-    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), this.BROWSER_WAIT);
-    expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
-    // close the expansion panel
-    todayExercises.click();
+  it('should display selected exercise', () => {
+    const dropdown = element(by.id('exercise-select'));
+    dropdown.click();
+    element.all(by.css('.mat-option')).first().click();
+    const studentExercises = element.all(by.css('mat-expansion-panel')).get(1);
+    studentExercises.getText().then(text => {
+      expect(text).toContain('squat');
+    });
   });
 
   it('should find today\'s workout button', () => {
@@ -122,6 +123,31 @@ describe('Student Component e2e tests', () => {
         expect(text).toContain('squat');
         expect(text).toContain('20');
         expect(text).toContain('100');
+        browser.waitForAngularEnabled(true);
+      });
+  });
+
+  fit('should filter student exercises by date', () => {
+    const reps = element(by.id('reps-input'));
+    const weight = element(by.id('weight-input'));
+    const dropdown = element(by.id('exercise-select'));
+    dropdown.click();
+    element.all(by.css('.mat-option')).first().click();
+    reps.click();
+    reps.sendKeys('50');
+    weight.click();
+    weight.sendKeys('20');
+    element(by.id('next-btn')).click();
+    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), 3000);
+    browser.waitForAngularEnabled(false);
+    expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('student-exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('squat');
+        expect(text).toContain('50');
+        expect(text).toContain('20');
+        expect(text).not.toContain('old squat');
         browser.waitForAngularEnabled(true);
       });
   });

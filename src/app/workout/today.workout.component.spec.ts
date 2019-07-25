@@ -78,7 +78,17 @@ describe('TodayWorkoutComponent', () => {
         undefined,
         undefined,
         undefined,
+        new Date('2019-06-26'),
+        undefined
+      ),
+      TestUtils.getTestExercise(
         undefined,
+        'bench press',
+        undefined,
+        undefined,
+        undefined,
+        undefined,
+        new Date('2019-07-26'),
         undefined
       )
     ],
@@ -88,7 +98,8 @@ describe('TodayWorkoutComponent', () => {
     // },
 
     getExercises(name: string): Observable<Exercise[]> {
-      const query = this.exercises.filter(exercise => exercise.name === name);
+      const query = this.exercises.filter(exercise => exercise.name === name).filter(
+        exercise => exercise.date.getMonth() === new Date('2019-07-26').getMonth());
       console.log('Name: ' + name);
       console.log('All exercises');
       console.log(this.exercises);
@@ -174,7 +185,7 @@ describe('TodayWorkoutComponent', () => {
     expect(studentExerciseTable.textContent).not.toContain('bench press');
   });
 
-  it('should say your current exercise on the expansion panel', async() => {
+  it('should say your current exercise on the expansion panel', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
     selectMenu.triggerMenu();
@@ -198,7 +209,7 @@ describe('TodayWorkoutComponent', () => {
     ).toEqual('true');
   });
 
-  it('should enable panel when exercise is selected', async() => {
+  it('should enable panel when exercise is selected', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
     const panelElements = componentElement.querySelectorAll<HTMLElement>(
@@ -214,34 +225,34 @@ describe('TodayWorkoutComponent', () => {
     ).toEqual('false');
   });
 
-  // it('should be able to add student exercise to table', async() => {
-  //   await fixture.whenStable();
-  //   fixture.detectChanges();
-  //   const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
-  //   const weightInput = componentDebug.query(By.css('#weight-input'))
-  //     .nativeElement;
-  //   const commentsInput = componentDebug.query(By.css('#comments-input'))
-  //     .nativeElement;
-  //   const studentExerciseTable = componentElement.querySelector(
-  //     '#student-exercise-table'
-  //   );
-  //   expect(component.exerciseDataSource.length).toEqual(2);
-  //   selectMenu.triggerMenu();
-  //   options = selectMenu.getOptions();
-  //   selectMenu.selectOptionByKey(options, 'deadlift', false);
-  //   repsInput.value = '20';
-  //   repsInput.dispatchEvent(new Event('input'));
-  //   weightInput.value = '50';
-  //   weightInput.dispatchEvent(new Event('input'));
-  //   commentsInput.value = 'asdfghjkl';
-  //   commentsInput.dispatchEvent(new Event('input'));
-  //   componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //     expect(component.exerciseDataSource.length).toEqual(3);
-  //     expect(component.exerciseDataSource[2].name).toEqual('deadlift');
-  //   });
-  // });
+  it('should be able to add student exercise to table', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
+    const weightInput = componentDebug.query(By.css('#weight-input'))
+      .nativeElement;
+    const commentsInput = componentDebug.query(By.css('#comments-input'))
+      .nativeElement;
+    const studentExerciseTable = componentElement.querySelector(
+      '#student-exercise-table'
+    );
+
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    selectMenu.selectOptionByKey(options, 'deadlift', false);
+    repsInput.value = '20';
+    repsInput.dispatchEvent(new Event('input'));
+    weightInput.value = '50';
+    weightInput.dispatchEvent(new Event('input'));
+    commentsInput.value = 'asdfghjkl';
+    commentsInput.dispatchEvent(new Event('input'));
+    componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+
+      expect(component.exerciseDataSource[2].name).toEqual('deadlift');
+    });
+  });
 
   it('should only show the selected exercise', async () => {
     await fixture.whenStable();
@@ -265,7 +276,7 @@ describe('TodayWorkoutComponent', () => {
     expect(studentExerciseTable.textContent).not.toContain('bench press');
   });
 
-  it('should update reps attribute of the exercise model', async() => {
+  it('should update reps attribute of the exercise model', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
 
@@ -290,5 +301,19 @@ describe('TodayWorkoutComponent', () => {
     weight.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(component.exercise.weight).toEqual(100);
+  });
+
+  it('should only get today\'s exercises', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    selectMenu.selectOptionByKey(options, 'bench press', false);
+    fixture.detectChanges();
+    component.exerciseDataSource.forEach((exercise: Exercise) => {
+        expect(exercise.date.getDate()).toEqual(new Date('2019-07-26').getDate());
+        expect(exercise.date.getMonth()).toEqual(new Date('2019-07-26').getMonth());
+        expect(exercise.date.getFullYear()).toEqual(new Date('2019-07-26').getFullYear());
+    });
   });
 });
