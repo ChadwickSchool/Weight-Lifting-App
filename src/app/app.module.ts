@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { StorageServiceModule} from 'angular-webstorage-service';
 import { environment } from '../environments/environment';
 import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { SideNavComponent } from './navigation/side-nav/side-nav.component';
@@ -24,7 +25,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CurrentGroupSelectedService } from './services/current-group-selected.service';
-
 import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { CurrentDateSelectedService } from './services/current-date-selected.service';
@@ -52,7 +52,8 @@ import { CurrentDateSelectedService } from './services/current-date-selected.ser
     AngularFireAuthModule,
     ReactiveFormsModule,
     RouterTestingModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StorageServiceModule
   ],
   entryComponents: [RecommendedExercisesDialogComponent],
   providers: [
