@@ -40,17 +40,17 @@ describe('CreateWorkoutComponent', () => {
     },
 
     setCurrentGroup(group: Group) {
-      component.group = group;
+      component.group$ = of(group);
     }
   };
 
   const currentDateSelectedServiceStub = {
-    getCurrentDate(): Date {
-      return TestUtils.getTestDate();
+    getCurrentDate(): Observable<Date> {
+      return of(TestUtils.getTestDate());
     },
 
     setCurrentDate(date: Date) {
-      component.date = date;
+      component.date$ = of(date);
     }
   };
 
