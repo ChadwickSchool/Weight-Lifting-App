@@ -16,7 +16,7 @@ export class ExpansionOverviewExample {
 })
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
-  exerciseDataSource: Observable<Array<Exercise>>;
+  exerciseDataSource: Array<Exercise>;
   setNumber: number;
   constructor(
     private recExerciseService: RecommendedExerciseService,
@@ -38,21 +38,22 @@ export class TodayWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.showExercises();
-    this.exerciseDataSource = of(null);
+    // this.exerciseDataSource = of(null);
   }
 
   showExercises() {
     this.recExerciseService.getAddedExercises().subscribe(recExercises => {
       this.recExercisesDataSource = recExercises;
     });
-    // this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
-    //   this.exerciseDataSource = exercises;
-    // });
+    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
+      this.exerciseDataSource = exercises;
+    });
   }
 
   updateStudentTable() {
-    this.exerciseDataSource = this.exerciseService.getExercises(this.exercise.name);
-    console.log('called update student table');
+    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
+      this.exerciseDataSource = exercises;
+    });
   }
 
 

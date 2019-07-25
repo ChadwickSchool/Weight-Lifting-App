@@ -11,6 +11,7 @@ import {
 } from '@angular/fire/firestore';
 import ExercisesClass from '../shared/models/exercise';
 import { AuthService } from './auth.service';
+import Utils from '../shared/utils/utils';
 
 @Injectable()
 export class ExerciseService {
@@ -28,7 +29,11 @@ export class ExerciseService {
   // }
 
   getExercises(name: string): Observable<Exercise[]> {
-    const query = this.afs.collection<Exercise>('exercises', ref => ref.where('name', '==', name));
+    const todayDate = Utils.getSimplifiedDate(new Date());
+    const query = this.afs.collection<Exercise>('exercises', ref => ref
+    .where('name', '==', name)
+      .where('date', '>=', todayDate
+      ));
     return query.valueChanges();
   }
 
