@@ -4,6 +4,7 @@ import { GroupService } from '../services/groups.service';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'wla-admin-home',
@@ -23,8 +24,6 @@ export class AdminHomeComponent implements OnInit {
     id: ''
   };
 
-  date = '';
-
   ngOnInit() {
     this.groups$ = this.groupService.getAddedGroups();
   }
@@ -35,14 +34,8 @@ export class AdminHomeComponent implements OnInit {
     this.currentGroupSelectedService.setCurrentGroup(group);
   }
 
-  setCurrentDateSelected(date: Date) {
-    console.log('Current Date is: ' + date);
+  setCurrentDateSelected(event: MatDatepickerInputEvent<Date>) {
+    const date = event.value;
     this.currentDateSelectedService.setCurrentDate(date);
   }
-
-  // showGroups() {
-  //   this.groupService.getAddedGroups().subscribe(group => {
-  //     this.groupsDataSource = group;
-  //   });
-  // }
 }
