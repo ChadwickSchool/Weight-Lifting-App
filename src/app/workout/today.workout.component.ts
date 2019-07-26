@@ -22,7 +22,7 @@ export class TodayWorkoutComponent implements OnInit {
     private recExerciseService: RecommendedExerciseService,
     private exerciseService: ExerciseService,
   ) {
-    this.setNumber = 0;
+    this.setNumber = 1;
   }
   exercise = {
     name: '',
@@ -34,7 +34,7 @@ export class TodayWorkoutComponent implements OnInit {
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
-  displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight', 'comments'];
+  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comments'];
 
   ngOnInit() {
     this.showExercises();
@@ -63,14 +63,9 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   addExercise() {
+    this.setNumber = this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1;
     if (this.exercise.comment === '') {
       this.exercise.comment = 'none';
-    }
-    this.setNumber++;
-    if (this.setNumber > Number((this.recExercisesDataSource.find(element =>
-          element.name === this.exercise.name
-        )).sets)) {
-      this.setNumber = 1;
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
     console.log('submit');

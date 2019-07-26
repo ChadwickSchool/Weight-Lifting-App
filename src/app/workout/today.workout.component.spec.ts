@@ -226,7 +226,7 @@ describe('TodayWorkoutComponent', () => {
     ).toEqual('false');
   });
 
-  fit('should be able to add student exercise to table', async () => {
+  it('should be able to add student exercise to table', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
     const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;

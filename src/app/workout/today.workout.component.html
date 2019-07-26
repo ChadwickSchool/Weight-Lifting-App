@@ -72,12 +72,12 @@
       id="student-exercise-table"
     >
       <!-- Exercise Column -->
-      <ng-container matColumnDef="name">
+      <!-- <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name">
           {{ row.name }}
         </mat-cell>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Sets Column -->
       <ng-container matColumnDef="setNumber">
@@ -118,8 +118,8 @@
       </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <h2>Set {{ setNumber }}</h2>
-  <div fxFlex fxLayout fxLayoutAlign="center center">
+  <!-- <h2>Set {{ setNumber }}</h2> -->
+  <div fxFlex fxLayout fxLayoutAlign="center center" id="form">
     <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
