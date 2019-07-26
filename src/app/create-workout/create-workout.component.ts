@@ -9,6 +9,7 @@ import TestUtils from '../shared/utils/test-utils';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
+import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 
 export interface ExerciseData {
   name: string;
@@ -25,7 +26,7 @@ export interface ExerciseData {
   styleUrls: ['./create-workout.component.scss']
 })
 export class CreateWorkoutComponent implements OnInit {
-  recExercises$: Observable<Array<ExerciseData>>;
+  recExercises$: Observable<Array<RecommendedExercise>>;
   date$: Observable<Date>;
   group$: Observable<Group>;
   constructor(
@@ -38,7 +39,7 @@ export class CreateWorkoutComponent implements OnInit {
 
   }
 
-  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
+  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'comments'];
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RecommendedExercisesDialogComponent, {

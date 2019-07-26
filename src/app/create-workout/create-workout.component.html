@@ -39,12 +39,22 @@
       </td>
     </ng-container>
 
+    <!-- Rest Column -->
     <ng-container matColumnDef="rest">
       <th mat-header-cell *matHeaderCellDef>Rest</th>
       <td mat-cell id="rest-cell" *matCellDef="let element">
         {{ element.rest }}
       </td>
     </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="comments">
+      <th mat-header-cell *matHeaderCellDef>Comments</th>
+      <td mat-cell id="comments-cell" *matCellDef="let element">
+        {{ element.coachComment }}
+      </td>
+    </ng-container>
+
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
