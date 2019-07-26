@@ -18,6 +18,7 @@ import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { DebugElement } from '@angular/core';
 import { Exercise } from '../shared/models/exercise.model';
 import { By } from '@angular/platform-browser';
+import ExerciseClass from '../shared/models/exercise';
 
 describe('TodayWorkoutComponent', () => {
   let component: TodayWorkoutComponent;
@@ -116,7 +117,7 @@ describe('TodayWorkoutComponent', () => {
         exercise.reps,
         exercise.weight,
         undefined,
-        undefined,
+        new Date('2019-06-14'),
         exercise.userComment
       );
       console.log('Adding an exercise');
@@ -225,34 +226,45 @@ describe('TodayWorkoutComponent', () => {
     ).toEqual('false');
   });
 
-  // it('should be able to add student exercise to table', async () => {
-  //   await fixture.whenStable();
-  //   fixture.detectChanges();
-  //   const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
-  //   const weightInput = componentDebug.query(By.css('#weight-input'))
-  //     .nativeElement;
-  //   const commentsInput = componentDebug.query(By.css('#comments-input'))
-  //     .nativeElement;
-  //   const studentExerciseTable = componentElement.querySelector(
-  //     '#student-exercise-table'
-  //   );
-  //
-  //   selectMenu.triggerMenu();
-  //   options = selectMenu.getOptions();
-  //   selectMenu.selectOptionByKey(options, 'deadlift', false);
-  //   repsInput.value = '20';
-  //   repsInput.dispatchEvent(new Event('input'));
-  //   weightInput.value = '50';
-  //   weightInput.dispatchEvent(new Event('input'));
-  //   commentsInput.value = 'asdfghjkl';
-  //   commentsInput.dispatchEvent(new Event('input'));
-  //   componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
-  //   fixture.detectChanges();
-  //   fixture.whenStable().then(() => {
-  //
-  //     expect(component.exerciseDataSource[2].name).toEqual('deadlift');
-  //   });
-  // });
+  fit('should be able to add student exercise to table', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
+    const weightInput = componentDebug.query(By.css('#weight-input'))
+      .nativeElement;
+    const commentsInput = componentDebug.query(By.css('#comments-input'))
+      .nativeElement;
+    const studentExerciseTable = componentElement.querySelector(
+      '#student-exercise-table'
+    );
+
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    selectMenu.selectOptionByKey(options, 'deadlift', false);
+    repsInput.value = '20';
+    repsInput.dispatchEvent(new Event('input'));
+    weightInput.value = '50';
+    weightInput.dispatchEvent(new Event('input'));
+    commentsInput.value = 'ooga booga';
+    commentsInput.dispatchEvent(new Event('input'));
+    componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
+    const date = new Date('2019-06-14');
+    // create the deadlift exercise
+    const deadlift = new ExerciseClass(
+      '1',
+      'deadlift',
+      1,
+      20,
+      50,
+      '2',
+      date,
+      'ooga booga'
+    )
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      expect(component.exerciseDataSource).toContain(deadlift);
+    });
+  });
 
   it('should only show the selected exercise', async () => {
     await fixture.whenStable();
