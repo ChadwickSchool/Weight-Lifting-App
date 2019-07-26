@@ -1,7 +1,7 @@
 import { browser, by, element, protractor } from 'protractor';
 import { STUDENT_USERNAME, STUDENT_PASSWORD } from './google-login-info';
 
-fdescribe('Student Component e2e tests', () => {
+describe('Student Component e2e tests', () => {
   const GOOGLE_USERNAME = STUDENT_USERNAME;
   const GOOGLE_PASSWORD = STUDENT_PASSWORD;
   const ec = protractor.ExpectedConditions;
@@ -127,7 +127,7 @@ fdescribe('Student Component e2e tests', () => {
       });
   });
 
-  fit('should filter student exercises by date', () => {
+  it('should filter student exercises by date', () => {
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
     const dropdown = element(by.id('exercise-select'));

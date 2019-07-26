@@ -27,8 +27,8 @@ export interface ExerciseData {
 })
 export class CreateWorkoutComponent implements OnInit {
   recExercises$: Observable<Array<RecommendedExercise>>;
-  date$: Observable<Date>;
-  group$: Observable<Group>;
+  date: Date;
+  group: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
@@ -50,8 +50,8 @@ export class CreateWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.recExercises$ = this.recExerciseService.getAddedExercises();
-    this.group$ = this.groupSelectedService.getCurrentGroup();
-    this.date$ = this.dateSelectedService.getCurrentDate();
+    this.group = this.groupSelectedService.getCurrentGroup();
+    this.date = this.dateSelectedService.getCurrentDate();
   }
 
   saveWorkout() {
