@@ -34,7 +34,7 @@ describe('TodayWorkoutComponent', () => {
       return of([
         TestUtils.getTestRecommendedExercise(
           undefined,
-          'squats',
+          'Squats',
           undefined,
           undefined,
           undefined,
@@ -42,7 +42,7 @@ describe('TodayWorkoutComponent', () => {
         ),
         TestUtils.getTestRecommendedExercise(
           undefined,
-          'bench press',
+          'Bench Press',
           undefined,
           undefined,
           undefined,
@@ -50,7 +50,7 @@ describe('TodayWorkoutComponent', () => {
         ),
         TestUtils.getTestRecommendedExercise(
           undefined,
-          'deadlift',
+          'Deadlift',
           undefined,
           undefined,
           undefined,
@@ -63,8 +63,8 @@ describe('TodayWorkoutComponent', () => {
   const exercisesStub = {
     exercises: [
       TestUtils.getTestExercise(
-        undefined,
-        'squats',
+        '99',
+        'Squats',
         undefined,
         undefined,
         undefined,
@@ -74,7 +74,7 @@ describe('TodayWorkoutComponent', () => {
       ),
       TestUtils.getTestExercise(
         undefined,
-        'bench press',
+        'Bench Press',
         undefined,
         undefined,
         undefined,
@@ -84,7 +84,7 @@ describe('TodayWorkoutComponent', () => {
       ),
       TestUtils.getTestExercise(
         undefined,
-        'bench press',
+        'Bench Press',
         undefined,
         undefined,
         undefined,
@@ -170,9 +170,9 @@ describe('TodayWorkoutComponent', () => {
   it('should display exercises correctly in the dropdown', () => {
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    const squatsElement = selectMenu.getOptionByKey(options, 'squats');
-    const benchPressElement = selectMenu.getOptionByKey(options, 'bench press');
-    const deadliftElement = selectMenu.getOptionByKey(options, 'deadlift');
+    const squatsElement = selectMenu.getOptionByKey(options, 'Squats');
+    const benchPressElement = selectMenu.getOptionByKey(options, 'Bench Press');
+    const deadliftElement = selectMenu.getOptionByKey(options, 'Deadlift');
     expect(squatsElement).not.toBeNull();
     expect(benchPressElement).not.toBeNull();
     expect(deadliftElement).not.toBeNull();
@@ -182,8 +182,8 @@ describe('TodayWorkoutComponent', () => {
     const studentExerciseTable = componentElement.querySelector(
       '#student-exercise-table'
     );
-    expect(studentExerciseTable.textContent).not.toContain('squats');
-    expect(studentExerciseTable.textContent).not.toContain('bench press');
+    expect(studentExerciseTable.textContent).not.toContain('Squats');
+    expect(studentExerciseTable.textContent).not.toContain('Bench Press');
   });
 
   it('should say your current exercise on the expansion panel', async () => {
@@ -191,13 +191,13 @@ describe('TodayWorkoutComponent', () => {
     fixture.detectChanges();
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'squats', false);
+    selectMenu.selectOptionByKey(options, 'Squats', false);
     const panelTitleElements = componentElement.querySelectorAll(
       'mat-panel-title'
     );
     fixture.detectChanges();
     expect(panelTitleElements.length).toBe(2);
-    expect(panelTitleElements[1].innerHTML).toContain('squats');
+    expect(panelTitleElements[1].innerHTML).toContain('Squats');
   });
 
   it('should disable panel before exercise is selected', () => {
@@ -219,12 +219,40 @@ describe('TodayWorkoutComponent', () => {
     expect(panelElements.length).toBe(2);
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'squats', false);
+    selectMenu.selectOptionByKey(options, 'Squats', false);
     fixture.detectChanges();
     expect(
       panelElements[1].attributes.getNamedItem('ng-reflect-disabled').value
     ).toEqual('false');
   });
+
+  it('should disable next set button before all fields are filled out', () => {
+    const buttonElement = componentElement.querySelector<HTMLElement>('#next-btn');
+    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('true');
+  });
+
+  it('should enable next set button when all fields are filled out', async () => {
+    await fixture.whenStable();
+    fixture.detectChanges();
+    const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
+    const weightInput = componentDebug.query(By.css('#weight-input'))
+      .nativeElement;
+    const buttonElement = componentElement.querySelector<HTMLElement>('#next-btn');
+    selectMenu.triggerMenu();
+    options = selectMenu.getOptions();
+    selectMenu.selectOptionByKey(options, 'Squats', false);
+    fixture.detectChanges();
+    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('true');
+    repsInput.value = '20';
+    repsInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('true');
+    weightInput.value = '50';
+    weightInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('false');
+  });
+
 
   it('should be able to add student exercise to table', async () => {
     await fixture.whenStable();
@@ -240,19 +268,20 @@ describe('TodayWorkoutComponent', () => {
 
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'deadlift', false);
+    selectMenu.selectOptionByKey(options, 'Deadlift', false);
     repsInput.value = '20';
     repsInput.dispatchEvent(new Event('input'));
     weightInput.value = '50';
     weightInput.dispatchEvent(new Event('input'));
     commentsInput.value = 'ooga booga';
     commentsInput.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
     componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
     const date = new Date('2019-06-14');
     // create the deadlift exercise
     const deadlift = new ExerciseClass(
       '1',
-      'deadlift',
+      'Deadlift',
       1,
       20,
       50,
@@ -275,7 +304,7 @@ describe('TodayWorkoutComponent', () => {
 
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'squats', false);
+    selectMenu.selectOptionByKey(options, 'Squats', false);
     fixture.detectChanges();
 
     fixture.detectChanges();
@@ -284,8 +313,9 @@ describe('TodayWorkoutComponent', () => {
       componentElement.querySelector<HTMLElement>('#exercise-select')
         .textContent
     );
-    expect(studentExerciseTable.textContent).toContain('squats');
-    expect(studentExerciseTable.textContent).not.toContain('bench press');
+    component.exerciseDataSource.forEach((exercise: Exercise) => {
+      expect(exercise.name).toEqual('Squats');
+    });
   });
 
   it('should update reps attribute of the exercise model', async () => {
@@ -320,7 +350,7 @@ describe('TodayWorkoutComponent', () => {
     fixture.detectChanges();
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'bench press', false);
+    selectMenu.selectOptionByKey(options, 'Bench Press', false);
     fixture.detectChanges();
     component.exerciseDataSource.forEach((exercise: Exercise) => {
         expect(exercise.date.getDate()).toEqual(new Date('2019-07-26').getDate());

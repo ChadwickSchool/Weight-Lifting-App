@@ -56,14 +56,12 @@ export class TodayWorkoutComponent implements OnInit {
     });
   }
 
-
-
   submitForm() {
     this.addExercise();
   }
 
   addExercise() {
-    this.setNumber = this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1;
+    this.setNumber = this.exerciseDataSource.length ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1: 1;
     if (this.exercise.comment === '') {
       this.exercise.comment = 'none';
     }

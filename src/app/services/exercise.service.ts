@@ -37,6 +37,13 @@ export class ExerciseService {
     return query.valueChanges();
   }
 
+  getAllExercises(): Observable<Exercise[]> {
+    const todayDate = Utils.getSimplifiedDate(new Date());
+    const query = this.afs.collection<Exercise>('exercises', ref => ref
+      .where('date', '>=', todayDate));
+    return query.valueChanges();
+  }
+
   addExercise(exercise: any, setNumber: number) {
     const id = this.afs.createId();
     const newEntry = new ExercisesClass(

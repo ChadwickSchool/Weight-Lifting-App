@@ -7,13 +7,15 @@ import { CreateWorkoutComponent } from './create-workout/create-workout.componen
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { LoginComponent } from './login/login.component';
+import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'today-workout-student', component: TodayWorkoutComponent},
   {path: 'today-workout-admin', component: CreateWorkoutComponent},
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [LoginGuard]},
-  {path: 'student-home', component: StudentHomeComponent, canActivate: [LoginGuard]}
+  {path: 'student-home', component: StudentHomeComponent, canActivate: [LoginGuard]},
+  {path: 'student-entire-workout', component: StudentEntireWorkoutComponent, canActivate: [LoginGuard]}
 ];
 
 @NgModule({

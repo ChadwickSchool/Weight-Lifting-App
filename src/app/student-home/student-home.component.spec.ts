@@ -14,6 +14,7 @@ import { AdminHomeComponent } from '../admin-home/admin-home.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { LoginComponent } from '../login/login.component';
+import { StudentEntireWorkoutComponent } from '../student-entire-workout/student-entire-workout.component';
 
 describe('StudentHomeComponent', () => {
   let component: StudentHomeComponent;
@@ -38,7 +39,7 @@ describe('StudentHomeComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule, AppRoutingModule],
-      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent, LoginComponent],
+      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent, LoginComponent, StudentEntireWorkoutComponent],
       providers: [
         {
           provide: GroupService,
