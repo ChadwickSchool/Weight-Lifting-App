@@ -288,7 +288,7 @@ describe('TodayWorkoutComponent', () => {
       '2',
       date,
       'ooga booga'
-    )
+    );
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       expect(component.exerciseDataSource).toContain(deadlift);
