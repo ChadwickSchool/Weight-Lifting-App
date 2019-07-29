@@ -35,6 +35,8 @@ mat-raised-button {
   margin-left: 4rem;
   justify-content: center;
 }
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.70); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.52); }
 
 #next-btn {
   margin-right: 4rem;
@@ -46,7 +48,9 @@ mat-raised-button {
 #exercise-select {
   width: 100%;
 }
-
+#edit {
+  margin-right: 5rem;
+}
 @media screen and (max-width: 960px) {
   .mat-table {
     border: 0;
@@ -111,8 +115,13 @@ mat-raised-button {
   }
   .mat-table .mat-cell:last-child {
     border-bottom: 0;
+    text-align: center;
   }
     .mat-table .mat-cell:first-child {
     margin-top: 4%;
+  }
+
+  #edit{
+    margin-right: 6rem;
   }
 }

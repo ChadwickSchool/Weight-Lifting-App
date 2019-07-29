@@ -4,6 +4,8 @@ import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { EditExerciseComponent } from '../edit-exercise/edit-exercise.component';
 
 export class ExpansionOverviewExample {
   panelOpenState = false;
@@ -19,6 +21,7 @@ export class TodayWorkoutComponent implements OnInit {
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
   constructor(
+    public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
     private exerciseService: ExerciseService,
   ) {
@@ -34,11 +37,21 @@ export class TodayWorkoutComponent implements OnInit {
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
-  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comments'];
+  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comments', 'edit'];
 
   ngOnInit() {
     this.showExercises();
     // this.exerciseDataSource = of(null);
+  }
+
+  openDialog(exercise: Exercise): void {
+    console.log("selected exercise: " + exercise.id);
+    const dialogRef = this.dialog.open(EditExerciseComponent, {
+      height: '400px',
+      width: '600px',
+      data: exercise
+
+    });
   }
 
   showExercises() {

@@ -29,6 +29,7 @@ import { LoginComponent } from './login/login.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { CurrentDateSelectedService } from './services/current-date-selected.service';
 import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
+import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { StudentEntireWorkoutComponent } from './student-entire-workout/student-
     SideNavComponent,
     AdminHomeComponent,
     LoginComponent,
-    StudentEntireWorkoutComponent
+    StudentEntireWorkoutComponent,
+    EditExerciseComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,10 @@ import { StudentEntireWorkoutComponent } from './student-entire-workout/student-
     AppRoutingModule,
     StorageServiceModule
   ],
-  entryComponents: [RecommendedExercisesDialogComponent],
+  entryComponents: [
+    RecommendedExercisesDialogComponent,
+    EditExerciseComponent
+  ],
   providers: [
     DataService,
     RecommendedExerciseService,

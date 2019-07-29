@@ -59,11 +59,16 @@ export class ExerciseService {
     this.exercisesRef.doc(id).set(Object.assign({}, newEntry));
   }
 
-  // updateExercise(exercises: Exercise) {
-  //   console.log('Updating exercise');
-  //   this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.id}`);
-  //   this.exercisesDoc.update(exercises);
-  //   }
+  // updateExercise(exercise: Exercise) {
+  //   const exerciseRef: AngularFirestoreDocument<Exercise> = this.afs.doc(
+  //     `exercises/${exercise.id}`
+  //   );
 
-    // this.afs.object('exercises/' + key).update(exercise);
+  //   const data = {
+  //     name = this.exercise.name,
+
+  //   };
+
+  //   return userRef.set(data, { merge: true });
+  //   }
   }

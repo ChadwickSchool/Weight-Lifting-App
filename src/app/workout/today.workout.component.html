@@ -99,6 +99,15 @@
         </mat-cell>
       </ng-container>
 
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label=" ">
+      <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
+      <mat-icon id="trash" class="material-icons md-dark md-inactive">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedExerciseColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
       </mat-row>
@@ -125,7 +134,7 @@
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.userComment" name="comment"></textarea>
+        <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.comment" name="comment"></textarea>
       </mat-form-field>
       <button id="next-btn" type="submit" name="button" mat-raised-button color="primary" [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
