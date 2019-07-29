@@ -11,8 +11,8 @@ import { StudentEntireWorkoutComponent } from './student-entire-workout/student-
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'today-workout-student', component: TodayWorkoutComponent},
-  {path: 'today-workout-admin', component: CreateWorkoutComponent},
+  {path: 'today-workout-student', component: TodayWorkoutComponent, canActivate: [LoginGuard]},
+  {path: 'today-workout-admin', component: CreateWorkoutComponent, canActivate: [LoginGuard]},
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [LoginGuard]},
   {path: 'student-home', component: StudentHomeComponent, canActivate: [LoginGuard]},
   {path: 'student-entire-workout', component: StudentEntireWorkoutComponent, canActivate: [LoginGuard]}
