@@ -30,6 +30,7 @@ import { LoginGuard } from './shared/guards/login.guard';
 import { CurrentDateSelectedService } from './services/current-date-selected.service';
 import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
+// import { AdminGuard } from './shared/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
     GroupService,
     CurrentDateSelectedService,
     CurrentGroupSelectedService,
-    LoginGuard
+    LoginGuard,
+    // AdminGuard
   ],
   bootstrap: [AppComponent]
 })

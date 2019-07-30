@@ -122,14 +122,14 @@ describe('CreateWorkoutComponent', () => {
     expect(headerElement.textContent).toContain('Apr 17, 1937');
   });
 
-  it('should call saved workout with the correct workout', () => {
-    // To Do
-    // figure out how to get properly use reduce to get exercise names out of array
-    const reducer = (accumulator, currentValue) =>
-      accumulator.push(currentValue.name);
-    element(by.id('workout-button')).click();
-    const exerciseNames = workoutService.workouts.reduce(reducer);
-    expect(exerciseNames).toEqual(['squat', 'bench press', 'deadlift']);
-    expect(false).toBe(true);
-  });
+  // it('should call saved workout with the correct workout', () => {
+  //   // To Do
+  //   // figure out how to get properly use reduce to get exercise names out of array
+  //   const reducer = (accumulator, currentValue) =>
+  //     accumulator.push(currentValue.name);
+  //   element(by.id('workout-button')).click();
+  //   const exerciseNames = workoutService.workouts.reduce(reducer);
+  //   expect(exerciseNames).toEqual(['squat', 'bench press', 'deadlift']);
+  //   expect(false).toBe(true);
+  // });
 });

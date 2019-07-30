@@ -1,4 +1,4 @@
-import { TestBed, fakeAsync, ComponentFixture, flush } from '@angular/core/testing';
+import { TestBed, fakeAsync, ComponentFixture, flush, tick } from '@angular/core/testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -37,6 +37,10 @@ describe('Login Guard Tests', () => {
 
     getUserID(): string {
       return this.userID;
+    },
+
+    getUser(): Promise<any> {
+      return this.user$.toPromise();
     }
   };
 

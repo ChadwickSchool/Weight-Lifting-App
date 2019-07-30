@@ -226,16 +226,12 @@ describe('TodayWorkoutComponent', () => {
     ).toEqual('false');
   });
 
-<<<<<<< HEAD
-  it('should be able to add student exercise to table', async () => {
-=======
   it('should disable next set button before all fields are filled out', () => {
     const buttonElement = componentElement.querySelector<HTMLElement>('#next-btn');
     expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('true');
   });
 
   it('should enable next set button when all fields are filled out', async () => {
->>>>>>> view-rec-workorkout
     await fixture.whenStable();
     fixture.detectChanges();
     const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
