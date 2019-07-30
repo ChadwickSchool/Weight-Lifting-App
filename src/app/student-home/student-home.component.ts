@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Group } from '../shared/models/group.model';
 import { GroupService } from '../services/groups.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'wla-student-home',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./student-home.component.scss']
 })
 export class StudentHomeComponent implements OnInit {
-  groupDataSource: Group;
+  groupDataSource: Observable<Array<Group>>;
   isDisabled: boolean;
   constructor(private groupService: GroupService, private router: Router) {
     this.isDisabled = true;
@@ -21,16 +22,18 @@ export class StudentHomeComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.showGroups();
+    // this.showGroups();
+    this.groupDataSource = this.groupService.getAddedGroups();
   }
 
   showGroups() {
-    this.groupService.getAddedGroups().subscribe(group => {
-      this.groupDataSource = group;
+    this.groupService.getAddedGroups().subscribe(groups => {
+      this.groupDataSource = groups;
     });
   }
 
-  // seeWorkout() {
-  //   this.router.navigate(['today-workout-student']);
-  // }
+  showDropdownInfo() {
+    console.log(this.groupDataSource);
+  }
+
 }

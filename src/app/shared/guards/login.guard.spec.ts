@@ -15,7 +15,7 @@ import { StudentHomeComponent } from 'src/app/student-home/student-home.componen
 import { MaterialModule } from '../material.module';
 import { Location } from '@angular/common';
 
-describe('Login Guard Tests', () => {
+fdescribe('Login Guard Tests', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
@@ -37,6 +37,10 @@ describe('Login Guard Tests', () => {
 
     getUserID(): string {
       return this.userID;
+    },
+
+    getUser(): Promise<any> {
+      return this.user$.toPromise();
     }
   };
 

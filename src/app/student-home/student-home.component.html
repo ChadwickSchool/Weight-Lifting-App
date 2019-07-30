@@ -2,10 +2,10 @@
   <h1 id="home">Home</h1>
   <mat-form-field id="group-form-field">
     <mat-label>Select Your Group</mat-label>
-    <mat-select id="group-select" [(value)]="group.name">
+    <mat-select id="group-select" [(value)]="group.name" (click)="showDropdownInfo()">
       <mat-option
         id="group-options"
-        *ngFor="let group of groupDataSource"
+        *ngFor="let group of groupDataSource | async"
         [value]="group.name"
         (click)="isDisabled = false"
       >
