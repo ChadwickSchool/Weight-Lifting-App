@@ -77,4 +77,10 @@ export class ExerciseService {
 
     return exerciseRef.set(data, { merge: true });
     }
+
+    deleteExercise(exercise: Exercise) {
+      this.afs.doc(
+        `exercises/${exercise.id}`
+      ).delete();
+    }
   }

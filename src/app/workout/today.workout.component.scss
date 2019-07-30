@@ -35,7 +35,7 @@ mat-raised-button {
   margin-left: 4rem;
   justify-content: center;
 }
-.material-icons.md-dark { color: rgba(0, 0, 0, 0.70); }
+
 .material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.52); }
 
 #next-btn {
@@ -50,6 +50,10 @@ mat-raised-button {
 }
 #edit {
   margin-right: 5rem;
+}
+#edit:hover,
+#delete:hover {
+  color: rgba(0, 0, 0, 0.70);
 }
 @media screen and (max-width: 960px) {
   .mat-table {
