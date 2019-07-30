@@ -7,6 +7,14 @@ describe('Student Component e2e tests', () => {
   const ec = protractor.ExpectedConditions;
   const BROWSER_WAIT = 8000;
 
+  const hasText = (elementFinder, queryText: string) => {
+    const searchesForText = () => {
+      return elementFinder.getText().then(actualTextResultedFromAPromise => {
+        return actualTextResultedFromAPromise.includes(queryText);
+      });
+    };
+    return ec.and(ec.presenceOf(elementFinder), searchesForText);
+  };
 
   /**
    * [selectWindow Focus the browser to the index window.
@@ -46,26 +54,30 @@ describe('Student Component e2e tests', () => {
        login page */
 
       browser.waitForAngularEnabled(false);
-      browser
-        .wait(ec.visibilityOf(self.emailInput), BROWSER_WAIT)
-        .then(() => {
-          this.emailInput.sendKeys(GOOGLE_USERNAME);
-          this.emailNextButton.click();
-          browser
-            .wait(ec.visibilityOf(self.passwordInput), BROWSER_WAIT)
-            .then(() => {
-              self.passwordInput.sendKeys(GOOGLE_PASSWORD);
-              self.passwordInput.sendKeys(protractor.Key.ENTER);
-              browser.waitForAngularEnabled(true);
-            });
-        });
+      browser.wait(ec.visibilityOf(self.emailInput), BROWSER_WAIT).then(() => {
+        this.emailInput.sendKeys(GOOGLE_USERNAME);
+        this.emailNextButton.click();
+        browser
+          .wait(ec.visibilityOf(self.passwordInput), BROWSER_WAIT)
+          .then(() => {
+            self.passwordInput.sendKeys(GOOGLE_PASSWORD);
+            self.passwordInput.sendKeys(protractor.Key.ENTER);
+            browser.waitForAngularEnabled(true);
+          });
+      });
     };
 
     this.signInButton.click();
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-    browser.wait(ec.visibilityOf(element(by.id('logout'))), BROWSER_WAIT, 'timed out waiting for Logout button to appear');
+    browser.wait(
+      ec.visibilityOf(element(by.id('logout'))),
+      BROWSER_WAIT,
+      'timed out waiting for Logout button to appear'
+    );
+    element(by.id('workout-label')).click();
+    browser.wait(ec.visibilityOf(element(by.css('.mat-select'))));
   });
 
   // Causes timeout error for the test
@@ -80,8 +92,13 @@ describe('Student Component e2e tests', () => {
   it('should open the Recommended Excercise table', () => {
     const recExercises = element.all(by.css('mat-expansion-panel')).get(0);
     recExercises.click();
-    browser.wait(ec.visibilityOf(element(by.id('recommended-exercises-table'))), this.BROWSER_WAIT);
-    expect(element(by.id('recommended-exercises-table')).isDisplayed()).toBe(true);
+    browser.wait(
+      ec.visibilityOf(element(by.id('recommended-exercises-table'))),
+      this.BROWSER_WAIT
+    );
+    expect(element(by.id('recommended-exercises-table')).isDisplayed()).toBe(
+      true
+    );
     // close the expansion panel
     recExercises.click();
   });
@@ -89,10 +106,13 @@ describe('Student Component e2e tests', () => {
   it('should display selected exercise', () => {
     const dropdown = element(by.id('exercise-select'));
     dropdown.click();
-    element.all(by.css('.mat-option')).first().click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
     const studentExercises = element.all(by.css('mat-expansion-panel')).get(1);
     studentExercises.getText().then(text => {
-      expect(text).toContain('squat');
+      expect(text).toContain('Squat');
     });
   });
 
@@ -103,52 +123,152 @@ describe('Student Component e2e tests', () => {
   it('should set correct value of all attributes', () => {
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
+    const comment = element(by.id('comment-input'));
     const dropdown = element(by.id('exercise-select'));
     dropdown.click();
-    element.all(by.css('.mat-option')).first().click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
     reps.click();
     reps.sendKeys('20');
     weight.click();
     weight.sendKeys('100');
+    comment.click();
+    comment.sendKeys('Keep knees behind toes');
     element(by.id('next-btn')).click();
-    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), 3000);
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercises-expansion'))),
+      3000
+    );
+    browser.waitForAngularEnabled(false);
+    element(by.id('exercises-expansion')).click();
+    browser.wait(
+      ec.visibilityOf(element(by.id('student-exercise-table'))),
+      3000
+    );
     // putting browser.waitForAngularEnabled any lower in the code or removing it
     // causes a timeout error
     // TODO: investigate why browser.waitForAngularEnabled is needed.
-    browser.waitForAngularEnabled(false);
     expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
+    browser.wait(
+      hasText(
+        element(by.id('student-exercise-table')),
+        'Keep knees behind toes'
+      ),
+      3000,
+      'Timed out waiting for table to contain new text'
+    );
     element(by.id('student-exercise-table'))
       .getText()
       .then(text => {
-        expect(text).toContain('squat');
+        expect(text).toContain('Keep knees behind toes');
         expect(text).toContain('20');
         expect(text).toContain('100');
-        browser.waitForAngularEnabled(true);
+        browser.waitForAngularEnabled(false);
       });
+    element
+      .all(by.css('.mat-expansion-panel-header'))
+      .last()
+      .click();
   });
 
   it('should filter student exercises by date', () => {
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
-    const dropdown = element(by.id('exercise-select'));
+    const comment = element(by.id('comment-input'));
+    const dropdown = element(by.css('.mat-select'));
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercise-select'))),
+      3000
+    );
     dropdown.click();
-    element.all(by.css('.mat-option')).first().click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
     reps.click();
     reps.sendKeys('50');
     weight.click();
     weight.sendKeys('20');
+    comment.click();
+    comment.sendKeys('new squat');
     element(by.id('next-btn')).click();
-    browser.wait(ec.visibilityOf(element(by.id('student-exercise-table'))), 3000);
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercises-expansion'))),
+      3000
+    );
     browser.waitForAngularEnabled(false);
+    element(by.id('exercises-expansion')).click();
     expect(element(by.id('student-exercise-table')).isDisplayed()).toBe(true);
+    browser.wait(
+      hasText(element(by.id('student-exercise-table')), 'new squat'),
+      3000,
+      'Timed out waiting for table to contain new squat'
+    );
     element(by.id('student-exercise-table'))
       .getText()
       .then(text => {
-        expect(text).toContain('squat');
         expect(text).toContain('50');
         expect(text).toContain('20');
         expect(text).not.toContain('old squat');
-        browser.waitForAngularEnabled(true);
+        expect(text).toContain('new squat');
+        browser.waitForAngularEnabled(false);
+      });
+    element(by.id('exercises-expansion')).click();
+  });
+
+  it('should edit an exercises and set values in table correctly', () => {
+    const editButton = element.all(by.id('edit')).first();
+    const dialogReps = element(by.id('dialog-reps-input'));
+    const dialogWeight = element(by.id('dialog-weight-input'));
+    const dialogComments = element(by.id('dialog-comments-input'));
+    const dropdown = element(by.css('.mat-select'));
+    const reps = element(by.id('reps-input'));
+    const weight = element(by.id('weight-input'));
+    const comment = element(by.id('comment-input'));
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercise-select'))),
+      3000
+    );
+    dropdown.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    reps.click();
+    reps.sendKeys('50');
+    weight.click();
+    weight.sendKeys('20');
+    comment.click();
+    comment.sendKeys('new squat');
+    element(by.id('next-btn')).click();
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercises-expansion'))),
+      3000
+    );
+    browser.waitForAngularEnabled(false);
+    element(by.id('exercises-expansion')).click();
+    browser.wait(
+      hasText(element(by.id('student-exercise-table')), 'new squat'),
+      3000,
+      'Timed out waiting for table to contain new squat'
+    );
+    editButton.click();
+    browser.wait(dialogReps.isDisplayed, 3000);
+    dialogReps.click();
+    dialogReps.sendKeys('00');
+    dialogWeight.click();
+    dialogWeight.sendKeys('00');
+    dialogComments.click();
+    dialogComments.sendKeys('s are cool');
+    element(by.id('submit-button')).click();
+    element(by.id('student-exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('5000');
+        expect(text).toContain('2000');
+        expect(text).toContain('new squats are cool');
       });
   });
 });

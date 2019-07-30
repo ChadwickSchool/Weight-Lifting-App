@@ -4,6 +4,8 @@ import { ExerciseService } from '../services/exercise.service';
 import { Exercise } from '../shared/models/exercise.model';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import { Observable, of } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { EditExerciseComponent } from '../edit-exercise/edit-exercise.component';
 
 export class ExpansionOverviewExample {
   panelOpenState = false;
@@ -19,58 +21,66 @@ export class TodayWorkoutComponent implements OnInit {
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
   constructor(
+    public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
-    private exerciseService: ExerciseService,
+    private exerciseService: ExerciseService
   ) {
-    this.setNumber = 0;
+    this.setNumber = 1;
   }
   exercise = {
     name: '',
     reps: 0,
     weight: 0,
-    comment: ''
+    userComment: ''
   };
 
-
-
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
-  displayedExerciseColumns = ['name', 'setNumber', 'reps', 'weight', 'comments'];
+  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comment', 'edit'];
 
   ngOnInit() {
     this.showExercises();
     // this.exerciseDataSource = of(null);
   }
 
+  openDialog(exercise: Exercise): void {
+    console.log('selected exercise: ' + exercise.id);
+    const dialogRef = this.dialog.open(EditExerciseComponent, {
+      height: '400px',
+      width: '600px',
+      data: exercise
+    });
+  }
+
   showExercises() {
     this.recExerciseService.getAddedExercises().subscribe(recExercises => {
       this.recExercisesDataSource = recExercises;
     });
-    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
-      this.exerciseDataSource = exercises;
-    });
+    this.exerciseService
+      .getExercises(this.exercise.name)
+      .subscribe(exercises => {
+        this.exerciseDataSource = exercises;
+      });
   }
 
   updateStudentTable() {
-    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
-      this.exerciseDataSource = exercises;
-    });
+    this.exerciseService
+      .getExercises(this.exercise.name)
+      .subscribe(exercises => {
+        this.exerciseDataSource = exercises;
+      });
   }
-
-
 
   submitForm() {
     this.addExercise();
   }
 
   addExercise() {
-    if (this.exercise.comment === '') {
-      this.exercise.comment = 'none';
-    }
-    this.setNumber++;
-    if (this.setNumber > Number((this.recExercisesDataSource.find(element =>
-          element.name === this.exercise.name
-        )).sets)) {
-      this.setNumber = 1;
+    this.setNumber = this.exerciseDataSource.length
+      ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber +
+        1
+      : 1;
+    if (this.exercise.userComment === '') {
+      this.exercise.userComment = 'none';
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
     console.log('submit');

@@ -37,6 +37,13 @@ export class ExerciseService {
     return query.valueChanges();
   }
 
+  getAllExercises(): Observable<Exercise[]> {
+    const todayDate = Utils.getSimplifiedDate(new Date());
+    const query = this.afs.collection<Exercise>('exercises', ref => ref
+      .where('date', '>=', todayDate));
+    return query.valueChanges();
+  }
+
   addExercise(exercise: any, setNumber: number) {
     const id = this.afs.createId();
     const newEntry = new ExercisesClass(
@@ -47,16 +54,27 @@ export class ExerciseService {
       exercise.weight,
       this.authService.getUserID(),
       new Date(),
-      exercise.comment
+      exercise.userComment
     );
     this.exercisesRef.doc(id).set(Object.assign({}, newEntry));
   }
 
-  // updateExercise(exercises: Exercise) {
-  //   console.log('Updating exercise');
-  //   this.exercisesDoc = this.afs.doc<Exercise>(`student-exercises/${exercises.id}`);
-  //   this.exercisesDoc.update(exercises);
-  //   }
+  updateExercise(exercise: Exercise) {
+    const exerciseRef: AngularFirestoreDocument<Exercise> = this.afs.doc(
+      `exercises/${exercise.id}`
+    );
 
-    // this.afs.object('exercises/' + key).update(exercise);
+    const data = {
+      id: exercise.id,
+      name: exercise.name,
+      setNumber: exercise.setNumber,
+      reps: exercise.reps,
+      weight: exercise.weight,
+      userID: exercise.userID,
+      date: exercise.date,
+      userComment: exercise.userComment
+    };
+
+    return exerciseRef.set(data, { merge: true });
+    }
   }

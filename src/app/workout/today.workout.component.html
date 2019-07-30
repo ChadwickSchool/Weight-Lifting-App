@@ -6,11 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-table
-      [dataSource]="recExercisesDataSource"
-      class="mat-elevation-z8"
-      id="recommended-exercises-table"
-    >
+    <mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8" id="recommended-exercises-table">
       <!-- Exercise Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
@@ -55,29 +51,21 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <mat-expansion-panel
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
-    [disabled]="exercise.name === ''"
-  >
+  <mat-expansion-panel id="exercises-expansion" (opened)="panelOpenState = true" (closed)="panelOpenState = false" [disabled]="exercise.name === ''">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ exercise.name }}
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-table
-      [dataSource]="exerciseDataSource"
-      class="mat-elevation-z8"
-      id="student-exercise-table"
-    >
+    <mat-table [dataSource]="exerciseDataSource" class="mat-elevation-z8" id="student-exercise-table">
       <!-- Exercise Column -->
-      <ng-container matColumnDef="name">
+      <!-- <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="name">
           {{ row.name }}
         </mat-cell>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Sets Column -->
       <ng-container matColumnDef="setNumber">
@@ -104,70 +92,54 @@
       </ng-container>
 
       <!-- Comments Column -->
-      <ng-container matColumnDef="comments">
+      <ng-container matColumnDef="comment">
         <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="comments">
+        <mat-cell *matCellDef="let row" data-label="comment">
           {{ row.userComment }}
         </mat-cell>
       </ng-container>
 
-      <mat-header-row
-        *matHeaderRowDef="displayedExerciseColumns"
-      ></mat-header-row>
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label=" ">
+      <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
+      <mat-icon id="trash" class="material-icons md-dark md-inactive">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedExerciseColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
       </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <h2>Set {{ setNumber }}</h2>
-  <div fxFlex fxLayout fxLayoutAlign="center center">
+  <!-- <h2>Set {{ setNumber }}</h2> -->
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" id="form">
     <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
         <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()">
-          <mat-option
-            *ngFor="let recExercise of recExercisesDataSource"
-            [value]="recExercise.name"
-            matInput
-          >
+          <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name" matInput>
             {{ recExercise.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
       <div fxflex="row">
         <mat-form-field class="example-half-width reps">
-          <input
-            type="number"
-            id="reps-input"
-            matInput
-            placeholder="Reps"
-            [(ngModel)]="exercise.reps"
-            name="reps"
-          />
+          <input type="number" id="reps-input" matInput placeholder="Reps" [(ngModel)]="exercise.reps" name="reps" />
         </mat-form-field>
         <span></span>
         <mat-form-field class="example-half-width weight">
-          <input
-            type="number"
-            id="weight-input"
-            matInput
-            placeholder="Weight"
-            [(ngModel)]="exercise.weight"
-            name="weight"
-          />
+          <input type="number" id="weight-input" matInput placeholder="Weight" [(ngModel)]="exercise.weight" name="weight" />
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea
-          matInput
-          id="comments-input"
-          placeholder="Comments"
-          [(ngModel)]="exercise.userComment"
-          name="comment"
-        ></textarea>
+        <textarea matInput id="comment-input" placeholder="Comments" [(ngModel)]="exercise.userComment" name="comment"></textarea>
       </mat-form-field>
-      <button id="next-btn" type="submit" mat-raised-button color="primary">
+      <button id="next-btn" type="submit" name="button" mat-raised-button color="primary" [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
       </button>
+      <button routerLink="/student-entire-workout" type="submit" name="button" mat-raised-button color="secondary">View Entire Workout</button>
     </form>
   </div>
 </div>

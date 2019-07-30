@@ -1,20 +1,25 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import {
+  CanActivate,
+  Router
+} from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { take, map, tap } from 'rxjs/operators';
 
-@Injectable ()
+@Injectable()
 export class LoginGuard implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(private authService: AuthService) {}
+  async canActivate(): Promise<boolean> {
+    const user = await this.authService.getUser();
+    const loggedIn = !!user;
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      const result = this.authService.getUserID() !== null && this.authService.getUserID() !== undefined;
-      console.log("Login Guard is " + result);
-      console.log('User id is ' + this.authService.getUserID());
-      return result;
+    if (!loggedIn) {
+      console.log('access denied');
+      this.router.navigate(['']);
+    }
+
+    return loggedIn;
   }
-
 }
