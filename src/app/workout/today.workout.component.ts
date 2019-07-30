@@ -23,7 +23,7 @@ export class TodayWorkoutComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
-    private exerciseService: ExerciseService,
+    private exerciseService: ExerciseService
   ) {
     this.setNumber = 1;
   }
@@ -34,8 +34,6 @@ export class TodayWorkoutComponent implements OnInit {
     userComment: ''
   };
 
-
-
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
   displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comment', 'edit'];
 
@@ -45,12 +43,11 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   openDialog(exercise: Exercise): void {
-    console.log("selected exercise: " + exercise.id);
+    console.log('selected exercise: ' + exercise.id);
     const dialogRef = this.dialog.open(EditExerciseComponent, {
       height: '400px',
       width: '600px',
       data: exercise
-
     });
   }
 
@@ -58,15 +55,19 @@ export class TodayWorkoutComponent implements OnInit {
     this.recExerciseService.getAddedExercises().subscribe(recExercises => {
       this.recExercisesDataSource = recExercises;
     });
-    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
-      this.exerciseDataSource = exercises;
-    });
+    this.exerciseService
+      .getExercises(this.exercise.name)
+      .subscribe(exercises => {
+        this.exerciseDataSource = exercises;
+      });
   }
 
   updateStudentTable() {
-    this.exerciseService.getExercises(this.exercise.name).subscribe(exercises => {
-      this.exerciseDataSource = exercises;
-    });
+    this.exerciseService
+      .getExercises(this.exercise.name)
+      .subscribe(exercises => {
+        this.exerciseDataSource = exercises;
+      });
   }
 
   submitForm() {
@@ -74,7 +75,10 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   addExercise() {
-    this.setNumber = this.exerciseDataSource.length ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1 : 1;
+    this.setNumber = this.exerciseDataSource.length
+      ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber +
+        1
+      : 1;
     if (this.exercise.userComment === '') {
       this.exercise.userComment = 'none';
     }

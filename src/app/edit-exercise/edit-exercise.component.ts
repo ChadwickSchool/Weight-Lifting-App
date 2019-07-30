@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ExerciseService } from '../services/exercise.service';
 import { DataService } from '../data/data.service';
+import ExerciseClass from '../shared/models/exercise';
 
 @Component({
   selector: 'wla-edit-exercise',
@@ -17,10 +18,11 @@ export class EditExerciseComponent implements OnInit {
   ) {}
 
   exercise = {
-    name: '',
-    reps: 0,
-    weight: 0,
-    comment: ''
+    name: this.data.name,
+    reps: this.data.reps,
+    weight: this.data.weight,
+    comment: this.data.userComment,
+
   };
 
   ngOnInit() {}
@@ -33,7 +35,15 @@ export class EditExerciseComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  // updateExercise() {
-  //   this.exerciseService.updateExercise(this.exercise);
-  // }
+  updateExercise() {
+    this.exerciseService.updateExercise(new ExerciseClass(
+      this.data.id,
+      this.exercise.name,
+      this.data.setNumber,
+      this.exercise.reps,
+      this.exercise.weight,
+      this.data.userID,
+      this.data.date,
+      this.exercise.comment));
+  }
 }

@@ -134,7 +134,7 @@
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.userComment" name="comment"></textarea>
+        <textarea matInput id="comment-input" placeholder="Comments" [(ngModel)]="exercise.userComment" name="comment"></textarea>
       </mat-form-field>
       <button id="next-btn" type="submit" name="button" mat-raised-button color="primary" [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
