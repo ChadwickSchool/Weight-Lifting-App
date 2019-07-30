@@ -265,7 +265,6 @@ describe('TodayWorkoutComponent', () => {
     const studentExerciseTable = componentElement.querySelector(
       '#student-exercise-table'
     );
-
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Deadlift', false);

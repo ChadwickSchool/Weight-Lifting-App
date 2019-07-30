@@ -8,7 +8,7 @@ import { Exercise } from '../shared/models/exercise.model';
 import { ExerciseService } from '../services/exercise.service';
 import { DebugElement } from '@angular/core';
 
-fdescribe('StudentEntireWorkoutComponent', () => {
+describe('StudentEntireWorkoutComponent', () => {
   let component: StudentEntireWorkoutComponent;
   let fixture: ComponentFixture<StudentEntireWorkoutComponent>;
   let componentDebug: DebugElement;

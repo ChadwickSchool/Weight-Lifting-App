@@ -212,4 +212,14 @@ fdescribe('Student Component e2e tests', () => {
       });
     element(by.id('exercises-expansion')).click();
   });
+
+  it('should edit an exercises and set values in table correctly', () => {
+    const editButton = element.all(by.id('edit')).first();
+    const reps = element(by.id('dialog-reps-input'));
+    const weight = element(by.id('dialog-weight-input'));
+    const comments = element(by.id('dialog-comments-input'));
+    const dropdown = element(by.id('exercise-select'));
+    dropdown.click();
+    element.all(by.css('.mat-option')).first().click();
+  });
 });
