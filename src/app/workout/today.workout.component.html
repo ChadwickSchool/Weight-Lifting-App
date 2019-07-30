@@ -99,6 +99,15 @@
         </mat-cell>
       </ng-container>
 
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label=" ">
+      <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
+      <mat-icon id="trash" class="material-icons md-dark md-inactive">delete</mat-icon>
+        </mat-cell>
+      </ng-container>
+
       <mat-header-row *matHeaderRowDef="displayedExerciseColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
       </mat-row>

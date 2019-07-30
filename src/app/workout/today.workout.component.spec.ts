@@ -260,12 +260,11 @@ describe('TodayWorkoutComponent', () => {
     const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
     const weightInput = componentDebug.query(By.css('#weight-input'))
       .nativeElement;
-    const commentsInput = componentDebug.query(By.css('#comments-input'))
+    const commentsInput = componentDebug.query(By.css('#comment-input'))
       .nativeElement;
     const studentExerciseTable = componentElement.querySelector(
       '#student-exercise-table'
     );
-
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Deadlift', false);
