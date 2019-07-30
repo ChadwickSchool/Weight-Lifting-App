@@ -67,6 +67,8 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   updateStudentTable() {
+    this.exercise.reps = 0;
+    this.exercise.weight = 0;
     this.exerciseService
       .getExercises(this.exercise.name)
       .subscribe(exercises => {

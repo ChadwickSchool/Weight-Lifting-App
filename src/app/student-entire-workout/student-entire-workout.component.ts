@@ -10,7 +10,7 @@ import { ExerciseService } from '../services/exercise.service';
 export class StudentEntireWorkoutComponent implements OnInit {
   exerciseDataSource: Array<Exercise>;
 
-  constructor(private exerciseService: ExerciseService,) { }
+  constructor(private exerciseService: ExerciseService) { }
 
   exercise = {
     name: '',

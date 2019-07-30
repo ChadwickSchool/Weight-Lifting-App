@@ -92,10 +92,10 @@ mat-raised-button {
     padding: 0 24px;
     min-height: 0px;
   }
-  /*
-  .mat-table .mat-row:nth-child(even) {background: #CCC}
+
+  .mat-table .mat-row:nth-child(even) {background: rgb(245, 245, 245)}
   .mat-table .mat-row:nth-child(odd) {background: #FFF}
-  */
+
   .mat-table .mat-cell {
     border-bottom: 1px solid #ddd;
     display: block;
@@ -119,10 +119,14 @@ mat-raised-button {
   }
   .mat-table .mat-cell:last-child {
     border-bottom: 0;
+  }
+
+  #student-exercise-table .mat-cell:last-child {
     text-align: center;
   }
+
     .mat-table .mat-cell:first-child {
-    margin-top: 4%;
+    padding-top: 4%;
   }
 
   #edit{
