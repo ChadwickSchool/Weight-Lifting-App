@@ -54,7 +54,7 @@ export class ExerciseService {
       exercise.weight,
       this.authService.getUserID(),
       new Date(),
-      exercise.comment
+      exercise.userComment
     );
     this.exercisesRef.doc(id).set(Object.assign({}, newEntry));
   }

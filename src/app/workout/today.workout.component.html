@@ -51,7 +51,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [disabled]="exercise.name === ''">
+  <mat-expansion-panel id="exercises-expansion" (opened)="panelOpenState = true" (closed)="panelOpenState = false" [disabled]="exercise.name === ''">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ exercise.name }}
@@ -92,9 +92,9 @@
       </ng-container>
 
       <!-- Comments Column -->
-      <ng-container matColumnDef="comments">
+      <ng-container matColumnDef="comment">
         <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="comments">
+        <mat-cell *matCellDef="let row" data-label="comment">
           {{ row.userComment }}
         </mat-cell>
       </ng-container>

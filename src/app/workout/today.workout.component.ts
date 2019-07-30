@@ -31,13 +31,13 @@ export class TodayWorkoutComponent implements OnInit {
     name: '',
     reps: 0,
     weight: 0,
-    comment: ''
+    userComment: ''
   };
 
 
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
-  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comments', 'edit'];
+  displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comment', 'edit'];
 
   ngOnInit() {
     this.showExercises();
@@ -74,9 +74,9 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   addExercise() {
-    this.setNumber = this.exerciseDataSource.length ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1: 1;
-    if (this.exercise.comment === '') {
-      this.exercise.comment = 'none';
+    this.setNumber = this.exerciseDataSource.length ? this.exerciseDataSource[this.exerciseDataSource.length - 1].setNumber + 1 : 1;
+    if (this.exercise.userComment === '') {
+      this.exercise.userComment = 'none';
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
     console.log('submit');
