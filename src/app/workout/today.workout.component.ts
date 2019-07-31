@@ -51,6 +51,10 @@ export class TodayWorkoutComponent implements OnInit {
     });
   }
 
+  deleteExercise(exercise: Exercise): void {
+    this.exerciseService.deleteExercise(exercise);
+  }
+
   showExercises() {
     this.recExerciseService.getAddedExercises().subscribe(recExercises => {
       this.recExercisesDataSource = recExercises;
@@ -63,6 +67,8 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   updateStudentTable() {
+    this.exercise.reps = 0;
+    this.exercise.weight = 0;
     this.exerciseService
       .getExercises(this.exercise.name)
       .subscribe(exercises => {

@@ -26,20 +26,29 @@ describe('StudentHomeComponent', () => {
 
   const groupServiceStub = {
     getAddedGroups(): Observable<any> {
-      return of([TestUtils.getTestGroup(
-        'basketball',
-        undefined
-      ), TestUtils.getTestGroup(
-        'waterpolo',
-        undefined
-      )]);
+      return of([
+        TestUtils.getTestGroup('basketball', undefined),
+        TestUtils.getTestGroup('waterpolo', undefined)
+      ]);
     }
   };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, FormsModule, NoopAnimationsModule, AppRoutingModule],
-      declarations: [StudentHomeComponent, TodayWorkoutComponent, CreateWorkoutComponent, AdminHomeComponent, LoginComponent, StudentEntireWorkoutComponent],
+      imports: [
+        MaterialModule,
+        FormsModule,
+        NoopAnimationsModule,
+        AppRoutingModule
+      ],
+      declarations: [
+        StudentHomeComponent,
+        TodayWorkoutComponent,
+        CreateWorkoutComponent,
+        AdminHomeComponent,
+        LoginComponent,
+        StudentEntireWorkoutComponent
+      ],
       providers: [
         {
           provide: GroupService,
@@ -92,5 +101,4 @@ describe('StudentHomeComponent', () => {
     fixture.detectChanges();
     expect(componentElement.querySelector('button').disabled).toBeFalsy();
   });
-
 });

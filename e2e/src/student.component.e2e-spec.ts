@@ -6,6 +6,9 @@ fdescribe('Student Component e2e tests', () => {
   const GOOGLE_PASSWORD = STUDENT_PASSWORD;
   const ec = protractor.ExpectedConditions;
   const BROWSER_WAIT = 8000;
+  const reps = element(by.id('reps-input'));
+  const weight = element(by.id('weight-input'));
+  const comment = element(by.id('comment-input'));
 
   const hasText = (elementFinder, queryText: string) => {
     const searchesForText = () => {
@@ -80,6 +83,12 @@ fdescribe('Student Component e2e tests', () => {
     browser.wait(ec.visibilityOf(element(by.css('.mat-select'))));
   });
 
+  afterEach(() => {
+    reps.clear();
+    weight.clear();
+    comment.clear();
+  });
+
   // Causes timeout error for the test
   // afterAll(() => {
   //   element(by.id('logout')).click();
@@ -121,9 +130,7 @@ fdescribe('Student Component e2e tests', () => {
   });
 
   it('should set correct value of all attributes', () => {
-    const reps = element(by.id('reps-input'));
-    const weight = element(by.id('weight-input'));
-    const comment = element(by.id('comment-input'));
+    const deleteButton = element.all(by.id('delete')).first();
     const dropdown = element(by.id('exercise-select'));
     dropdown.click();
     element
@@ -167,6 +174,7 @@ fdescribe('Student Component e2e tests', () => {
         expect(text).toContain('100');
         browser.waitForAngularEnabled(false);
       });
+    deleteButton.click();
     element
       .all(by.css('.mat-expansion-panel-header'))
       .last()
@@ -174,9 +182,7 @@ fdescribe('Student Component e2e tests', () => {
   });
 
   it('should filter student exercises by date', () => {
-    const reps = element(by.id('reps-input'));
-    const weight = element(by.id('weight-input'));
-    const comment = element(by.id('comment-input'));
+    const deleteButton = element.all(by.id('delete')).first();
     const dropdown = element(by.css('.mat-select'));
     browser.wait(
       ec.elementToBeClickable(element(by.id('exercise-select'))),
@@ -215,18 +221,20 @@ fdescribe('Student Component e2e tests', () => {
         expect(text).toContain('new squat');
         browser.waitForAngularEnabled(false);
       });
-    element(by.id('exercises-expansion')).click();
+    deleteButton.click();
+    element
+      .all(by.css('.mat-expansion-panel-header'))
+      .last()
+      .click();
   });
 
   it('should edit an exercises and set values in table correctly', () => {
     const editButton = element.all(by.id('edit')).first();
+    const deleteButton = element.all(by.id('delete')).first();
     const dialogReps = element(by.id('dialog-reps-input'));
     const dialogWeight = element(by.id('dialog-weight-input'));
     const dialogComments = element(by.id('dialog-comments-input'));
     const dropdown = element(by.css('.mat-select'));
-    const reps = element(by.id('reps-input'));
-    const weight = element(by.id('weight-input'));
-    const comment = element(by.id('comment-input'));
     browser.wait(
       ec.elementToBeClickable(element(by.id('exercise-select'))),
       3000
@@ -270,5 +278,54 @@ fdescribe('Student Component e2e tests', () => {
         expect(text).toContain('2000');
         expect(text).toContain('new squats are cool');
       });
+    deleteButton.click();
+    element
+      .all(by.css('.mat-expansion-panel-header'))
+      .last()
+      .click();
+  });
+
+  it('should delete an exercise', () => {
+    const deleteButton = element.all(by.id('delete')).first();
+    const dropdown = element(by.css('.mat-select'));
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercise-select'))),
+      3000
+    );
+    dropdown.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    reps.click();
+    reps.sendKeys('50');
+    weight.click();
+    weight.sendKeys('20');
+    comment.click();
+    comment.sendKeys('new squat');
+    element(by.id('next-btn')).click();
+    browser.wait(
+      ec.elementToBeClickable(element(by.id('exercises-expansion'))),
+      3000
+    );
+    browser.waitForAngularEnabled(false);
+    element(by.id('exercises-expansion')).click();
+    browser.wait(
+      hasText(element(by.id('student-exercise-table')), 'new squat'),
+      3000,
+      'Timed out waiting for table to contain new squat'
+    );
+    deleteButton.click();
+    element(by.id('student-exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).not.toContain('50');
+        expect(text).not.toContain('20');
+        expect(text).not.toContain('new squat');
+      });
+    element
+      .all(by.css('.mat-expansion-panel-header'))
+      .last()
+      .click();
   });
 });
