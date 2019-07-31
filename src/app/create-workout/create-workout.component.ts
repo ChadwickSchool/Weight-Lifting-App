@@ -55,6 +55,7 @@ export class CreateWorkoutComponent implements OnInit {
   }
 
   saveWorkout() {
+    this.recExerciseService.getAddedExercises();
     this.router.navigate(['']);
   }
 }

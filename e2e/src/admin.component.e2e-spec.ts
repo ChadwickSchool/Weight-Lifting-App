@@ -64,7 +64,6 @@ describe('Admin Component e2e test', () => {
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-
     browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
     element(by.id('create-workout')).click();
   });
