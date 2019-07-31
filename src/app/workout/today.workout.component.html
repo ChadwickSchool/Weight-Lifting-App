@@ -6,7 +6,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-table [dataSource]="recExercisesDataSource | async" class="mat-elevation-z8" id="recommended-exercises-table">
+    <mat-table [dataSource]="recExercisesDataSource" class="mat-elevation-z8" id="recommended-exercises-table">
       <!-- Exercise Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
@@ -58,7 +58,7 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <mat-table [dataSource]="exerciseDataSource | async" class="mat-elevation-z8" id="student-exercise-table">
+    <mat-table [dataSource]="exerciseDataSource" class="mat-elevation-z8" id="student-exercise-table">
       <!-- Exercise Column -->
       <!-- <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
@@ -118,8 +118,8 @@
     <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
-        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()" (click)="clickDropdown()">
-          <mat-option *ngFor="let recExercise of recExercisesDataSource | async" [value]="recExercise.name" matInput>
+        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()">
+          <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name" matInput>
             {{ recExercise.name }}
           </mat-option>
         </mat-select>
