@@ -31,20 +31,6 @@ export class AuthService {
     );
   }
 
-  // async googleSignin() {
-  // const provider = new auth.GoogleAuthProvider();
-  // const credential = await this.afAuth.auth.signInWithPopup(provider);
-  // // check to see if the user exists in the database
-  // // if user is not in database
-  //     return this.createStudentUser(credential.user);
-  //   // if user is in database
-  //   // return the user object
-  // }
-
-  getUser(): Promise<any> {
-    return this.afAuth.authState.pipe(first()).toPromise();
-}
-
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
