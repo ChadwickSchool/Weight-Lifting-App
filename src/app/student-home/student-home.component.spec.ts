@@ -15,6 +15,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { LoginComponent } from '../login/login.component';
 import { StudentEntireWorkoutComponent } from '../student-entire-workout/student-entire-workout.component';
+import { StudentListComponent } from '../student-list/student-list.component';
 
 describe('StudentHomeComponent', () => {
   let component: StudentHomeComponent;
@@ -47,7 +48,8 @@ describe('StudentHomeComponent', () => {
         CreateWorkoutComponent,
         AdminHomeComponent,
         LoginComponent,
-        StudentEntireWorkoutComponent
+        StudentEntireWorkoutComponent,
+        StudentListComponent
       ],
       providers: [
         {

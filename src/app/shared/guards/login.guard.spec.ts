@@ -14,6 +14,7 @@ import { AdminHomeComponent } from 'src/app/admin-home/admin-home.component';
 import { StudentHomeComponent } from 'src/app/student-home/student-home.component';
 import { MaterialModule } from '../material.module';
 import { Location } from '@angular/common';
+import { getDefaultService } from 'selenium-webdriver/chrome';
 
 describe('Login Guard Tests', () => {
   let component: LoginComponent;
@@ -37,6 +38,10 @@ describe('Login Guard Tests', () => {
 
     getUserID(): string {
       return this.userID;
+    },
+
+    getUser(): Promise<any> {
+      return this.user$.toPromise();
     }
   };
 

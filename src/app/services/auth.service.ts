@@ -56,6 +56,10 @@ export class AuthService {
     return this.userID;
   }
 
+  getUser(): Promise<any> {
+    return this.afAuth.authState.pipe(first()).toPromise();
+  }
+
   private createStudentUser(user) {
     console.log("user is");
     console.log(user);

@@ -44,8 +44,8 @@ import { StudentListComponent } from './student-list/student-list.component';
     AdminHomeComponent,
     LoginComponent,
     StudentEntireWorkoutComponent,
-    EditExerciseComponent
-    StudentListComponent,
+    EditExerciseComponent,
+    StudentListComponent
   ],
   imports: [
     BrowserModule,
