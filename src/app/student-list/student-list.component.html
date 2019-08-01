@@ -1,7 +1,13 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <table class="student-table">
-    <tr>
-      <td>Test User</td>
-    </tr>
-  </table>
+  <mat-table class="student-table" [dataSource]="studentsDataSource">
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Student Name </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="name">
+        {{ row.name }}
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns">
+    </mat-row>
+  </mat-table>
 </div>

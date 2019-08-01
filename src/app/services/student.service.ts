@@ -14,13 +14,13 @@ export class StudentService {
   studentsRef: AngularFirestoreCollection<User>;
   students: Observable<User[]>;
   constructor(private afs: AngularFirestore) {
-    this.studentsRef = this.afs.collection<User>('students');
+    this.studentsRef = this.afs.collection<User>('users');
     this.students = this.studentsRef.valueChanges();
   }
 
   getStudents(): Observable<User[]> {
     return this.afs
-      .collection<User>('students')
+      .collection<User>('users')
       .valueChanges()
       .pipe(map(students => students.filter(s => !s.isAdmin)));
   }
