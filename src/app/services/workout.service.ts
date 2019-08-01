@@ -22,21 +22,31 @@ export class WorkoutService {
   }
 
   saveWorkout(
-    name: string,
     recExercise: Array<RecommendedExercise>,
     dueDate: Date,
     group: Group
   ): void {
     const id = this.afs.createId();
     const todayDate = Utils.getSimplifiedDate(new Date());
-    const newWorkout = new WorkoutClass(
+    const workout = new WorkoutClass(
       id,
-      name,
       recExercise,
       dueDate,
       todayDate,
       group
     );
+    const exercises = recExercise.map(obj => {
+      return Object.assign({}, obj);
+    });
+    const groupJSON = Object.assign({}, group);
+    const newWorkout: Workout = {
+      id: workout.id,
+      recExercise: exercises,
+      date: workout.date,
+      dateCreated: workout.dateCreated,
+      group: groupJSON
+    };
     this.workoutsRef.doc(id).set(Object.assign({}, newWorkout));
+    console.log('booga ooga');
   }
 }

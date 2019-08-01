@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -8,10 +8,10 @@ import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 
 @Injectable()
 export class RecommendedExerciseService {
-  recommendedExercises$: Subject<Array<RecommendedExercise>>;
+  recommendedExercises$: BehaviorSubject<Array<RecommendedExercise>>;
   addedRecExercises: Array<RecommendedExercise>;
   constructor(private afs: AngularFirestore) {
-    this.recommendedExercises$ = new Subject<Array<RecommendedExercise>>();
+    this.recommendedExercises$ = new BehaviorSubject<Array<RecommendedExercise>>(null);
     this.addedRecExercises = [];
   }
 
@@ -32,5 +32,6 @@ export class RecommendedExerciseService {
     );
     this.addedRecExercises.push(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
+    console.log(this.addedRecExercises);
   }
 }

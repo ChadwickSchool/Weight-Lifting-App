@@ -11,10 +11,6 @@ describe('Workout Test Cases', () => {
     expect(workout).not.toBe(null);
   });
 
-  it('should set name correctly through constructor', () => {
-    expect(workout.name).toEqual('Test Workout');
-  });
-
   // it('should set users correctly through constructor', () => {
   //   expect(workout.users).toEqual([TestUtils.getTestUser()]);
   // });
@@ -25,11 +21,6 @@ describe('Workout Test Cases', () => {
 
   it('should set recExercise correctly through constructor', () => {
     expect(workout.recExercise).toEqual([TestUtils.getTestRecommendedExercise()]);
-  });
-
-  it('should set and get name correctly', () => {
-    workout.name = 'hahaja';
-    expect(workout.name).toEqual('hahaja');
   });
 
   // it('should set and get id correctly', () => {

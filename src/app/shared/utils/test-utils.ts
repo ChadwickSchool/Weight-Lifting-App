@@ -93,13 +93,12 @@ export default class TestUtils {
 
   static getTestWorkout(
     id = '100',
-    name = 'Test Workout',
     recExercise = [this.getTestRecommendedExercise()],
     date = this.getTestDate(),
     dateCreated = new Date('3000-01-01'),
     group = this.getTestGroup()
   ): Workout {
-    return new WorkoutClass(id, name, recExercise, date, dateCreated, group);
+    return new WorkoutClass(id, recExercise, date, dateCreated, group);
   }
 
   static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {

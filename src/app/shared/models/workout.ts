@@ -4,7 +4,6 @@ import { Group } from './group.model';
 
 export default class WorkoutClass {
   id: string;
-  name: string;
   recExercise: Array<RecommendedExercise>;
   date: Date;
   dateCreated: Date;
@@ -12,14 +11,12 @@ export default class WorkoutClass {
 
   constructor(
     id: string,
-    name: string,
     recExercise: Array<RecommendedExercise>,
     date: Date,
     dateCreated: Date,
     group: Group
   ) {
       this.id = id;
-      this.name = name;
       this.recExercise = recExercise;
       this.date = date;
       this.dateCreated = dateCreated;

@@ -12,7 +12,7 @@ import { MaterialModule } from '../shared/material.module';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { Router } from '@angular/router';
 import TestUtils from '../shared/utils/test-utils';
-import { of, Observable, Subject } from 'rxjs';
+import { of, Observable, Subject, BehaviorSubject } from 'rxjs';
 import { DebugElement } from '@angular/core';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { Group } from '../shared/models/group.model';
@@ -27,8 +27,9 @@ import { RecommendedExercisesDialogComponent } from '../recommended-exercises-di
 import { FormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import GroupClass from '../shared/models/group';
 
-fdescribe('CreateWorkoutComponent', () => {
+describe('CreateWorkoutComponent', () => {
   let component: CreateWorkoutComponent;
   let fixture: ComponentFixture<CreateWorkoutComponent>;
   let dialogFixture: ComponentFixture<RecommendedExercisesDialogComponent>;
@@ -38,10 +39,14 @@ fdescribe('CreateWorkoutComponent', () => {
   let dialogComponentDebug: DebugElement;
   let dialogComponentElement: HTMLElement;
   let workoutService: WorkoutService;
+  let recommendedExerciseService: RecommendedExerciseService;
   let workoutServiceSpy: jasmine.Spy;
 
   const recommendedExerciseStub = {
-    recommendedExercises$: new Subject<RecommendedExercise>(),
+    recommendedExercises$: new BehaviorSubject<Array<RecommendedExercise>>(
+      null
+    ),
+    addedRecExercises: Array<RecommendedExercise>(),
     getAddedExercises(): Observable<Array<RecommendedExercise>> {
       return of([
         TestUtils.getTestRecommendedExercise('1', 'squat'),
@@ -51,7 +56,8 @@ fdescribe('CreateWorkoutComponent', () => {
     },
 
     addExercise(recommendedExercise: any): void {
-      this.recommendedExercises$.next(recommendedExercise);
+      this.addedRecExercises.push(recommendedExercise);
+      this.recommendedExercises$.next(this.addedRecExercises);
     }
   };
 
@@ -79,14 +85,12 @@ fdescribe('CreateWorkoutComponent', () => {
     workouts: [],
 
     saveWorkout(
-      name: string,
       recExercise: Array<RecommendedExercise>,
       dueDate: Date,
       group: Group
     ): void {
       const newWorkout = new WorkoutClass(
         '1',
-        name,
         recExercise,
         dueDate,
         Utils.getSimplifiedDate(new Date('2019-07-19')),
@@ -99,9 +103,7 @@ fdescribe('CreateWorkoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [MaterialModule, FormsModule, NoopAnimationsModule],
-      declarations: [
-        CreateWorkoutComponent
-      ],
+      declarations: [CreateWorkoutComponent],
       providers: [
         {
           provide: RecommendedExerciseService,
@@ -121,7 +123,7 @@ fdescribe('CreateWorkoutComponent', () => {
         {
           provide: WorkoutService,
           useValue: workoutServiceStub
-        },
+        }
         // {
         //   provide: MatDialogRef
         // },
@@ -140,6 +142,7 @@ fdescribe('CreateWorkoutComponent', () => {
     componentElement = componentDebug.nativeElement;
     fixture.detectChanges();
     workoutService = TestBed.get(WorkoutService);
+    recommendedExerciseService = TestBed.get(RecommendedExerciseService);
   });
 
   it('should create', () => {
@@ -207,4 +210,28 @@ fdescribe('CreateWorkoutComponent', () => {
   //     TestUtils.getTestGroup()
   //   );
   // });
+
+  it('should save a workout', () => {
+    component.group = new GroupClass('fortnite', '1');
+    component.date = new Date('2019-08-01');
+    recommendedExerciseService.addExercise(
+      TestUtils.getTestRecommendedExercise('1', 'squat')
+    );
+    recommendedExerciseService.addExercise(
+      TestUtils.getTestRecommendedExercise('2', 'benchpress')
+    );
+    recommendedExerciseService.addExercise(
+      TestUtils.getTestRecommendedExercise('3', 'pullups')
+    );
+    component.saveWorkout();
+    expect(workoutServiceSpy).toHaveBeenCalledWith(
+      [
+        TestUtils.getTestRecommendedExercise('1', 'squat'),
+        TestUtils.getTestRecommendedExercise('2', 'benchpress'),
+        TestUtils.getTestRecommendedExercise('3', 'pullups')
+      ],
+      new Date('2019-08-01'),
+      new GroupClass('fortnite', '1')
+    );
+  });
 });

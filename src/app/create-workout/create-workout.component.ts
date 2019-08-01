@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
+import { WorkoutService } from '../services/workout.service';
 
 export interface ExerciseData {
   name: string;
@@ -34,10 +35,9 @@ export class CreateWorkoutComponent implements OnInit {
     private recExerciseService: RecommendedExerciseService,
     private router: Router,
     private groupSelectedService: CurrentGroupSelectedService,
-    private dateSelectedService: CurrentDateSelectedService
-  ) {
-
-  }
+    private dateSelectedService: CurrentDateSelectedService,
+    private workoutService: WorkoutService
+  ) {}
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'comments'];
 
@@ -55,7 +55,12 @@ export class CreateWorkoutComponent implements OnInit {
   }
 
   saveWorkout() {
-    this.recExerciseService.getAddedExercises();
-    this.router.navigate(['']);
+    this.workoutService.saveWorkout(
+      this.recExerciseService.recommendedExercises$.value,
+      this.date,
+      this.group
+    );
+      console.log('ooga boogcalick');
+    // this.router.navigate(['']);
   }
 }

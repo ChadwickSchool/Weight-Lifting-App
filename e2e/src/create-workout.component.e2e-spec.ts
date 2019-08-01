@@ -3,7 +3,7 @@ import { protractor } from 'protractor/built/ptor';
 import { browser, element, by } from 'protractor';
 import { setServers } from 'dns';
 
-fdescribe('Create Workout e2e test', () => {
+describe('Create Workout e2e test', () => {
   const EC = protractor.ExpectedConditions;
   const GOOGLE_USERNAME = ADMIN_USERNAME;
   const GOOGLE_PASSWORD = ADMIN_PASSWORD;
