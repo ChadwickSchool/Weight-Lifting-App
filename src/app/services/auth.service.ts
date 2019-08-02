@@ -38,30 +38,31 @@ export class AuthService {
     console.log('User id in googleSignIn is ' + this.userID);
     // check to see if the user exists in the database
     // if user is not in database
-    const userRef: AngularFirestoreDocument = this.afs.doc<User>(`users/${credential.user.uid}`);
+    const userRef: AngularFirestoreDocument = this.afs.doc<User>(
+      `users/${credential.user.uid}`
+    );
 
     userRef.valueChanges().subscribe(user => {
       this.userID = credential.user.uid;
-      console.log("userID" + this.userID);
+      console.log('userID' + this.userID);
       if (user) {
         return user;
       } else {
         return this.createStudentUser(credential.user);
       }
     });
-
   }
 
-  getUserID(): string {
+  getFirebaseUserID(): string {
     return this.userID;
   }
 
-  getUser(): Promise<any> {
+  getAuthenticatedUser(): Promise<any> {
     return this.afAuth.authState.pipe(first()).toPromise();
   }
 
   private createStudentUser(user) {
-    console.log("user is");
+    console.log('user is');
     console.log(user);
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(

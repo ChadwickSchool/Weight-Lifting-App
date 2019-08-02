@@ -12,7 +12,7 @@ export class LoginGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   async canActivate(): Promise<boolean> {
-    const user = await this.authService.getUser();
+    const user = await this.authService.getAuthenticatedUser();
     const loggedIn = !!user;
 
     if (!loggedIn) {

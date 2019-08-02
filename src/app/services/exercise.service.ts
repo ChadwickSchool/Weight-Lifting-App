@@ -44,6 +44,12 @@ export class ExerciseService {
     return query.valueChanges();
   }
 
+  getAllExercisesEver(): Observable<Exercise[]> {
+    console.log(this.authService.getFirebaseUserID());
+    return this.afs.collection<Exercise>('exercises', ref => ref
+      .where('userID', '==', this.authService.getFirebaseUserID())).valueChanges();
+  }
+
   addExercise(exercise: any, setNumber: number) {
     const id = this.afs.createId();
     const newEntry = new ExercisesClass(
@@ -52,7 +58,7 @@ export class ExerciseService {
       setNumber,
       exercise.reps,
       exercise.weight,
-      this.authService.getUserID(),
+      this.authService.getFirebaseUserID(),
       new Date(),
       exercise.userComment
     );

@@ -13,6 +13,7 @@ import { map } from 'rxjs/operators';
 export class StudentService {
   studentsRef: AngularFirestoreCollection<User>;
   students: Observable<User[]>;
+  currentStudent: User;
   constructor(private afs: AngularFirestore) {
     this.studentsRef = this.afs.collection<User>('users');
     this.students = this.studentsRef.valueChanges();

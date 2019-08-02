@@ -36,7 +36,7 @@ describe('Login Guard Tests', () => {
       this.user$ = of(null);
     },
 
-    getUserID(): string {
+    getFirebaseUserID(): string {
       return this.userID;
     },
 

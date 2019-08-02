@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../shared/models/user.model';
 import { StudentService } from '../services/student.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wla-student-list',
@@ -9,7 +10,7 @@ import { StudentService } from '../services/student.service';
 })
 export class StudentListComponent implements OnInit {
   studentsDataSource: Array<User>;
-  constructor(private studentService: StudentService) { }
+  constructor(private studentService: StudentService, private router: Router) { }
 
   displayedColumns = ['name'];
 
@@ -21,6 +22,11 @@ export class StudentListComponent implements OnInit {
     this.studentService.getStudents().subscribe(students => {
       this.studentsDataSource = students;
     });
+  }
+
+  displayStudent(student: User) {
+    this.studentService.currentStudent = student;
+    this.router.navigate(['/student-workout-history']);
   }
 
 }
