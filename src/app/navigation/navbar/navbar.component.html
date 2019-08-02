@@ -31,6 +31,17 @@
         </li>
         <li>
           <a>
+            <div *ngIf="user.isAdmin; then adminview"></div>
+            <ng-template #adminview>
+              <a routerLink="/student-list">
+                <mat-icon id="history-icon" class="icon">view_list</mat-icon>
+                <span class="label" id="history-label">Student's Workout History</span>
+              </a>
+            </ng-template>
+          </a>
+        </li>
+        <li>
+          <a>
             <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
             <div *ngIf="user.isAdmin; then admin; else student"></div>
             <ng-template #admin>

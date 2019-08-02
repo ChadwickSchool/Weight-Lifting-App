@@ -10,7 +10,8 @@ import {
 } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
-import { switchMap, first } from 'rxjs/operators';
+import { switchMap, first, map } from 'rxjs/operators';
+import UserClass from '../shared/models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {

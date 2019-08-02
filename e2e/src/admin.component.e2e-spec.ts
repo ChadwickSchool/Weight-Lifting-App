@@ -1,7 +1,7 @@
 import { browser, by, element, protractor } from 'protractor';
 import { ADMIN_USERNAME, ADMIN_PASSWORD } from './google-login-info';
 
-describe('Admin Component e2e test', () => {
+fdescribe('Admin Component e2e test', () => {
   const EC = protractor.ExpectedConditions;
   const GOOGLE_USERNAME = ADMIN_USERNAME;
   const GOOGLE_PASSWORD = ADMIN_PASSWORD;
@@ -29,7 +29,7 @@ describe('Admin Component e2e test', () => {
     return browser.switchTo().window(handlesPromise[index]);
   };
   beforeAll(() => {
-    browser.get('/' + 'today-workout-admin');
+    browser.get('/');
     this.emailInput = element(by.id('identifierId'));
     this.passwordInput = element(by.name('password'));
     this.emailNextButton = element(by.id('identifierNext'));
@@ -45,19 +45,17 @@ describe('Admin Component e2e test', () => {
        login page */
 
       browser.waitForAngularEnabled(false);
-      browser
-        .wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT)
-        .then(() => {
-          this.emailInput.sendKeys(GOOGLE_USERNAME);
-          this.emailNextButton.click();
-          browser
-            .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
-            .then(() => {
-              self.passwordInput.sendKeys(GOOGLE_PASSWORD);
-              self.passwordInput.sendKeys(protractor.Key.ENTER);
-              browser.waitForAngularEnabled(true);
-            });
-        });
+      browser.wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT).then(() => {
+        this.emailInput.sendKeys(GOOGLE_USERNAME);
+        this.emailNextButton.click();
+        browser
+          .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
+          .then(() => {
+            self.passwordInput.sendKeys(GOOGLE_PASSWORD);
+            self.passwordInput.sendKeys(protractor.Key.ENTER);
+            browser.waitForAngularEnabled(true);
+          });
+      });
     };
 
     this.signInButton.click();
@@ -65,7 +63,10 @@ describe('Admin Component e2e test', () => {
     this.loginToGoogle();
     selectWindow(0);
 
-    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
+    browser.wait(
+      EC.visibilityOf(element(by.id('create-workout'))),
+      BROWSER_WAIT
+    );
     element(by.id('create-workout')).click();
   });
 
@@ -84,9 +85,16 @@ describe('Admin Component e2e test', () => {
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
-    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT, 'timed out waiting for add-button');
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-button'))),
+      BROWSER_WAIT,
+      'timed out waiting for add-button'
+    );
     element(by.id('add-button')).click();
-    browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
+    browser.wait(
+      EC.visibilityOf(element(by.id('recommended-exercises-form'))),
+      3000
+    );
     name.click();
     name.sendKeys('test');
     sets.click();
@@ -114,4 +122,20 @@ describe('Admin Component e2e test', () => {
   //   element(by.id('workout-button')).click();
   //   expect(element(by.id('home')).isDisplayed()).toBe(true);
   // });
+
+  it('should select a student and exercise and see their workout history', () => {
+    browser.get('/' + 'student-list');
+    const name = element(by.id('name-row'));
+    const dropdown = element(by.css('.mat-select'));
+    browser.wait(EC.visibilityOf(name), 3000);
+    name.click();
+    browser.wait(
+      EC.elementToBeClickable(element(by.id('student-select')))
+    );
+    dropdown.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+  });
 });

@@ -1,11 +1,42 @@
-<h1> {{studentsDataSource.name}} </h1>
-<mat-form-field id="student-form-field">
-  <mat-label>Select Which Exercise</mat-label>
-  <mat-select id="student-select" >
-    <mat-option
-    *ngFor="let exercise of exercisesDataSource"
-        [value]="exercise.name">
-        {{exercise.name}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h1> {{studentsDataSource.name}} </h1>
+  <mat-form-field id="student-form-field">
+    <mat-label>Select Which Exercise</mat-label>
+    <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateExerciseTable()" id="student-select">
+      <mat-option (click)="showExercise()" *ngFor="let name of exerciseNamesDataSource" [value]="name" matInput>
+        {{name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-table [dataSource]="exerciseDataSource">
+    <ng-container matColumnDef="date">
+      <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="date">
+        {{ row.date.toDate() | date }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="weight">
+        {{ row.weight }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="reps">
+      <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="reps">
+        {{ row.reps }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="comments">
+      <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="comments">
+        {{ row.userComment }}
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+  </mat-table>
+</div>

@@ -51,7 +51,8 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <mat-expansion-panel id="exercises-expansion" (opened)="panelOpenState = true" (closed)="panelOpenState = false" [disabled]="exercise.name === ''">
+  <mat-expansion-panel id="exercises-expansion" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+    [disabled]="exercise.name === ''">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ exercise.name }}
@@ -103,8 +104,9 @@
       <ng-container matColumnDef="edit">
         <mat-header-cell *matHeaderCellDef> </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label=" ">
-      <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
-      <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteExercise(row)">delete</mat-icon>
+          <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
+          <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteExercise(row)">delete
+          </mat-icon>
         </mat-cell>
       </ng-container>
 
@@ -130,16 +132,20 @@
         </mat-form-field>
         <span></span>
         <mat-form-field class="example-half-width weight">
-          <input type="number" id="weight-input" matInput placeholder="Weight" [(ngModel)]="exercise.weight" name="weight" />
+          <input type="number" id="weight-input" matInput placeholder="Weight" [(ngModel)]="exercise.weight"
+            name="weight" />
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea matInput id="comment-input" placeholder="Comments" [(ngModel)]="exercise.userComment" name="comment"></textarea>
+        <textarea matInput id="comment-input" placeholder="Comments" [(ngModel)]="exercise.userComment"
+          name="comment"></textarea>
       </mat-form-field>
-      <button id="next-btn" type="submit" name="button" mat-raised-button color="primary" [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
+      <button id="next-btn" type="submit" name="button" mat-raised-button color="primary"
+        [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
       </button>
-      <button routerLink="/student-entire-workout" type="submit" name="button" mat-raised-button color="secondary">View Entire Workout</button>
+      <button routerLink="/student-entire-workout" type="submit" name="button" mat-raised-button color="secondary">View
+        Entire Workout</button>
     </form>
   </div>
 </div>

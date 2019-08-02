@@ -12,12 +12,13 @@ import {
 import ExercisesClass from '../shared/models/exercise';
 import { AuthService } from './auth.service';
 import Utils from '../shared/utils/utils';
+import { StudentService } from './student.service';
 
 @Injectable()
 export class ExerciseService {
   exercisesRef: AngularFirestoreCollection<Exercise>;
   exercises: Observable<Exercise[]>;
-  constructor(private afs: AngularFirestore, private authService: AuthService) {
+  constructor(private afs: AngularFirestore, private authService: AuthService, private studentService: StudentService) {
     this.exercisesRef = afs.collection<Exercise>(
       'exercises'
     );
@@ -45,9 +46,14 @@ export class ExerciseService {
   }
 
   getAllExercisesEver(): Observable<Exercise[]> {
-    console.log(this.authService.getFirebaseUserID());
     return this.afs.collection<Exercise>('exercises', ref => ref
-      .where('userID', '==', this.authService.getFirebaseUserID())).valueChanges();
+      .where('userID', '==', this.studentService.currentStudent.uid)).valueChanges();
+  }
+
+  getExercise(name: string): Observable<Exercise[]> {
+    console.log(name);
+    return this.afs.collection<Exercise>('exercises', ref => ref
+      .where('name', '==', name)).valueChanges();
   }
 
   addExercise(exercise: any, setNumber: number) {
