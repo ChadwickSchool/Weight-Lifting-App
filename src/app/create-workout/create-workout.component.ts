@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { DataService } from '../data/data.service';
@@ -60,7 +60,6 @@ export class CreateWorkoutComponent implements OnInit {
       this.date,
       this.group
     );
-      console.log('ooga boogcalick');
     // this.router.navigate(['']);
   }
 }

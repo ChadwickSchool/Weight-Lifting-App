@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -32,6 +32,5 @@ export class RecommendedExerciseService {
     );
     this.addedRecExercises.push(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
-    console.log(this.addedRecExercises);
   }
 }

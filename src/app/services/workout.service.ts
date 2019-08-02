@@ -47,6 +47,5 @@ export class WorkoutService {
       group: groupJSON
     };
     this.workoutsRef.doc(id).set(Object.assign({}, newWorkout));
-    console.log('booga ooga');
   }
 }

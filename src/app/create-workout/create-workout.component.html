@@ -1,64 +1,50 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <h1> {{ group.name }} </h1>
+  <h1>{{ group.name }}</h1>
   <h2>{{ date | date }}</h2>
-  <table
-    id="exerciseTable"
-    mat-table
-    [dataSource]="recExercises$ | async"
-    class="mat-elevation-z8"
-  >
-    <!-- Sets Column -->
-    <ng-container matColumnDef="sets">
-      <th mat-header-cell *matHeaderCellDef>Sets</th>
-      <td mat-cell id="sets-cell" *matCellDef="let element">
-        {{ element.sets }}
+
+  <table id="exercise-table">
+    <tr>
+      <th>
+        Exercise
+      </th>
+      <th>Sets</th>
+      <th>Reps</th>
+      <th>Weight</th>
+      <th>Rest</th>
+      <th>Comment</th>
+    </tr>
+    <tr *ngFor="let recExercise of recExercises$ | async">
+      <td>
+        {{ recExercise.name }}
       </td>
-    </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Exercise</th>
-      <td mat-cell id="name-cell" *matCellDef="let element">
-        {{ element.name }}
+      <td>
+        {{ recExercise.sets }}
       </td>
-    </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef>Weight</th>
-      <td mat-cell id="weight-cell" *matCellDef="let element">
-        {{ element.weight }}
+      <td>
+        {{ recExercise.reps }}
       </td>
-    </ng-container>
 
-    <!-- Reps Column -->
-    <ng-container matColumnDef="reps">
-      <th mat-header-cell *matHeaderCellDef>Reps</th>
-      <td mat-cell id="reps-cell" *matCellDef="let element">
-        {{ element.reps }}
+      <td>
+        {{ recExercise.weight }}
       </td>
-    </ng-container>
 
-    <!-- Rest Column -->
-    <ng-container matColumnDef="rest">
-      <th mat-header-cell *matHeaderCellDef>Rest</th>
-      <td mat-cell id="rest-cell" *matCellDef="let element">
-        {{ element.rest }}
+      <td>
+          {{ recExercise.rest }}
       </td>
-    </ng-container>
 
-    <!-- Comments Column -->
-    <ng-container matColumnDef="comments">
-      <th mat-header-cell *matHeaderCellDef>Comments</th>
-      <td mat-cell id="comments-cell" *matCellDef="let element">
-        {{ element.coachComment }}
-      </td>
-    </ng-container>
-
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <td>
+          {{ recExercise.coachComment }}
+        </td>
+    </tr>
   </table>
+
+  <ul>
+    <li *ngFor="let recExercise of recExercises$ | async">
+      {{ recExercise.name }}
+    </li>
+  </ul>
 
   <div class="container">
     <div class="container">
@@ -69,11 +55,19 @@
             button="submit"
             mat-raised-button
             color="secondary"
-            id="add-button"
+            id="add-exercise-button"
           >
             <mat-icon>add</mat-icon> Add Exercise
           </button>
-          <button id="workout-button" (click)="saveWorkout()" button="submit" mat-raised-button color="primary">Save Workout</button>
+          <button
+            id="workout-button"
+            (click)="saveWorkout()"
+            button="submit"
+            mat-raised-button
+            color="primary"
+          >
+            Save Workout
+          </button>
         </div>
       </div>
     </div>

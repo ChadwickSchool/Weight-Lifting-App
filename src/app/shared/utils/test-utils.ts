@@ -38,6 +38,7 @@ export default class TestUtils {
     sets = '2-3',
     reps = '8-10',
     weight?: string,
+    rest?: string,
     coachComment?: string
   ): RecommendedExercise {
     return new RecommendedExerciseClass(
@@ -46,7 +47,8 @@ export default class TestUtils {
       sets,
       reps,
       weight,
-      coachComment
+      rest,
+      coachComment,
     );
   }
 

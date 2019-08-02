@@ -163,55 +163,7 @@ describe('CreateWorkoutComponent', () => {
     expect(headerElement.textContent).toContain('Apr 17, 1937');
   });
 
-  // it('should call saved workout with the correct values', () => {
-  //   dialogFixture = TestBed.createComponent(
-  //     RecommendedExercisesDialogComponent
-  //   );
-  //   dialogComponent = dialogFixture.componentInstance;
-  //   dialogComponentDebug = dialogFixture.debugElement;
-  //   dialogComponentElement = dialogComponentDebug.nativeElement;
-  //   dialogFixture.detectChanges();
-  //   const recExercise = [
-  //     TestUtils.getTestRecommendedExercise(),
-  //     TestUtils.getTestRecommendedExercise('2', 'Arnold Shoulder Press')
-  //   ];
-  //   const exerciseName = dialogComponentDebug.query(By.css('#name-input'))
-  //     .nativeElement;
-  //   const sets = dialogComponentDebug.query(By.css('#sets-input'))
-  //     .nativeElement;
-  //   const reps = dialogComponentDebug.query(By.css('#reps-input'))
-  //     .nativeElement;
-  //   const weightRange = dialogComponentDebug.query(By.css('#weight-input'))
-  //     .nativeElement;
-  //   const saveButton = dialogComponentElement.querySelector<HTMLButtonElement>(
-  //     '#submit-button'
-  //   );
-  //   const saveWorkout = dialogComponentElement.querySelector<HTMLButtonElement>(
-  //     '#workout-button'
-  //   );
-  //   componentElement.querySelector<HTMLButtonElement>('#add-button').click();
-  //   dialogFixture.detectChanges();
-  //   exerciseName.value = 'Ooga Booga';
-  //   exerciseName.dispatchEvent(new Event('input'));
-  //   sets.value = '5';
-  //   sets.dispatchEvent(new Event('input'));
-  //   reps.value = '20';
-  //   reps.dispatchEvent(new Event('input'));
-  //   weightRange.value = '50-60';
-  //   weightRange.dispatchEvent(new Event('input'));
-  //   saveButton.click();
-  //   fixture.detectChanges();
-  //   saveWorkout.click();
-  //   fixture.detectChanges();
-  //   expect(workoutServiceSpy).toHaveBeenCalledWith(
-  //     'Basketball Workout',
-  //     recExercise,
-  //     Utils.getSimplifiedDate(new Date('2019-07-20')),
-  //     TestUtils.getTestGroup()
-  //   );
-  // });
-
-  it('should save a workout', () => {
+  it('should call save workout with all correct values', () => {
     component.group = new GroupClass('fortnite', '1');
     component.date = new Date('2019-08-01');
     recommendedExerciseService.addExercise(

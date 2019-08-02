@@ -63,70 +63,82 @@ describe('Admin Component e2e test', () => {
     this.loginToGoogle();
     selectWindow(0);
     browser.wait(
-      EC.visibilityOf(element(by.id('create-workout'))),
+      EC.visibilityOf(element(by.id('logout'))),
       BROWSER_WAIT
     );
+  });
+
+  beforeEach(() => {
     element(by.id('home')).click();
+    browser.waitForAngularEnabled(true);
   });
 
   // afterAll(() => {
   //   element(by.id('logout')).click();
   // });
 
-  // it('should find Add Exercise button', () => {
-  //   expect(document).toContain(element(by.id('dialog')));
-  // });
-
-  // it('should set correct value of all attributes', () => {
-  //   const name = element(by.id('name-input'));
-  //   const sets = element(by.id('sets-input'));
-  //   const reps = element(by.id('reps-input'));
-  //   const weight = element(by.id('weight-input'));
-  //   const comments = element(by.id('comments-input'));
-  //   browser.waitForAngularEnabled(false);
-  //   browser.wait(
-  //     EC.visibilityOf(element(by.id('add-button'))),
-  //     BROWSER_WAIT,
-  //     'timed out waiting for add-button'
-  //   );
-  //   element(by.id('add-button')).click();
-  //   browser.wait(
-  //     EC.visibilityOf(element(by.id('recommended-exercises-form'))),
-  //     3000
-  //   );
-  //   name.click();
-  //   name.sendKeys('test');
-  //   sets.click();
-  //   sets.sendKeys('50');
-  //   reps.click();
-  //   reps.sendKeys('20');
-  //   weight.click();
-  //   weight.sendKeys('100');
-  //   comments.click();
-  //   comments.sendKeys('No comment');
-  //   element(by.id('submit-button')).click();
-  //   browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
-  //   expect(element(by.id('exerciseTable')).isDisplayed()).toBe(true);
-  //   element(by.id('exerciseTable'))
-  //     .getText()
-  //     .then(text => {
-  //       expect(text).toContain('test');
-  //       expect(text).toContain('50');
-  //       expect(text).toContain('20');
-  //       expect(text).toContain('100');
-  //     });
-  // });
+  it('should set correct value of all attributes', () => {
+    const groupSelect = element(by.id('group-select'));
+    const dateSelect = element(by.id('date-input'));
+    const createWorkoutButton = element(by.id('next-btn'));
+    const name = element(by.id('name-input'));
+    const sets = element(by.id('sets-input'));
+    const reps = element(by.id('reps-input'));
+    const weight = element(by.id('weight-input'));
+    const comments = element(by.id('comments-input'));
+    browser.waitForAngularEnabled(false);
+    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    dateSelect.click();
+    dateSelect.sendKeys('8/14/2019');
+    createWorkoutButton.click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      BROWSER_WAIT,
+      'timed out waiting for add-exercise-button'
+    );
+    element(by.id('add-exercise-button')).click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('recommended-exercises-form'))),
+      3000
+    );
+    name.click();
+    name.sendKeys('test');
+    sets.click();
+    sets.sendKeys('50');
+    reps.click();
+    reps.sendKeys('20');
+    weight.click();
+    weight.sendKeys('100');
+    comments.click();
+    comments.sendKeys('No comment');
+    element(by.id('submit-button')).click();
+    browser.wait(EC.visibilityOf(element(by.id('exercise-table'))), 3000);
+    expect(element(by.id('exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('test');
+        expect(text).toContain('50');
+        expect(text).toContain('20');
+        expect(text).toContain('100');
+      });
+  });
 
   // it('should return to home page after clicking "save workout"', () => {
   //   element(by.id('workout-button')).click();
   //   expect(element(by.id('home')).isDisplayed()).toBe(true);
   // });
 
-  fit('should add multiple exercises to the table', () => {
+  it('should add multiple exercises to the table', () => {
     const groupSelect = element(by.id('group-select'));
-    const dateSelect = element(by.id('mat-input-0'));
+    const dateSelect = element(by.id('date-input'));
     const createWorkoutButton = element(by.id('next-btn'));
-    const addButton = element(by.id('add-button'));
+    const addButton = element(by.id('add-exercise-button'));
     const nameInput = element(by.id('name-input'));
     const setsInput = element(by.id('sets-input'));
     const repsInput = element(by.id('reps-input'));
@@ -138,6 +150,7 @@ describe('Admin Component e2e test', () => {
     const logoutButton = element(by.id('logout'));
     // fill out group and date
     browser.waitForAngularEnabled(false);
+    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
     groupSelect.click();
     element
       .all(by.css('.mat-option'))
@@ -148,9 +161,9 @@ describe('Admin Component e2e test', () => {
     createWorkoutButton.click();
     // add exercise one
     browser.wait(
-      EC.visibilityOf(element(by.id('add-button'))),
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
       3000,
-      'timed out waiting for add-button'
+      'timed out waiting for add-exercise-button'
     );
     addButton.click();
     browser.wait(EC.visibilityOf(nameInput));
@@ -168,9 +181,9 @@ describe('Admin Component e2e test', () => {
     restInput.sendKeys('take a load off');
     saveExerciseButton.click();
     browser.wait(
-      EC.visibilityOf(element(by.id('add-button'))),
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
       7000,
-      'timed out waiting for add-button 2x'
+      'timed out waiting for add-exercise-button 2x'
     );
     // add exercise two
     addButton.click();
@@ -193,7 +206,7 @@ describe('Admin Component e2e test', () => {
       BROWSER_WAIT,
       'timed out waiting for workout-button'
     );
-    element(by.id('exerciseTable'))
+    element(by.id('exercise-table'))
       .getText()
       .then(text => {
         expect(text).toContain('ooga booga');
