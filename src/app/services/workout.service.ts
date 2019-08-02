@@ -21,6 +21,8 @@ export class WorkoutService {
     this.workouts = this.workoutsRef.valueChanges();
   }
 
+
+
   saveWorkout(
     recExercise: Array<RecommendedExercise>,
     dueDate: Date,
