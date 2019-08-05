@@ -7,6 +7,9 @@ import { Observable, of, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { EditExerciseComponent } from '../edit-exercise/edit-exercise.component';
 import { tap } from 'rxjs/operators';
+import { WorkoutService } from '../services/workout.service';
+import { Group } from '../shared/models/group.model';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
 export class ExpansionOverviewExample {
   panelOpenState = false;
@@ -22,10 +25,13 @@ export class TodayWorkoutComponent implements OnInit {
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
   selectedExercise: Subject<RecommendedExercise>;
+  selectedGroup: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private workoutService: WorkoutService,
+    private groupSelectedService: CurrentGroupSelectedService
   ) {
     this.setNumber = 1;
   }
@@ -39,11 +45,16 @@ export class TodayWorkoutComponent implements OnInit {
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
   displayedExerciseColumns = ['setNumber', 'reps', 'weight', 'comment', 'edit'];
 
-  ngOnInit() {
+  async ngOnInit() {
     // this.showExercises();
+    this.selectedGroup = this.groupSelectedService.getCurrentGroup();
     this.recExercisesDataSource = this.recExerciseService.getAddedExercises();
     // this.exerciseDataSource = of(null);
     this.selectedExercise = new Subject<RecommendedExercise>();
+    await this.workoutService.getTodayWorkout(this.selectedGroup);
+    // this.workoutService.getTodayWorkout(this.selectedGroup).subscribe(workout => {
+    //   this.recExercisesDataSource = of(workout.recExercise);
+    // });
   }
 
   getSelectedRecExercise(): Observable<Array<RecommendedExercise>> {

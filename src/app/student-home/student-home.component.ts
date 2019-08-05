@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Group } from '../shared/models/group.model';
 import { GroupService } from '../services/groups.service';
 import { Router } from '@angular/router';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
 @Component({
   selector: 'wla-student-home',
@@ -11,7 +12,11 @@ import { Router } from '@angular/router';
 export class StudentHomeComponent implements OnInit {
   groupDataSource: Group;
   isDisabled: boolean;
-  constructor(private groupService: GroupService, private router: Router) {
+  constructor(
+    private groupService: GroupService,
+    private router: Router,
+    private currentGroupSelectedService: CurrentGroupSelectedService
+  ) {
     this.isDisabled = true;
   }
 
@@ -29,6 +34,11 @@ export class StudentHomeComponent implements OnInit {
       this.groupDataSource = group;
     });
   }
+
+  setCurrentGroupSelected(group: Group) {
+    this.currentGroupSelectedService.setCurrentGroup(group);
+  }
+
 
   // seeWorkout() {
   //   this.router.navigate(['today-workout-student']);

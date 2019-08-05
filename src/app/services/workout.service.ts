@@ -5,7 +5,7 @@ import {
   AngularFirestore
 } from '@angular/fire/firestore';
 import { Group } from '../shared/models/group.model';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import WorkoutClass from '../shared/models/workout';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import Utils from '../shared/utils/utils';
@@ -21,7 +21,25 @@ export class WorkoutService {
     this.workouts = this.workoutsRef.valueChanges();
   }
 
+  async getTodayWorkout(group: Group): Promise<Observable<Workout>> {
+    const todayDate = Utils.getSimplifiedDate(new Date());
+    const query = this.workoutsRef.ref
+      .where('group', '==', group)
+      .where('date', '==', todayDate)
+      .limit(1);
 
+    await query.get().then(snapshot => {
+      if (snapshot.empty) {
+        console.log('No matching documents.');
+        return;
+      }
+
+      snapshot.forEach(doc => {
+        console.log(doc.id, '=>', doc.data());
+      });
+    });
+    return of(null);
+  }
 
   saveWorkout(
     recExercise: Array<RecommendedExercise>,

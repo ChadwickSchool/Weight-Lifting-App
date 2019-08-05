@@ -73,8 +73,7 @@ describe('Create Workout e2e test', () => {
     element(by.id('recommended-exercises-table'))
       .getText()
       .then(text => {
-        expect(text).toContain('ooga booga');
-        expect(text).toContain('booga ooga');
+        expect(text).toContain('hooga wooga');
         browser.waitForAngularEnabled(false);
       });
   };

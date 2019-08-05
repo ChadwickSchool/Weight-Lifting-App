@@ -8,6 +8,7 @@
         *ngFor="let group of groupDataSource"
         [value]="group.name"
         (click)="isDisabled = false"
+        (click)="setCurrentGroupSelected(group)"
       >
         {{ group.name }}
       </mat-option>
