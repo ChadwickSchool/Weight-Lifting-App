@@ -16,7 +16,7 @@ export class CurrentGroupSelectedService {
     this.webstorage.set(this.key, group);
   }
 
-  getCurrentGroup(): Observable<Group> {
-    return of(this.webstorage.get(this.key));
+  getCurrentGroup(): Group {
+    return this.webstorage.get(this.key);
   }
 }

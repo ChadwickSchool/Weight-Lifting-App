@@ -4,5 +4,6 @@ export interface RecommendedExercise {
   sets: string;
   reps: string;
   weight?: string;
+  rest?: string;
   coachComment?: string;
 }

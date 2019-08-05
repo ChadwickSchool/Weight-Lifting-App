@@ -14,7 +14,7 @@ export class CurrentDateSelectedService {
     this.webstorage.set(this.key, date);
   }
 
-  getCurrentDate(): Observable<Date> {
-    return of(this.webstorage.get(this.key));
+  getCurrentDate(): Date {
+    return this.webstorage.get(this.key);
   }
 }

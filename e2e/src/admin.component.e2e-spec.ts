@@ -29,7 +29,7 @@ describe('Admin Component e2e test', () => {
     return browser.switchTo().window(handlesPromise[index]);
   };
   beforeAll(() => {
-    browser.get('/' + 'today-workout-admin');
+    browser.get('/');
     this.emailInput = element(by.id('identifierId'));
     this.passwordInput = element(by.name('password'));
     this.emailNextButton = element(by.id('identifierNext'));
@@ -45,48 +45,67 @@ describe('Admin Component e2e test', () => {
        login page */
 
       browser.waitForAngularEnabled(false);
-      browser
-        .wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT)
-        .then(() => {
-          this.emailInput.sendKeys(GOOGLE_USERNAME);
-          this.emailNextButton.click();
-          browser
-            .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
-            .then(() => {
-              self.passwordInput.sendKeys(GOOGLE_PASSWORD);
-              self.passwordInput.sendKeys(protractor.Key.ENTER);
-              browser.waitForAngularEnabled(true);
-            });
-        });
+      browser.wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT).then(() => {
+        this.emailInput.sendKeys(GOOGLE_USERNAME);
+        this.emailNextButton.click();
+        browser
+          .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
+          .then(() => {
+            self.passwordInput.sendKeys(GOOGLE_PASSWORD);
+            self.passwordInput.sendKeys(protractor.Key.ENTER);
+            browser.waitForAngularEnabled(true);
+          });
+      });
     };
 
     this.signInButton.click();
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-
-    browser.wait(EC.visibilityOf(element(by.id('create-workout'))), BROWSER_WAIT);
-    element(by.id('create-workout')).click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('logout'))),
+      BROWSER_WAIT
+    );
   });
 
-  afterAll(() => {
-    element(by.id('logout')).click();
+  beforeEach(() => {
+    element(by.id('home')).click();
+    browser.waitForAngularEnabled(true);
   });
 
-  // it('should find Add Exercise button', () => {
-  //   expect(document).toContain(element(by.id('dialog')));
+  // afterAll(() => {
+  //   element(by.id('logout')).click();
   // });
 
   it('should set correct value of all attributes', () => {
+    const groupSelect = element(by.id('group-select'));
+    const dateSelect = element(by.id('date-input'));
+    const createWorkoutButton = element(by.id('next-btn'));
     const name = element(by.id('name-input'));
     const sets = element(by.id('sets-input'));
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
     browser.waitForAngularEnabled(false);
-    browser.wait(EC.visibilityOf(element(by.id('add-button'))), BROWSER_WAIT, 'timed out waiting for add-button');
-    element(by.id('add-button')).click();
-    browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-form'))), 3000);
+    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    dateSelect.click();
+    dateSelect.sendKeys('8/14/2019');
+    createWorkoutButton.click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      BROWSER_WAIT,
+      'timed out waiting for add-exercise-button'
+    );
+    element(by.id('add-exercise-button')).click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('recommended-exercises-form'))),
+      3000
+    );
     name.click();
     name.sendKeys('test');
     sets.click();
@@ -98,9 +117,9 @@ describe('Admin Component e2e test', () => {
     comments.click();
     comments.sendKeys('No comment');
     element(by.id('submit-button')).click();
-    browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
-    expect(element(by.id('exerciseTable')).isDisplayed()).toBe(true);
-    element(by.id('exerciseTable'))
+    browser.wait(EC.visibilityOf(element(by.id('exercise-table'))), 3000);
+    expect(element(by.id('exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('exercise-table'))
       .getText()
       .then(text => {
         expect(text).toContain('test');
@@ -114,4 +133,84 @@ describe('Admin Component e2e test', () => {
   //   element(by.id('workout-button')).click();
   //   expect(element(by.id('home')).isDisplayed()).toBe(true);
   // });
+
+  it('should add multiple exercises to the table', () => {
+    const groupSelect = element(by.id('group-select'));
+    const dateSelect = element(by.id('date-input'));
+    const createWorkoutButton = element(by.id('next-btn'));
+    const addButton = element(by.id('add-exercise-button'));
+    const nameInput = element(by.id('name-input'));
+    const setsInput = element(by.id('sets-input'));
+    const repsInput = element(by.id('reps-input'));
+    const weightRangeInput = element(by.id('weight-input'));
+    const commentsInput = element(by.id('comments-input'));
+    const restInput = element(by.id('rest-input'));
+    const saveExerciseButton = element(by.id('submit-button'));
+    const saveWorkoutButton = element(by.id('workout-button'));
+    const logoutButton = element(by.id('logout'));
+    // fill out group and date
+    browser.waitForAngularEnabled(false);
+    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    dateSelect.click();
+    dateSelect.sendKeys('8/14/2019');
+    createWorkoutButton.click();
+    // add exercise one
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      3000,
+      'timed out waiting for add-exercise-button'
+    );
+    addButton.click();
+    browser.wait(EC.visibilityOf(nameInput));
+    nameInput.click();
+    nameInput.sendKeys('ooga booga');
+    setsInput.click();
+    setsInput.sendKeys('5');
+    repsInput.click();
+    repsInput.sendKeys('10');
+    weightRangeInput.click();
+    weightRangeInput.sendKeys('50');
+    commentsInput.click();
+    commentsInput.sendKeys('hooga wooga');
+    restInput.click();
+    restInput.sendKeys('take a load off');
+    saveExerciseButton.click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      7000,
+      'timed out waiting for add-exercise-button 2x'
+    );
+    // add exercise two
+    addButton.click();
+    browser.wait(EC.visibilityOf(nameInput));
+    nameInput.click();
+    nameInput.sendKeys('booga ooga');
+    setsInput.click();
+    setsInput.sendKeys('6');
+    repsInput.click();
+    repsInput.sendKeys('11');
+    weightRangeInput.click();
+    weightRangeInput.sendKeys('51');
+    commentsInput.click();
+    commentsInput.sendKeys('wooga hooga');
+    restInput.click();
+    restInput.sendKeys('take another load off');
+    saveExerciseButton.click();
+    browser.wait(
+      EC.visibilityOf(saveWorkoutButton),
+      BROWSER_WAIT,
+      'timed out waiting for workout-button'
+    );
+    element(by.id('exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('ooga booga');
+        expect(text).toContain('booga ooga');
+      });
+  });
 });

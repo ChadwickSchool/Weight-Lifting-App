@@ -27,16 +27,16 @@ export class RecommendedExercisesDialogComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onNoClick(): void {
+  closeDialog(): void {
     this.dialogRef.close();
   }
 
-  submitForm() {
+  submitForm(): void {
     this.addExercise();
     this.dialogRef.close();
   }
 
-  addExercise() {
+  addExercise(): void {
     if (this.recommendedExercise.coachComment === '') {
       this.recommendedExercise.coachComment = 'none';
     }

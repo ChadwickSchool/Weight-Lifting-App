@@ -8,14 +8,15 @@ import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { LoginComponent } from './login/login.component';
 import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
+// import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
-  {path: 'today-workout-student', component: TodayWorkoutComponent, canActivate: [LoginGuard]},
-  {path: 'today-workout-admin', component: CreateWorkoutComponent, canActivate: [LoginGuard]},
+  {path: 'today-workout-student', component: TodayWorkoutComponent},
+  {path: 'today-workout-admin', component: CreateWorkoutComponent},
   {path: 'admin-home', component: AdminHomeComponent, canActivate: [LoginGuard]},
   {path: 'student-home', component: StudentHomeComponent, canActivate: [LoginGuard]},
-  {path: 'student-entire-workout', component: StudentEntireWorkoutComponent, canActivate: [LoginGuard]}
+  {path: 'student-entire-workout', component: StudentEntireWorkoutComponent}
 ];
 
 @NgModule({

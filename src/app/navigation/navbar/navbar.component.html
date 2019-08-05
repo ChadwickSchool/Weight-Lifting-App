@@ -16,13 +16,13 @@
           <a>
             <div *ngIf="user.isAdmin; then adminhome; else studenthome"></div>
             <ng-template #adminhome>
-              <a routerLink="/admin-home">
+              <a routerLink="/admin-home" id="home">
                 <mat-icon id="home-icon" class="icon">home</mat-icon>
                 <span class="label">Home</span>
               </a>
             </ng-template>
             <ng-template #studenthome>
-              <a routerLink="/student-home">
+              <a routerLink="/student-home" id="home">
                 <mat-icon id="home-icon" class="icon">home</mat-icon>
                 <span class="label">Home</span>
               </a>

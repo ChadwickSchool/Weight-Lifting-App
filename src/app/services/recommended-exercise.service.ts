@@ -1,32 +1,22 @@
 import { Injectable } from '@angular/core';
 
-import { Observable } from 'rxjs';
-import { ChildActivationEnd } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { Observable, BehaviorSubject } from 'rxjs';
+
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument
-} from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 
 @Injectable()
 export class RecommendedExerciseService {
-  recommendedExercisesRef: AngularFirestoreCollection<RecommendedExercise>;
-  recommendedExercises: Observable<RecommendedExercise[]>;
+  recommendedExercises$: BehaviorSubject<Array<RecommendedExercise>>;
+  addedRecExercises: Array<RecommendedExercise>;
   constructor(private afs: AngularFirestore) {
-    this.recommendedExercisesRef = afs.collection<RecommendedExercise>(
-      'recommended-exercises'
-    );
-    this.recommendedExercises = this.recommendedExercisesRef.valueChanges();
-
+    this.recommendedExercises$ = new BehaviorSubject<Array<RecommendedExercise>>(null);
+    this.addedRecExercises = [];
   }
 
-  getAddedExercises(): Observable<any> {
-    this.recommendedExercises.subscribe(result => console.log(result));
-    return this.recommendedExercises;
-    // return this.afs.list('exercises').valueChanges();
+  getAddedExercises(): Observable<Array<RecommendedExercise>> {
+    return this.recommendedExercises$.asObservable();
   }
 
   addExercise(recommendedExercise: any) {
@@ -40,15 +30,7 @@ export class RecommendedExerciseService {
       recommendedExercise.coachComment,
       recommendedExercise.rest
     );
-    console.log(recExercise);
-    this.recommendedExercisesRef.doc(id).set(Object.assign({}, recExercise));
+    this.addedRecExercises.push(recExercise);
+    this.recommendedExercises$.next(this.addedRecExercises);
   }
-
-  // updateExercise(recommendedExercise: RecommendedExercise) {
-  //   console.log('Updating exercise');
-  //   this.recommendedExercisesDoc = this.afs.doc<RecommendedExercise>(`student-exercises/${recommendedExercise.uid}`);
-  //   this.recommendedExercisesDoc.update(recommendedExercise);
-  //   }
-
-    // this.afs.object('exercises/' + key).update(exercise);
-  }
+}

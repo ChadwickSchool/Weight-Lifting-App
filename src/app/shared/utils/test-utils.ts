@@ -38,6 +38,7 @@ export default class TestUtils {
     sets = '2-3',
     reps = '8-10',
     weight?: string,
+    rest?: string,
     coachComment?: string
   ): RecommendedExercise {
     return new RecommendedExerciseClass(
@@ -46,7 +47,8 @@ export default class TestUtils {
       sets,
       reps,
       weight,
-      coachComment
+      rest,
+      coachComment,
     );
   }
 
@@ -91,15 +93,14 @@ export default class TestUtils {
     return new StudentWorkoutClass(name, user, date, exercise);
   }
 
-  static getWorkout(
-    name = 'Test Workout',
+  static getTestWorkout(
+    id = '100',
     recExercise = [this.getTestRecommendedExercise()],
-    users = [this.getTestUser()],
     date = this.getTestDate(),
     dateCreated = new Date('3000-01-01'),
     group = this.getTestGroup()
   ): Workout {
-    return new WorkoutClass(name, recExercise, users, date, dateCreated, group);
+    return new WorkoutClass(id, recExercise, date, dateCreated, group);
   }
 
   static getElement(fixture: ComponentFixture<ComponentRef<any>>): HTMLElement {

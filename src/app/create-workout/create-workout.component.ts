@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { DataService } from '../data/data.service';
@@ -9,6 +9,8 @@ import TestUtils from '../shared/utils/test-utils';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
+import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
+import { WorkoutService } from '../services/workout.service';
 
 export interface ExerciseData {
   name: string;
@@ -25,20 +27,19 @@ export interface ExerciseData {
   styleUrls: ['./create-workout.component.scss']
 })
 export class CreateWorkoutComponent implements OnInit {
-  recExercises$: Observable<Array<ExerciseData>>;
-  date$: Observable<Date>;
-  group$: Observable<Group>;
+  recExercises$: Observable<Array<RecommendedExercise>>;
+  date: Date;
+  group: Group;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
     private router: Router,
     private groupSelectedService: CurrentGroupSelectedService,
-    private dateSelectedService: CurrentDateSelectedService
-  ) {
+    private dateSelectedService: CurrentDateSelectedService,
+    private workoutService: WorkoutService
+  ) {}
 
-  }
-
-  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
+  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'comments'];
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RecommendedExercisesDialogComponent, {
@@ -49,11 +50,16 @@ export class CreateWorkoutComponent implements OnInit {
 
   ngOnInit() {
     this.recExercises$ = this.recExerciseService.getAddedExercises();
-    this.group$ = this.groupSelectedService.getCurrentGroup();
-    this.date$ = this.dateSelectedService.getCurrentDate();
+    this.group = this.groupSelectedService.getCurrentGroup();
+    this.date = this.dateSelectedService.getCurrentDate();
   }
 
   saveWorkout() {
-    this.router.navigate(['']);
+    this.workoutService.saveWorkout(
+      this.recExerciseService.recommendedExercises$.value,
+      this.date,
+      this.group
+    );
+    // this.router.navigate(['']);
   }
 }

@@ -45,6 +45,7 @@ describe('RecommendedExercise Class', () => {
       '2-3',
       '8-10',
       '5-10',
+      '1 min',
       'Keep elbow straight'
     );
     expect(recExercise.coachComment).toEqual('Keep elbow straight');

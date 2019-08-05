@@ -17,7 +17,6 @@ export class GroupService {
   }
 
   getAddedGroups(): Observable<any> {
-    console.log('called getAddedGroups');
     return this.groups;
   }
 
