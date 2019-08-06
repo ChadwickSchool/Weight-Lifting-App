@@ -15,6 +15,6 @@ export class CurrentDateSelectedService {
   }
 
   getCurrentDate(): Date {
-    return this.webstorage.get(this.key);
+    return new Date(this.webstorage.get(this.key));
   }
 }

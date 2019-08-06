@@ -21,13 +21,13 @@ export class WorkoutService {
     this.workouts = this.workoutsRef.valueChanges();
   }
 
-  async getTodayWorkout(group: Group): Promise<Observable<Workout>> {
+  async getTodayWorkout(group: Group): Promise<Workout> {
     const todayDate = Utils.getSimplifiedDate(new Date());
     const query = this.workoutsRef.ref
       .where('group', '==', group)
       .where('date', '==', todayDate)
       .limit(1);
-
+    let result;
     await query.get().then(snapshot => {
       if (snapshot.empty) {
         console.log('No matching documents.');
@@ -36,9 +36,10 @@ export class WorkoutService {
 
       snapshot.forEach(doc => {
         console.log(doc.id, '=>', doc.data());
+        result = doc.data() as Workout;
       });
     });
-    return of(null);
+    return result;
   }
 
   saveWorkout(
@@ -66,6 +67,7 @@ export class WorkoutService {
       dateCreated: workout.dateCreated,
       group: groupJSON
     };
+
     this.workoutsRef.doc(id).set(Object.assign({}, newWorkout));
   }
 }

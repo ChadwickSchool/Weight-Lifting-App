@@ -21,7 +21,8 @@ export class ExpansionOverviewExample {
   styleUrls: ['./today.workout.component.scss']
 })
 export class TodayWorkoutComponent implements OnInit {
-  recExercisesDataSource: Observable<Array<RecommendedExercise>>;
+  recExercisesDataSource: Array<RecommendedExercise>;
+  recExercisesDropdownSource: Array<RecommendedExercise>;
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
   selectedExercise: Subject<RecommendedExercise>;
@@ -48,13 +49,11 @@ export class TodayWorkoutComponent implements OnInit {
   async ngOnInit() {
     // this.showExercises();
     this.selectedGroup = this.groupSelectedService.getCurrentGroup();
-    this.recExercisesDataSource = this.recExerciseService.getAddedExercises();
     // this.exerciseDataSource = of(null);
     this.selectedExercise = new Subject<RecommendedExercise>();
-    await this.workoutService.getTodayWorkout(this.selectedGroup);
-    // this.workoutService.getTodayWorkout(this.selectedGroup).subscribe(workout => {
-    //   this.recExercisesDataSource = of(workout.recExercise);
-    // });
+    await this.workoutService
+      .getTodayWorkout(this.selectedGroup)
+      .then(workout => (this.recExercisesDropdownSource = workout.recExercise));
   }
 
   getSelectedRecExercise(): Observable<Array<RecommendedExercise>> {
@@ -96,13 +95,15 @@ export class TodayWorkoutComponent implements OnInit {
       .subscribe(exercises => {
         this.exerciseDataSource = exercises;
       });
-    this.recExerciseService.getAddedExercises().subscribe(recExercises => {
-      this.selectedExercise.next(
-        recExercises.find(recExercise => {
-          return recExercise.name === this.exercise.name;
-        })
+
+    this.workoutService
+      .getTodayWorkout(this.selectedGroup)
+      .then(
+        workout =>
+          (this.recExercisesDataSource = workout.recExercise.filter(
+            recExercise => recExercise.name === this.exercise.name
+          ))
       );
-    });
   }
 
   submitForm() {
@@ -113,12 +114,14 @@ export class TodayWorkoutComponent implements OnInit {
     if (this.exercise.userComment === '') {
       this.exercise.userComment = 'none';
     }
-    this.setNumber++;
-    // if (this.setNumber > Number((this.recExercisesDataSource.find(element =>
-    //       element.name === this.exercise.name
-    //     )).sets)) {
-    //   this.setNumber = 1;
-    // }
+
+    if (this.setNumber > Number((this.recExercisesDataSource.find(element =>
+          element.name === this.exercise.name
+        )).sets)) {
+      this.setNumber = 1;
+    } else {
+      this.setNumber++;
+    }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
     console.log('submit');
   }

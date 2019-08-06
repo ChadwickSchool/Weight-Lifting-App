@@ -7,6 +7,8 @@ import {
 import { protractor } from 'protractor/built/ptor';
 import { browser, element, by } from 'protractor';
 import { setServers } from 'dns';
+import TestUtils from 'src/app/shared/utils/test-utils';
+import Utils from 'src/app/shared/utils/utils';
 
 describe('Create Workout e2e test', () => {
   const EC = protractor.ExpectedConditions;
@@ -67,6 +69,12 @@ describe('Create Workout e2e test', () => {
       .first()
       .click();
     viewWorkout.click();
+    browser.wait(
+      EC.elementToBeClickable(element(by.id('rec-exercises-expansion'))),
+      3000
+    );
+    browser.waitForAngularEnabled(false);
+    element(by.id('rec-exercises-expansion')).click();
     browser.wait(
       EC.visibilityOf(element(by.id('recommended-exercises-table')))
     );
@@ -140,7 +148,7 @@ describe('Create Workout e2e test', () => {
       .first()
       .click();
     dateSelect.click();
-    dateSelect.sendKeys('8/14/2019');
+    dateSelect.sendKeys(new Date().toDateString());
     createWorkoutButton.click();
     browser.wait(
       EC.visibilityOf(element(by.id('add-exercise-button'))),
@@ -189,11 +197,12 @@ describe('Create Workout e2e test', () => {
     restInput.sendKeys('take another load off');
     saveExerciseButton.click();
     browser.wait(
-      EC.visibilityOf(saveWorkoutButton),
+      EC.elementToBeClickable(saveWorkoutButton),
       BROWSER_WAIT,
       'timed out waiting for workout-button'
     );
     saveWorkoutButton.click();
+    browser.sleep(1000);
     // log out of admin
     logoutButton.click();
     // log in to student

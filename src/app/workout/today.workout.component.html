@@ -9,7 +9,7 @@
   >
     View Entire Workout
   </button>
-  <mat-expansion-panel>
+  <mat-expansion-panel id="rec-exercises-expansion">
     <mat-expansion-panel-header>
       <mat-panel-title>
         Recommended Workout
@@ -17,7 +17,7 @@
     </mat-expansion-panel-header>
 
     <mat-table
-      [dataSource]="selectedExercise | async"
+      [dataSource]="recExercisesDataSource"
       class="mat-elevation-z8"
       id="recommended-exercises-table"
     >
@@ -159,7 +159,7 @@
           (ngModelChange)="updateStudentTable()"
         >
           <mat-option
-            *ngFor="let recExercise of recExercisesDataSource | async"
+            *ngFor="let recExercise of recExercisesDropdownSource"
             [value]="recExercise.name"
             matInput
           >
