@@ -1,5 +1,5 @@
 <div fxFlex fxLayout="column" fxLayoutAlign="center center">
-  <mat-table class="student-table" [dataSource]="studentsDataSource">
+  <mat-table class="student-table" [dataSource]="studentsDataSource" id="student-table">
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Student Name </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="name">

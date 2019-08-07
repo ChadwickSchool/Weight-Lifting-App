@@ -120,7 +120,7 @@
     <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
-        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()">
+        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()" id="exercise-name-select">
           <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name" matInput>
             {{ recExercise.name }}
           </mat-option>
