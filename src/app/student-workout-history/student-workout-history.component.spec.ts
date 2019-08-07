@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StudentWorkoutHistoryComponent } from './student-workout-history.component';
+import { MaterialModule } from '../shared/material.module';
+import { FormsModule } from '@angular/forms';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StudentService } from '../services/student.service';
+import { ExerciseService } from '../services/exercise.service';
 
 describe('StudentWorkoutHistoryComponent', () => {
   let component: StudentWorkoutHistoryComponent;
@@ -8,7 +13,16 @@ describe('StudentWorkoutHistoryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StudentWorkoutHistoryComponent ]
+      imports: [MaterialModule, FormsModule, NoopAnimationsModule],
+      declarations: [ StudentWorkoutHistoryComponent ],
+      providers: [
+        {
+          provide: StudentService
+        },
+        {
+          provide: ExerciseService
+        }
+      ]
     })
     .compileComponents();
   }));

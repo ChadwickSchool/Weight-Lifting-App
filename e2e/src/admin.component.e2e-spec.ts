@@ -123,19 +123,4 @@ fdescribe('Admin Component e2e test', () => {
   //   expect(element(by.id('home')).isDisplayed()).toBe(true);
   // });
 
-  it('should select a student and exercise and see their workout history', () => {
-    browser.get('/' + 'student-list');
-    const name = element(by.id('name-row'));
-    const dropdown = element(by.css('.mat-select'));
-    browser.wait(EC.visibilityOf(name), 3000);
-    name.click();
-    browser.wait(
-      EC.elementToBeClickable(element(by.id('student-select')))
-    );
-    dropdown.click();
-    element
-      .all(by.css('.mat-option'))
-      .first()
-      .click();
-  });
 });

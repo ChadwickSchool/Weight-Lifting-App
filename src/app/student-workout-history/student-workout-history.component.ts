@@ -60,14 +60,4 @@ export class StudentWorkoutHistoryComponent implements OnInit {
         this.exerciseDataSource = exercises;
       });
   }
-
-  updateExerciseTable() {
-    this.exercise.reps = 0;
-    this.exercise.weight = 0;
-    this.exercisesService
-      .getExercises(this.exercise.name)
-      .subscribe(exercises => {
-        this.exerciseDataSource = exercises;
-      });
-  }
 }
