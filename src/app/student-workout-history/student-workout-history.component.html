@@ -8,7 +8,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-table [dataSource]="exerciseDataSource">
+  <mat-table id="studentHistoryTable" [dataSource]="exerciseDataSource">
     <ng-container matColumnDef="date">
       <mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label="date">

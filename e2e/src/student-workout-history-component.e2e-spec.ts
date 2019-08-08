@@ -40,6 +40,33 @@ describe('Create Workout e2e test', () => {
     return browser.switchTo().window(handlesPromise[index]);
   };
 
+  this.loginToGoogle = function(username: string, password: string) {
+    this.emailInput = element(by.id('identifierId'));
+    this.passwordInput = element(by.name('password'));
+    this.emailNextButton = element(by.id('identifierNext'));
+    this.passwordNextButton = element(by.id('passwordNext'));
+    const self = this;
+    console.log('Logging into to google');
+
+    /* Entering non angular site, it instructs webdriver to switch
+     to synchronous mode. At this point I assume we are on google
+     login page */
+    browser.waitForAngularEnabled(false);
+    const newEmailInput = element(by.id('identfierId'));
+    browser.wait(EC.visibilityOf(this.emailInput), BROWSER_WAIT).then(() => {
+      console.log('Saw email input');
+      this.emailInput.sendKeys(username);
+      this.emailNextButton.click();
+      browser
+        .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
+        .then(() => {
+          self.passwordInput.sendKeys(password);
+          self.passwordInput.sendKeys(protractor.Key.ENTER);
+          browser.waitForAngularEnabled(true);
+        });
+    });
+  };
+
   const checkStudentView = () => {
     const loginButton = element(by.id('login'));
     const groupSelect = element(by.id('group-select'));
@@ -55,7 +82,6 @@ describe('Create Workout e2e test', () => {
       BROWSER_WAIT,
       'timed out waiting for login button'
     );
-    browser.waitForAngularEnabled(false);
     loginButton.click();
     selectWindow(1);
     this.loginToGoogle(GOOGLE_STUDENT_USERNAME, GOOGLE_STUDENT_PASSWORD);
@@ -90,18 +116,19 @@ describe('Create Workout e2e test', () => {
     const loginButton = element(by.id('login'));
     const studentHistoryButton = element(by.id('history-label'));
     const studentTable = element(by.id('student-table'));
+    const studentDropDown = element(by.id('student-select'));
     browser.waitForAngularEnabled(true);
-    // browser.wait(
-    //   EC.visibilityOf(loginButton),
-    //   BROWSER_WAIT,
-    //   'timed out waiting for login button'
-    // );
-    // browser.waitForAngularEnabled(false);
-    // // log in as admin
-    // loginButton.click();
-    // selectWindow(1);
-    // this.loginToGoogle(GOOGLE_USERNAME, GOOGLE_PASSWORD);
-    // selectWindow(0);
+    browser.wait(
+      EC.visibilityOf(loginButton),
+      BROWSER_WAIT,
+      'timed out waiting for login button'
+    );
+    browser.waitForAngularEnabled(false);
+    // log in as admin
+    loginButton.click();
+    selectWindow(1);
+    this.loginToGoogle(GOOGLE_USERNAME, GOOGLE_PASSWORD);
+    selectWindow(0);
     browser.wait(
       EC.elementToBeClickable(studentHistoryButton),
       BROWSER_WAIT,
@@ -125,6 +152,24 @@ describe('Create Workout e2e test', () => {
         webElement.click();
       }
     });
+    browser.sleep(2000); // TODO: Fix to not use browser.sleep
+    studentDropDown.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    expect(element(by.id('studentHistoryTable')).isDisplayed()).toBe(true);
+    element(by.id('studentHistoryTable'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('50');
+        // expect(text).toContain('ooga booga');
+        // expect(text).toContain('5');
+        // expect(text).toContain('10');
+        // expect(text).toContain('50');
+        // expect(text).toContain('hooga wooga');
+        // expect(text).toContain('take a load off');
+      });
 
     // const elementFinderArray = await element.all(by.className('mat-row'));
     // elementFinderArray.forEach(async (elementFinder: ElementFinder, index) => {
@@ -133,34 +178,9 @@ describe('Create Workout e2e test', () => {
     //     elementFinder.click();
     //   }
     // });
-    browser.sleep(50000);
-
-    // TODO: Click on dropdown and make expect
+    browser.sleep(3000);
   };
 
-  this.loginToGoogle = function(username: string, password: string) {
-    this.emailInput = element(by.id('identifierId'));
-    this.passwordInput = element(by.name('password'));
-    this.emailNextButton = element(by.id('identifierNext'));
-    this.passwordNextButton = element(by.id('passwordNext'));
-    const self = this;
-
-    /* Entering non angular site, it instructs webdriver to switch
-     to synchronous mode. At this point I assume we are on google
-     login page */
-
-    browser.wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT).then(() => {
-      this.emailInput.sendKeys(username);
-      this.emailNextButton.click();
-      browser
-        .wait(EC.visibilityOf(self.passwordInput), BROWSER_WAIT)
-        .then(() => {
-          self.passwordInput.sendKeys(password);
-          self.passwordInput.sendKeys(protractor.Key.ENTER);
-          browser.waitForAngularEnabled(true);
-        });
-    });
-  };
   beforeAll(() => {
     browser.get('/');
 
@@ -180,7 +200,7 @@ describe('Create Workout e2e test', () => {
     const groupSelect = element(by.id('group-select'));
     const dateSelect = element(by.id('date-input'));
     const createWorkoutButton = element(by.id('next-btn'));
-    const addButton = element(by.id('add-exercise-button'));
+    const addButton = element(by.id('add-button'));
     const nameInput = element(by.id('name-input'));
     const setsInput = element(by.id('sets-input'));
     const repsInput = element(by.id('reps-input'));
@@ -203,9 +223,9 @@ describe('Create Workout e2e test', () => {
     dateSelect.sendKeys(new Date().toDateString());
     createWorkoutButton.click();
     browser.wait(
-      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      EC.visibilityOf(element(by.id('add-button'))),
       3000,
-      'timed out waiting for add-exercise-button'
+      'timed out waiting for add-button'
     );
     addButton.click();
     browser.wait(EC.visibilityOf(nameInput));
@@ -223,9 +243,9 @@ describe('Create Workout e2e test', () => {
     restInput.sendKeys('take a load off');
     saveExerciseButton.click();
     browser.wait(
-      EC.visibilityOf(element(by.id('add-exercise-button'))),
+      EC.visibilityOf(element(by.id('add-button'))),
       7000,
-      'timed out waiting for add-exercise-button 2x'
+      'timed out waiting for add-button 2x'
     );
     browser.wait(
       EC.elementToBeClickable(saveWorkoutButton),
@@ -248,7 +268,7 @@ describe('Create Workout e2e test', () => {
     checkStudentHistory();
   });
 
-  fit('should check student\'s history', () => {
+  it('should check student\'s history', () => {
     checkStudentHistory();
   });
 });
