@@ -168,6 +168,7 @@ describe('TodayWorkoutComponent', () => {
   });
 
   it('should display exercises correctly in the dropdown', () => {
+    console.log('selectMenu: ' + selectMenu);
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     const squatsElement = selectMenu.getOptionByKey(options, 'Squats');
