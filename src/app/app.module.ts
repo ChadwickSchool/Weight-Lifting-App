@@ -32,6 +32,7 @@ import { StudentEntireWorkoutComponent } from './student-entire-workout/student-
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentWorkoutHistoryComponent } from './student-workout-history/student-workout-history.component';
+import { EditRecommendedExerciseComponent } from './edit-recommended-exercise/edit-recommended-exercise.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +47,10 @@ import { StudentWorkoutHistoryComponent } from './student-workout-history/studen
     LoginComponent,
     StudentEntireWorkoutComponent,
     EditExerciseComponent,
+    EditRecommendedExerciseComponent,
     StudentListComponent,
-    StudentWorkoutHistoryComponent
+    StudentWorkoutHistoryComponent,
+    EditRecommendedExerciseComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +68,8 @@ import { StudentWorkoutHistoryComponent } from './student-workout-history/studen
   ],
   entryComponents: [
     RecommendedExercisesDialogComponent,
-    EditExerciseComponent
+    EditExerciseComponent,
+    EditRecommendedExerciseComponent
   ],
   providers: [
     DataService,

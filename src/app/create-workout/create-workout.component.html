@@ -2,7 +2,7 @@
   <h1 *ngIf="group$ | async as group"> {{ group.name }} </h1>
   <h2 *ngIf="date$ | async as selectedDate">{{ selectedDate | date }}</h2>
   <table
-    id="exerciseTable"
+    id="exercise-table"
     mat-table
     [dataSource]="recExercises$ | async"
     class="mat-elevation-z8"
@@ -51,6 +51,7 @@
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
       <mat-cell *matCellDef="let row" data-label=" ">
+          <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openEditExerciseDialog(row)">edit</mat-icon>
         <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteRecExercise(row)">delete
         </mat-icon>
       </mat-cell>
@@ -65,7 +66,7 @@
       <div fxLayout="column" fxLayoutAlign="center center" class="content">
         <div class="blocks">
           <button
-            (click)="openDialog()"
+            (click)="openNewExerciseDialog()"
             button="submit"
             mat-raised-button
             color="secondary"

@@ -34,3 +34,23 @@ h2 {
   margin-left: 1rem;
   margin-bottom: 1rem;
 }
+
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.52); }
+
+#edit:hover,
+#delete:hover {
+  color: rgba(0, 0, 0, 0.70);
+  cursor: pointer;
+}
+
+#edit-column {
+  justify-content: center;
+}
+
+#edit {
+  margin-right: 1.5rem;
+}
+
+#delete {
+  margin-left: 1.5rem;
+}
