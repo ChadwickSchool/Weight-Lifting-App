@@ -74,16 +74,13 @@ describe('Admin Component e2e test', () => {
     element(by.id('logout')).click();
   });
 
-  // it('should find Add Exercise button', () => {
-  //   expect(document).toContain(element(by.id('dialog')));
-  // });
-
   it('should set correct value of all attributes', () => {
     const name = element(by.id('name-input'));
     const sets = element(by.id('sets-input'));
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
+    const deleteButton = element(by.id('delete'));
     browser.waitForAngularEnabled(false);
     browser.wait(
       EC.visibilityOf(element(by.id('add-button'))),
@@ -116,11 +113,6 @@ describe('Admin Component e2e test', () => {
         expect(text).toContain('20');
         expect(text).toContain('100');
       });
+    deleteButton.click();
   });
-
-  // it('should return to home page after clicking "save workout"', () => {
-  //   element(by.id('workout-button')).click();
-  //   expect(element(by.id('home')).isDisplayed()).toBe(true);
-  // });
-
 });

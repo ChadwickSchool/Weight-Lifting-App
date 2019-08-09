@@ -9,6 +9,7 @@ import TestUtils from '../shared/utils/test-utils';
 import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
+import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 
 export interface ExerciseData {
   name: string;
@@ -38,7 +39,7 @@ export class CreateWorkoutComponent implements OnInit {
 
   }
 
-  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest'];
+  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'edit'];
 
   openDialog(): void {
     const dialogRef = this.dialog.open(RecommendedExercisesDialogComponent, {
@@ -55,5 +56,9 @@ export class CreateWorkoutComponent implements OnInit {
 
   saveWorkout() {
     this.router.navigate(['']);
+  }
+
+  deleteRecExercise(recommendedExercise: RecommendedExercise): void {
+    this.recExerciseService.deleteRecommendedExercise(recommendedExercise);
   }
 }

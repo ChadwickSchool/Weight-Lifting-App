@@ -39,11 +39,21 @@
       </td>
     </ng-container>
 
+    <!-- Rest Column -->
     <ng-container matColumnDef="rest">
       <th mat-header-cell *matHeaderCellDef>Rest</th>
       <td mat-cell id="rest-cell" *matCellDef="let element">
         {{ element.rest }}
       </td>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="edit">
+      <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label=" ">
+        <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteRecExercise(row)">delete
+        </mat-icon>
+      </mat-cell>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

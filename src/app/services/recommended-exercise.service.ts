@@ -44,6 +44,10 @@ export class RecommendedExerciseService {
     this.recommendedExercisesRef.doc(id).set(Object.assign({}, recExercise));
   }
 
+  deleteRecommendedExercise(recommendedExercise: RecommendedExercise): void {
+    this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`).delete();
+  }
+
   // updateExercise(recommendedExercise: RecommendedExercise) {
   //   console.log('Updating exercise');
   //   this.recommendedExercisesDoc = this.afs.doc<RecommendedExercise>(`student-exercises/${recommendedExercise.uid}`);

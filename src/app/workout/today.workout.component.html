@@ -51,7 +51,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
     </mat-table>
   </mat-expansion-panel>
-  <mat-expansion-panel id="exercises-expansion" (opened)="panelOpenState = true" (closed)="panelOpenState = false"
+  <mat-expansion-panel id="exercises-expansion"
     [disabled]="exercise.name === ''">
     <mat-expansion-panel-header>
       <mat-panel-title>

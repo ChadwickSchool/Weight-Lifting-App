@@ -7,9 +7,9 @@ import { Observable, of } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { EditExerciseComponent } from '../edit-exercise/edit-exercise.component';
 
-export class ExpansionOverviewExample {
-  panelOpenState = false;
-}
+// export class ExpansionOverviewExample {
+//   panelOpenState = false;
+// }
 
 @Component({
   selector: 'wla-today-workout',
@@ -20,6 +20,7 @@ export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
+  // panelOpenState: boolean;
   constructor(
     public dialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
