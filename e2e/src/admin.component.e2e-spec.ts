@@ -64,10 +64,10 @@ describe('Admin Component e2e test', () => {
     selectWindow(0);
 
     browser.wait(
-      EC.visibilityOf(element(by.id('create-workout'))),
+      EC.visibilityOf(element(by.id('home'))),
       BROWSER_WAIT
     );
-    element(by.id('create-workout')).click();
+    element(by.id('home')).click();
   });
 
   afterAll(() => {
@@ -75,6 +75,9 @@ describe('Admin Component e2e test', () => {
   });
 
   it('should set correct value of all attributes', () => {
+    const groupSelect = element(by.id('group-select'));
+    const dateSelect = element(by.id('date-input'));
+    const createWorkoutButton = element(by.id('next-btn'));
     const name = element(by.id('name-input'));
     const sets = element(by.id('sets-input'));
     const reps = element(by.id('reps-input'));
@@ -82,6 +85,14 @@ describe('Admin Component e2e test', () => {
     const comments = element(by.id('comments-input'));
     const deleteButton = element(by.id('delete'));
     browser.waitForAngularEnabled(false);
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    dateSelect.click();
+    dateSelect.sendKeys(new Date().toDateString());
+    createWorkoutButton.click();
     browser.wait(
       EC.visibilityOf(element(by.id('add-button'))),
       BROWSER_WAIT,
@@ -103,15 +114,95 @@ describe('Admin Component e2e test', () => {
     comments.click();
     comments.sendKeys('No comment');
     element(by.id('submit-button')).click();
-    browser.wait(EC.visibilityOf(element(by.id('exerciseTable'))), 3000);
-    expect(element(by.id('exerciseTable')).isDisplayed()).toBe(true);
-    element(by.id('exerciseTable'))
+    browser.wait(EC.visibilityOf(element(by.id('exercise-table'))), 3000);
+    expect(element(by.id('exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('exercise-table'))
       .getText()
       .then(text => {
         expect(text).toContain('test');
         expect(text).toContain('50');
         expect(text).toContain('20');
         expect(text).toContain('100');
+      });
+    deleteButton.click();
+  });
+
+  it('should edit an exercises and set values in table correctly', () => {
+    const groupSelect = element(by.id('group-select'));
+    const dateSelect = element(by.id('date-input'));
+    const createWorkoutButton = element(by.id('next-btn'));
+    const name = element(by.id('name-input'));
+    const sets = element(by.id('sets-input'));
+    const reps = element(by.id('reps-input'));
+    const weight = element(by.id('weight-input'));
+    const comments = element(by.id('comments-input'));
+    const editButton = element.all(by.id('edit')).first();
+    const deleteButton = element.all(by.id('delete')).first();
+    const dialogSets = element(by.id('dialog-sets-input'));
+    const dialogReps = element(by.id('dialog-reps-input'));
+    const dialogWeight = element(by.id('dialog-weight-input'));
+    const dialogComments = element(by.id('dialog-comments-input'));
+    const dropdown = element(by.css('.mat-select'));
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    dateSelect.click();
+    dateSelect.sendKeys(new Date().toDateString());
+    createWorkoutButton.click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('add-button'))),
+      BROWSER_WAIT,
+      'timed out waiting for add-button'
+    );
+    element(by.id('add-button')).click();
+    browser.wait(
+      EC.visibilityOf(element(by.id('recommended-exercises-form'))),
+      3000
+    );
+    name.click();
+    name.sendKeys('test');
+    sets.click();
+    sets.sendKeys('50');
+    reps.click();
+    reps.sendKeys('20');
+    weight.click();
+    weight.sendKeys('100');
+    comments.click();
+    comments.sendKeys('No comment');
+    element(by.id('submit-button')).click();
+    browser.wait(EC.visibilityOf(element(by.id('exercise-table'))), 3000);
+    expect(element(by.id('exercise-table')).isDisplayed()).toBe(true);
+    element(by.id('exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('test');
+        expect(text).toContain('50');
+        expect(text).toContain('20');
+        expect(text).toContain('100');
+      });
+    editButton.click();
+    browser.wait(dialogReps.isDisplayed, 3000);
+    dialogSets.click();
+    dialogSets.clear();
+    dialogSets.sendKeys('4');
+    dialogReps.click();
+    dialogReps.clear();
+    dialogReps.sendKeys('30');
+    dialogWeight.click();
+    dialogWeight.clear();
+    dialogWeight.sendKeys('55');
+    dialogComments.click();
+    dialogComments.clear();
+    dialogComments.sendKeys('yes comment');
+    element(by.id('submit-button')).click();
+    element(by.id('exercise-table'))
+      .getText()
+      .then(text => {
+        expect(text).toContain('4');
+        expect(text).toContain('30');
+        expect(text).toContain('55');
       });
     deleteButton.click();
   });

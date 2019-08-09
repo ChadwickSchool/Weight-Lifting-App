@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
+import { EditRecommendedExerciseComponent } from '../edit-recommended-exercise/edit-recommended-exercise.component';
 
 export interface ExerciseData {
   name: string;
@@ -30,7 +31,7 @@ export class CreateWorkoutComponent implements OnInit {
   date$: Observable<Date>;
   group$: Observable<Group>;
   constructor(
-    public dialog: MatDialog,
+    public newExerciseDialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
     private router: Router,
     private groupSelectedService: CurrentGroupSelectedService,
@@ -41,10 +42,17 @@ export class CreateWorkoutComponent implements OnInit {
 
   displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'edit'];
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(RecommendedExercisesDialogComponent, {
+  openNewExerciseDialog(): void {
+    const dialogRef = this.newExerciseDialog.open(RecommendedExercisesDialogComponent, {
       width: '600px',
       data: 'Add Exercise'
+    });
+  }
+
+  openEditExerciseDialog(recommendedExercise: RecommendedExercise): void {
+    const dialogRef = this.newExerciseDialog.open(EditRecommendedExerciseComponent, {
+      width: '600px',
+      data: recommendedExercise
     });
   }
 

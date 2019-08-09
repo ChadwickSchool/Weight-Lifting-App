@@ -20,7 +20,6 @@ export class RecommendedExerciseService {
       'recommended-exercises'
     );
     this.recommendedExercises = this.recommendedExercisesRef.valueChanges();
-
   }
 
   getAddedExercises(): Observable<any> {
@@ -44,6 +43,22 @@ export class RecommendedExerciseService {
     this.recommendedExercisesRef.doc(id).set(Object.assign({}, recExercise));
   }
 
+  updateRecommendedExercise(recommendedExercise: RecommendedExercise) {
+    const recExerciseRef: AngularFirestoreDocument<RecommendedExercise>
+    = this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`);
+
+    const data = {
+      uid: recommendedExercise.uid,
+      name: recommendedExercise.name,
+      sets: recommendedExercise.sets,
+      reps: recommendedExercise.reps,
+      weight: recommendedExercise.weight,
+      coachComment: recommendedExercise.coachComment
+    };
+
+    return recExerciseRef.set(data, { merge: true });
+  }
+
   deleteRecommendedExercise(recommendedExercise: RecommendedExercise): void {
     this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`).delete();
   }
@@ -54,5 +69,5 @@ export class RecommendedExerciseService {
   //   this.recommendedExercisesDoc.update(recommendedExercise);
   //   }
 
-    // this.afs.object('exercises/' + key).update(exercise);
-  }
+  // this.afs.object('exercises/' + key).update(exercise);
+}
