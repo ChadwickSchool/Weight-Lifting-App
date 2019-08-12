@@ -16,7 +16,7 @@ import UserClass from '../shared/models/user';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   user$: Observable<User>;
-  private userID: string;
+  userID: string;
   constructor(private afAuth: AngularFireAuth, private afs: AngularFirestore) {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
@@ -69,7 +69,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
       `users/${user.uid}`
     );
-
+    this.userID = user.uid;
     const data = {
       uid: user.uid,
       name: user.displayName,

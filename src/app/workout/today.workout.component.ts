@@ -69,16 +69,16 @@ export class TodayWorkoutComponent implements OnInit {
       width: '600px',
       data: exercise
     });
+    this.exerciseService.getAddedExercises().subscribe(exercises => {
+      this.exerciseDataSource = exercises;
+    });
   }
 
-  deleteExercise(exercise: Exercise): void {
-    this.exerciseService.deleteExercise(exercise);
+  submitForm() {
+    this.addExercise();
   }
 
   showExercises() {
-    // this.recExerciseService.getAddedExercises().subscribe(recExercises => {
-    //   this.recExercisesDataSource = recExercises;
-    // });
     this.exerciseService
       .getExercises(this.exercise.name)
       .subscribe(exercises => {
@@ -105,18 +105,19 @@ export class TodayWorkoutComponent implements OnInit {
       );
   }
 
-  submitForm() {
-    this.addExercise();
-  }
-
   addExercise() {
     if (this.exercise.userComment === '') {
       this.exercise.userComment = 'none';
     }
 
-    if (this.setNumber > Number((this.recExercisesDropdownSource.find(element =>
-          element.name === this.exercise.name
-        )).sets)) {
+    if (
+      this.setNumber >
+      Number(
+        this.recExercisesDropdownSource.find(
+          element => element.name === this.exercise.name
+        ).sets
+      )
+    ) {
       this.setNumber = 1;
     } else {
       this.setNumber++;

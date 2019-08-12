@@ -25,9 +25,9 @@ export class ExerciseService {
     this.exercises = this.exercisesRef.valueChanges();
   }
 
-  // getAddedExercises(): Observable<any> {
-  //   return this.exercises;
-  // }
+  getAddedExercises(): Observable<Exercise[]> {
+    return this.exercises;
+  }
 
   getExercises(name: string): Observable<Exercise[]> {
     const todayDate = Utils.getSimplifiedDate(new Date());
