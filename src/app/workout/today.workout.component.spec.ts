@@ -19,8 +19,18 @@ import { DebugElement } from '@angular/core';
 import { Exercise } from '../shared/models/exercise.model';
 import { By } from '@angular/platform-browser';
 import ExerciseClass from '../shared/models/exercise';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import { CurrentDateSelectedService } from '../services/current-date-selected.service';
+import { Group } from '../shared/models/group.model';
+import { Workout } from '../shared/models/workout.model';
+import WorkoutClass from '../shared/models/workout';
+import { WorkoutService } from '../services/workout.service';
+import { browser } from 'protractor';
 
-fdescribe('TodayWorkoutComponent', () => {
+describe('TodayWorkoutComponent', () => {
   let component: TodayWorkoutComponent;
   let fixture: ComponentFixture<any>;
   let componentDebug: DebugElement;
@@ -29,34 +39,42 @@ fdescribe('TodayWorkoutComponent', () => {
   let options: HTMLElement[];
   let selectMenu: SelectMenuTestHelper;
 
-  const recExercisesStub = {
-    getAddedExercises(): Observable<any> {
-      return of([
-        TestUtils.getTestRecommendedExercise(
-          undefined,
-          'Squats',
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-        TestUtils.getTestRecommendedExercise(
-          undefined,
-          'Bench Press',
-          undefined,
-          undefined,
-          undefined,
-          undefined
-        ),
-        TestUtils.getTestRecommendedExercise(
-          undefined,
-          'Deadlift',
-          undefined,
-          undefined,
-          undefined,
-          undefined
+  const workoutStub = {
+    getTodayWorkout(group: Group): Promise<Workout> {
+      return Promise.resolve(
+        new WorkoutClass(
+          'id',
+          [
+            TestUtils.getTestRecommendedExercise(
+              undefined,
+              'Squats',
+              undefined,
+              undefined,
+              undefined,
+              undefined
+            ),
+            TestUtils.getTestRecommendedExercise(
+              undefined,
+              'Bench Press',
+              undefined,
+              undefined,
+              undefined,
+              undefined
+            ),
+            TestUtils.getTestRecommendedExercise(
+              undefined,
+              'Deadlift',
+              undefined,
+              undefined,
+              undefined,
+              undefined
+            )
+          ],
+          new Date(),
+          new Date(),
+          group
         )
-      ]);
+      );
     }
   };
 
@@ -99,8 +117,12 @@ fdescribe('TodayWorkoutComponent', () => {
     // },
 
     getExercises(name: string): Observable<Exercise[]> {
-      const query = this.exercises.filter(exercise => exercise.name === name).filter(
-        exercise => exercise.date.getMonth() === new Date('2019-07-26').getMonth());
+      const query = this.exercises
+        .filter(exercise => exercise.name === name)
+        .filter(
+          (exercise: Exercise) =>
+            exercise.date.getMonth() === new Date().getMonth()
+        );
       console.log('Name: ' + name);
       console.log('All exercises');
       console.log(this.exercises);
@@ -130,18 +152,37 @@ fdescribe('TodayWorkoutComponent', () => {
     }
   };
 
+  const currentGroupSelectedServiceStub = {
+    getCurrentGroup(): Group {
+      return TestUtils.getTestGroup();
+    }
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [MaterialModule, FormsModule, NoopAnimationsModule],
+      imports: [
+        MaterialModule,
+        FormsModule,
+        NoopAnimationsModule,
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule
+      ],
       declarations: [TodayWorkoutComponent],
       providers: [
         {
-          provide: RecommendedExerciseService,
-          useValue: recExercisesStub
-        },
-        {
           provide: ExerciseService,
           useValue: exercisesStub
+        },
+        {
+          provide: CurrentGroupSelectedService,
+          useValue: currentGroupSelectedServiceStub
+        },
+        {
+          provide: CurrentDateSelectedService
+        },
+        {
+          provide: WorkoutService,
+          useValue: workoutStub
         }
       ]
     }).compileComponents();
@@ -167,15 +208,16 @@ fdescribe('TodayWorkoutComponent', () => {
     );
   });
 
-  it('should display exercises correctly in the dropdown', () => {
+  it('should display exercises correctly in the dropdown', async () => {
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
-    const squatsElement = selectMenu.getOptionByKey(options, 'Squats');
-    const benchPressElement = selectMenu.getOptionByKey(options, 'Bench Press');
-    const deadliftElement = selectMenu.getOptionByKey(options, 'Deadlift');
-    expect(squatsElement).not.toBeNull();
-    expect(benchPressElement).not.toBeNull();
-    expect(deadliftElement).not.toBeNull();
+    expect(selectMenu.getOptionByKey(options, 'Squats')).not.toBeNull();
+    expect(selectMenu.getOptionByKey(options, 'Deadlift')).not.toBeNull();
+    expect(selectMenu.getOptionByKey(options, 'Bench Press')).not.toBeNull();
   });
 
   it('should not have exercises in the Your Workout table at the start', () => {
@@ -189,6 +231,10 @@ fdescribe('TodayWorkoutComponent', () => {
   it('should say your current exercise on the expansion panel', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
@@ -213,6 +259,10 @@ fdescribe('TodayWorkoutComponent', () => {
   it('should enable panel when exercise is selected', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     const panelElements = componentElement.querySelectorAll<HTMLElement>(
       'mat-expansion-panel'
     );
@@ -227,21 +277,32 @@ fdescribe('TodayWorkoutComponent', () => {
   });
 
   it('should disable next set button before all fields are filled out', () => {
-    const buttonElement = componentElement.querySelector<HTMLElement>('#next-btn');
-    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('true');
+    const buttonElement = componentElement.querySelector<HTMLElement>(
+      '#next-btn'
+    );
+    expect(
+      buttonElement.attributes.getNamedItem('ng-reflect-disabled').value
+    ).toEqual('true');
   });
 
   it('should enable next set button when all fields are filled out', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
-    const buttonElement = componentElement.querySelector<HTMLElement>('#next-btn');
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
+    const buttonElement = componentElement.querySelector<HTMLElement>(
+      '#next-btn'
+    );
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
     fixture.detectChanges();
-    expect(buttonElement.attributes.getNamedItem('ng-reflect-disabled').value).toEqual('false');
+    expect(
+      buttonElement.attributes.getNamedItem('ng-reflect-disabled').value
+    ).toEqual('false');
   });
-
 
   it('should be able to add student exercise to table', async () => {
     await fixture.whenStable();
@@ -254,6 +315,10 @@ fdescribe('TodayWorkoutComponent', () => {
     const studentExerciseTable = componentElement.querySelector(
       '#student-exercise-table'
     );
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Deadlift', false);
@@ -265,11 +330,12 @@ fdescribe('TodayWorkoutComponent', () => {
     commentsInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
-    const date = new Date('2019-06-14');
     fixture.detectChanges();
-    fixture.whenStable().then(() => {
-      expect(studentExerciseTable.textContent).toContain('ooga booga');
-    });
+    await fixture.whenStable();
+    console.log('exercises: ');
+    console.log(component.exerciseDataSource);
+    expect(component.exerciseDataSource).not.toBeNull();
+
   });
 
   it('should only show the selected exercise', async () => {
@@ -278,7 +344,10 @@ fdescribe('TodayWorkoutComponent', () => {
     const studentExerciseTable = componentElement.querySelector(
       '#student-exercise-table'
     );
-
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
@@ -298,7 +367,14 @@ fdescribe('TodayWorkoutComponent', () => {
   it('should only show the selected recommended exercise in the table', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
-    const recExerciseTable = componentElement.querySelector('#recommended-exercises-table');
+    const recExerciseTable = componentElement.querySelector(
+      '#recommended-exercises-table'
+    );
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
+    component.recExercisesDataSource = [todaysWorkout.recExercise[0]];
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
@@ -338,14 +414,22 @@ fdescribe('TodayWorkoutComponent', () => {
   it('should only get today\'s exercises', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
+    const todaysWorkout = await workoutStub.getTodayWorkout(
+      TestUtils.getTestGroup()
+    );
+    component.recExercisesDropdownSource = todaysWorkout.recExercise;
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Bench Press', false);
     fixture.detectChanges();
     component.exerciseDataSource.forEach((exercise: Exercise) => {
-        expect(exercise.date.getDate()).toEqual(new Date('2019-07-26').getDate());
-        expect(exercise.date.getMonth()).toEqual(new Date('2019-07-26').getMonth());
-        expect(exercise.date.getFullYear()).toEqual(new Date('2019-07-26').getFullYear());
+      expect(exercise.date.getDate()).toEqual(new Date('2019-07-26').getDate());
+      expect(exercise.date.getMonth()).toEqual(
+        new Date('2019-07-26').getMonth()
+      );
+      expect(exercise.date.getFullYear()).toEqual(
+        new Date('2019-07-26').getFullYear()
+      );
     });
   });
 });

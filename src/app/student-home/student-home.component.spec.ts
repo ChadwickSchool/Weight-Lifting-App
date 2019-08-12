@@ -15,6 +15,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { LoginComponent } from '../login/login.component';
 import { StudentEntireWorkoutComponent } from '../student-entire-workout/student-entire-workout.component';
+import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
 describe('StudentHomeComponent', () => {
   let component: StudentHomeComponent;
@@ -53,6 +54,9 @@ describe('StudentHomeComponent', () => {
         {
           provide: GroupService,
           useValue: groupServiceStub
+        },
+        {
+          provide: CurrentGroupSelectedService
         }
       ]
     }).compileComponents();

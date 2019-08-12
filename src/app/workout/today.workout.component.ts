@@ -29,7 +29,6 @@ export class TodayWorkoutComponent implements OnInit {
   selectedGroup: Group;
   constructor(
     public dialog: MatDialog,
-    private recExerciseService: RecommendedExerciseService,
     private exerciseService: ExerciseService,
     private workoutService: WorkoutService,
     private groupSelectedService: CurrentGroupSelectedService
@@ -115,7 +114,7 @@ export class TodayWorkoutComponent implements OnInit {
       this.exercise.userComment = 'none';
     }
 
-    if (this.setNumber > Number((this.recExercisesDataSource.find(element =>
+    if (this.setNumber > Number((this.recExercisesDropdownSource.find(element =>
           element.name === this.exercise.name
         )).sets)) {
       this.setNumber = 1;
