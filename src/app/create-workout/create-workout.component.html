@@ -37,6 +37,10 @@
       <td>
           {{ recExercise.coachComment }}
         </td>
+      <td>
+        <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openEditExerciseDialog(recExercise)">edit</mat-icon>
+        <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteRecExercise(recExercise)">delete</mat-icon>
+      </td>
     </tr>
   </table>
 
@@ -51,7 +55,7 @@
       <div fxLayout="column" fxLayoutAlign="center center" class="content">
         <div class="blocks">
           <button
-            (click)="openDialog()"
+            (click)="openNewExerciseDialog()"
             button="submit"
             mat-raised-button
             color="secondary"

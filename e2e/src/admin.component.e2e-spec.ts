@@ -73,10 +73,6 @@ describe('Admin Component e2e test', () => {
     browser.waitForAngularEnabled(true);
   });
 
-  // afterAll(() => {
-  //   element(by.id('logout')).click();
-  // });
-
   it('should set correct value of all attributes', () => {
     const groupSelect = element(by.id('group-select'));
     const dateSelect = element(by.id('date-input'));
@@ -86,6 +82,7 @@ describe('Admin Component e2e test', () => {
     const reps = element(by.id('reps-input'));
     const weight = element(by.id('weight-input'));
     const comments = element(by.id('comments-input'));
+    const deleteButton = element(by.id('delete'));
     browser.waitForAngularEnabled(false);
     browser.sleep(2000);  //TODO: Fix to not use browser.sleep
     groupSelect.click();
@@ -127,6 +124,7 @@ describe('Admin Component e2e test', () => {
         expect(text).toContain('20');
         expect(text).toContain('100');
       });
+    deleteButton.click();
   });
 
   // it('should return to home page after clicking "save workout"', () => {

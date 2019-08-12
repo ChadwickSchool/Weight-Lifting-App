@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 
 @Injectable()
@@ -32,5 +32,25 @@ export class RecommendedExerciseService {
     );
     this.addedRecExercises.push(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
+  }
+
+  updateRecommendedExercise(recommendedExercise: RecommendedExercise) {
+    const recExerciseRef: AngularFirestoreDocument<RecommendedExercise>
+    = this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`);
+
+    const data = {
+      uid: recommendedExercise.uid,
+      name: recommendedExercise.name,
+      sets: recommendedExercise.sets,
+      reps: recommendedExercise.reps,
+      weight: recommendedExercise.weight,
+      coachComment: recommendedExercise.coachComment
+    };
+
+    return recExerciseRef.set(data, { merge: true });
+  }
+
+  deleteRecommendedExercise(recommendedExercise: RecommendedExercise): void {
+    this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`).delete();
   }
 }

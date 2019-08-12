@@ -1,4 +1,10 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
 import { DataService } from '../data/data.service';
@@ -11,6 +17,7 @@ import { CurrentGroupSelectedService } from '../services/current-group-selected.
 import { CurrentDateSelectedService } from '../services/current-date-selected.service';
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 import { WorkoutService } from '../services/workout.service';
+import { EditRecommendedExerciseComponent } from '../edit-recommended-exercise/edit-recommended-exercise.component';
 
 export interface ExerciseData {
   name: string;
@@ -30,8 +37,18 @@ export class CreateWorkoutComponent implements OnInit {
   recExercises$: Observable<Array<RecommendedExercise>>;
   date: Date;
   group: Group;
+  displayedColumns = [
+    'name',
+    'sets',
+    'reps',
+    'weight',
+    'rest',
+    'comments',
+    'edit'
+  ];
+
   constructor(
-    public dialog: MatDialog,
+    public newExerciseDialog: MatDialog,
     private recExerciseService: RecommendedExerciseService,
     private router: Router,
     private groupSelectedService: CurrentGroupSelectedService,
@@ -39,19 +56,30 @@ export class CreateWorkoutComponent implements OnInit {
     private workoutService: WorkoutService
   ) {}
 
-  displayedColumns = ['name', 'sets', 'reps', 'weight', 'rest', 'comments'];
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(RecommendedExercisesDialogComponent, {
-      width: '600px',
-      data: 'Add Exercise'
-    });
-  }
-
   ngOnInit() {
     this.recExercises$ = this.recExerciseService.getAddedExercises();
     this.group = this.groupSelectedService.getCurrentGroup();
     this.date = this.dateSelectedService.getCurrentDate();
+  }
+
+  openNewExerciseDialog(): void {
+    const dialogRef = this.newExerciseDialog.open(
+      RecommendedExercisesDialogComponent,
+      {
+        width: '600px',
+        data: 'Add Exercise'
+      }
+    );
+  }
+
+  openEditExerciseDialog(recommendedExercise: RecommendedExercise): void {
+    const dialogRef = this.newExerciseDialog.open(
+      EditRecommendedExerciseComponent,
+      {
+        width: '600px',
+        data: recommendedExercise
+      }
+    );
   }
 
   saveWorkout() {
@@ -61,5 +89,9 @@ export class CreateWorkoutComponent implements OnInit {
       this.group
     );
     // this.router.navigate(['']);
+  }
+
+  deleteRecExercise(recommendedExercise: RecommendedExercise): void {
+    this.recExerciseService.deleteRecommendedExercise(recommendedExercise);
   }
 }

@@ -11,9 +11,9 @@ import { WorkoutService } from '../services/workout.service';
 import { Group } from '../shared/models/group.model';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
-export class ExpansionOverviewExample {
-  panelOpenState = false;
-}
+// export class ExpansionOverviewExample {
+//   panelOpenState = false;
+// }
 
 @Component({
   selector: 'wla-today-workout',

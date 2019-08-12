@@ -16,6 +16,8 @@ import { SelectMenuTestHelper } from '../shared/utils/select-menu-helper';
 import { LoginComponent } from '../login/login.component';
 import { StudentEntireWorkoutComponent } from '../student-entire-workout/student-entire-workout.component';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
+import { StudentListComponent } from '../student-list/student-list.component';
+import { StudentWorkoutHistoryComponent } from '../student-workout-history/student-workout-history.component';
 
 describe('StudentHomeComponent', () => {
   let component: StudentHomeComponent;
@@ -48,7 +50,9 @@ describe('StudentHomeComponent', () => {
         CreateWorkoutComponent,
         AdminHomeComponent,
         LoginComponent,
-        StudentEntireWorkoutComponent
+        StudentEntireWorkoutComponent,
+        StudentListComponent,
+        StudentWorkoutHistoryComponent
       ],
       providers: [
         {

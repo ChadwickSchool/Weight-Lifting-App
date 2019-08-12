@@ -10,7 +10,8 @@ import {
 } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
-import { switchMap, first } from 'rxjs/operators';
+import { switchMap, first, map } from 'rxjs/operators';
+import UserClass from '../shared/models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -31,20 +32,6 @@ export class AuthService {
     );
   }
 
-  // async googleSignin() {
-  // const provider = new auth.GoogleAuthProvider();
-  // const credential = await this.afAuth.auth.signInWithPopup(provider);
-  // // check to see if the user exists in the database
-  // // if user is not in database
-  //     return this.createStudentUser(credential.user);
-  //   // if user is in database
-  //   // return the user object
-  // }
-
-  getUser(): Promise<any> {
-    return this.afAuth.authState.pipe(first()).toPromise();
-}
-
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.afAuth.auth.signInWithPopup(provider);
@@ -52,26 +39,31 @@ export class AuthService {
     console.log('User id in googleSignIn is ' + this.userID);
     // check to see if the user exists in the database
     // if user is not in database
-    const userRef: AngularFirestoreDocument = this.afs.doc<User>(`users/${credential.user.uid}`);
+    const userRef: AngularFirestoreDocument = this.afs.doc<User>(
+      `users/${credential.user.uid}`
+    );
 
     userRef.valueChanges().subscribe(user => {
       this.userID = credential.user.uid;
-      console.log("userID" + this.userID);
+      console.log('userID' + this.userID);
       if (user) {
         return user;
       } else {
         return this.createStudentUser(credential.user);
       }
     });
-
   }
 
-  getUserID(): string {
+  getFirebaseUserID(): string {
     return this.userID;
   }
 
+  getAuthenticatedUser(): Promise<any> {
+    return this.afAuth.authState.pipe(first()).toPromise();
+  }
+
   private createStudentUser(user) {
-    console.log("user is");
+    console.log('user is');
     console.log(user);
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<User> = this.afs.doc(
