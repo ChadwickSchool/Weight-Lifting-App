@@ -2,7 +2,7 @@
   <h1> {{studentsDataSource.name}} </h1>
   <mat-form-field id="student-form-field">
     <mat-label>Select Which Exercise</mat-label>
-    <mat-select name="name" [(ngModel)]="exercise.name" id="student-select">
+    <mat-select name="name" [(ngModel)]="exercise.name" id="exercise-select">
       <mat-option (click)="showExercise()" *ngFor="let name of exerciseNamesDataSource" [value]="name" matInput>
         {{name}}
       </mat-option>

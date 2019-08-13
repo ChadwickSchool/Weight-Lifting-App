@@ -20,11 +20,11 @@ export class EditRecommendedExerciseComponent implements OnInit {
   ) {}
 
   recommendedExercise = {
-    name: this.data.name,
-    sets: this.data.sets,
-    reps: this.data.reps,
-    weight: this.data.weight,
-    coachComment: this.data.coachComment,
+    name: this.data ? this.data.name : '',
+    sets: this.data ? this.data.sets : '',
+    reps: this.data ? this.data.reps : '',
+    weight: this.data ? this.data.weight : '',
+    coachComment: this.data ? this.data.coachComment : '',
 
   };
 

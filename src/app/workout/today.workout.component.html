@@ -67,8 +67,6 @@
   </mat-expansion-panel>
   <mat-expansion-panel
     id="exercises-expansion"
-    (opened)="panelOpenState = true"
-    (closed)="panelOpenState = false"
     [disabled]="exercise.name === ''"
   >
     <mat-expansion-panel-header>
@@ -138,7 +136,7 @@
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
         <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()" id="exercise-name-select">
-          <mat-option *ngFor="let recExercise of recExercisesDataSource" [value]="recExercise.name" matInput>
+          <mat-option *ngFor="let recExercise of recExercisesDropdownSource" [value]="recExercise.name" matInput>
             {{ recExercise.name }}
           </mat-option>
         </mat-select>
@@ -161,15 +159,13 @@
         </mat-form-field>
       </div>
       <mat-form-field class="example-full-width">
-        <textarea matInput id="comment-input" placeholder="Comments" [(ngModel)]="exercise.userComment"
+        <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.userComment"
           name="comment"></textarea>
       </mat-form-field>
       <button id="next-btn" type="submit" name="button" mat-raised-button color="primary"
         [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
       </button>
-      <button routerLink="/student-entire-workout" type="submit" name="button" mat-raised-button color="secondary">View
-        Entire Workout</button>
     </form>
   </div>
 </div>

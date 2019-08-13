@@ -29,13 +29,6 @@ describe('User class tests', () => {
     expect(user.isAdmin).toEqual(false);
   });
 
-  it('should set groups correctly through constructor', () => {
-    const groups = [TestUtils.getTestGroup()];
-    user = new UserClass('1', 'User with Groups', 'email@email.com', false, groups);
-    expect(user.groups).not.toBeNull();
-    expect(user.groups).toEqual(groups);
-  });
-
   it('should get and set name correctly', () => {
     user.name = 'Jimmy Butler';
     expect(user.name).toEqual('Jimmy Butler');

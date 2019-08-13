@@ -62,7 +62,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment-test.ts"
+                  "with": "src/environments/environment.test.ts"
                 }
               ]
             }
@@ -76,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "workout-app:build:production"
+            },
+            "test": {
+              "browserTarget": "workout-app:build:test"
             }
           }
         },

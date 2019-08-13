@@ -11,10 +11,8 @@
 //   async canActivate(): Promise<boolean> {
 //     const user = await this.authService.getUser() as User;
 //     const loggedIn = user.isAdmin;
-//     console.log('User: ' + user);
 
 //     if (loggedIn) {
-//       console.log('access denied');
 //       this.router.navigate(['']);
 //     }
 

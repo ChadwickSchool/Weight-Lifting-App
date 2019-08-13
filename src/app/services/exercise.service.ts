@@ -51,7 +51,6 @@ export class ExerciseService {
   }
 
   getExercise(name: string): Observable<Exercise[]> {
-    console.log(name);
     return this.afs.collection<Exercise>('exercises', ref => ref
       .where('name', '==', name)).valueChanges();
   }

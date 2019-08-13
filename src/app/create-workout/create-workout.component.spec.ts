@@ -32,12 +32,8 @@ import GroupClass from '../shared/models/group';
 describe('CreateWorkoutComponent', () => {
   let component: CreateWorkoutComponent;
   let fixture: ComponentFixture<CreateWorkoutComponent>;
-  let dialogFixture: ComponentFixture<RecommendedExercisesDialogComponent>;
   let componentDebug: DebugElement;
   let componentElement: HTMLElement;
-  let dialogComponent: RecommendedExercisesDialogComponent;
-  let dialogComponentDebug: DebugElement;
-  let dialogComponentElement: HTMLElement;
   let workoutService: WorkoutService;
   let recommendedExerciseService: RecommendedExerciseService;
   let workoutServiceSpy: jasmine.Spy;
@@ -124,12 +120,6 @@ describe('CreateWorkoutComponent', () => {
           provide: WorkoutService,
           useValue: workoutServiceStub
         }
-        // {
-        //   provide: MatDialogRef
-        // },
-        // {
-        //   provide: MAT_DIALOG_DATA
-        // }
       ]
     }).compileComponents();
     workoutServiceSpy = spyOn(TestBed.get(WorkoutService), 'saveWorkout');

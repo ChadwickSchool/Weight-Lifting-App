@@ -44,6 +44,7 @@ describe('Create Workout e2e test', () => {
     const loginButton = element(by.id('login'));
     const groupSelect = element(by.id('group-select'));
     const viewWorkout = element(by.id('workout-button'));
+    const dropdown = element(by.id('exercise-select'));
     browser.waitForAngularEnabled(true);
     browser.wait(
       EC.visibilityOf(loginButton),
@@ -62,7 +63,7 @@ describe('Create Workout e2e test', () => {
       'timed out waiting for home button'
     );
     element(by.id('home')).click();
-    browser.sleep(3000);
+    browser.sleep(3000); // TODO don't use sleep
     groupSelect.click();
     element
       .all(by.css('.mat-option'))
@@ -74,10 +75,19 @@ describe('Create Workout e2e test', () => {
       3000
     );
     browser.waitForAngularEnabled(false);
+    browser.sleep(2000);
+    dropdown.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
     element(by.id('rec-exercises-expansion')).click();
-    browser.wait(
-      EC.visibilityOf(element(by.id('recommended-exercises-table')))
-    );
+
+    browser.wait(EC.visibilityOf(element(by.id('recommended-exercises-table'))));
+    // browser.wait(
+    //   EC.textToBePresentInElementValue(element(by.id('recommended-exercises-table')), 'hooga wooga')
+    // );
+    browser.sleep(2000); // TODO Get above code to work
     element(by.id('recommended-exercises-table'))
       .getText()
       .then(text => {
@@ -124,7 +134,7 @@ describe('Create Workout e2e test', () => {
     element(by.id('home')).click();
   });
 
-  fit('should create a workout and display it for the student', async () => {
+  it('should create a workout and display it for the student', async () => {
     const groupSelect = element(by.id('group-select'));
     const dateSelect = element(by.id('date-input'));
     const createWorkoutButton = element(by.id('next-btn'));

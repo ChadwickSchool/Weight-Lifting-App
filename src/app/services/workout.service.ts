@@ -30,12 +30,10 @@ export class WorkoutService {
     let result;
     await query.get().then(snapshot => {
       if (snapshot.empty) {
-        console.log('No matching documents.');
         return;
       }
 
       snapshot.forEach(doc => {
-        console.log(doc.id, '=>', doc.data());
         result = doc.data() as Workout;
       });
     });

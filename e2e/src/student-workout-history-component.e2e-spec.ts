@@ -5,12 +5,12 @@ import {
   STUDENT_PASSWORD
 } from './google-login-info';
 import { protractor } from 'protractor/built/ptor';
-import { browser, element, by, ElementFinder, WebElement } from 'protractor';
+import { browser, element, by, ElementFinder, WebElement, $ } from 'protractor';
 import { setServers } from 'dns';
 import TestUtils from 'src/app/shared/utils/test-utils';
 import Utils from 'src/app/shared/utils/utils';
 
-describe('Create Workout e2e test', () => {
+fdescribe('Create Workout e2e test', () => {
   const EC = protractor.ExpectedConditions;
   const GOOGLE_USERNAME = ADMIN_USERNAME;
   const GOOGLE_PASSWORD = ADMIN_PASSWORD;
@@ -46,15 +46,11 @@ describe('Create Workout e2e test', () => {
     this.emailNextButton = element(by.id('identifierNext'));
     this.passwordNextButton = element(by.id('passwordNext'));
     const self = this;
-    console.log('Logging into to google');
 
     /* Entering non angular site, it instructs webdriver to switch
      to synchronous mode. At this point I assume we are on google
      login page */
-    browser.waitForAngularEnabled(false);
-    const newEmailInput = element(by.id('identfierId'));
-    browser.wait(EC.visibilityOf(this.emailInput), BROWSER_WAIT).then(() => {
-      console.log('Saw email input');
+    browser.wait(EC.visibilityOf(self.emailInput), BROWSER_WAIT).then(() => {
       this.emailInput.sendKeys(username);
       this.emailNextButton.click();
       browser
@@ -67,14 +63,14 @@ describe('Create Workout e2e test', () => {
     });
   };
 
-  const checkStudentView = () => {
+  const addStudentExercise = () => {
     const loginButton = element(by.id('login'));
     const groupSelect = element(by.id('group-select'));
     const viewWorkout = element(by.id('workout-button'));
     const exerciseSelect = element(by.id('exercise-name-select'));
     const repsInput = element(by.id('reps-input'));
     const weightInput = element(by.id('weight-input'));
-    const commentInput = element(by.id('comment-input'));
+    const commentInput = element(by.id('comments-input'));
     const nextSetButton = element(by.id('next-btn'));
     browser.waitForAngularEnabled(true);
     browser.wait(
@@ -82,24 +78,25 @@ describe('Create Workout e2e test', () => {
       BROWSER_WAIT,
       'timed out waiting for login button'
     );
+    browser.waitForAngularEnabled(false);
     loginButton.click();
     selectWindow(1);
     this.loginToGoogle(GOOGLE_STUDENT_USERNAME, GOOGLE_STUDENT_PASSWORD);
     selectWindow(0);
-    // browser.waitForAngularEnabled(true);
     browser.wait(
       EC.visibilityOf(element(by.id('home'))),
       BROWSER_WAIT,
       'timed out waiting for home button'
     );
     element(by.id('home')).click();
-    browser.sleep(3000);
+    browser.sleep(2000); // TODO Fix to wait for dropdown to populate
     groupSelect.click();
     element
       .all(by.css('.mat-option'))
       .first()
       .click();
     viewWorkout.click();
+    browser.sleep(2000); // TODO Fix to wait for dropdown to populate
     exerciseSelect.click();
     element
       .all(by.css('.mat-option'))
@@ -116,26 +113,25 @@ describe('Create Workout e2e test', () => {
     const loginButton = element(by.id('login'));
     const studentHistoryButton = element(by.id('history-label'));
     const studentTable = element(by.id('student-table'));
-    const studentDropDown = element(by.id('student-select'));
+    const exerciseDropDown = element(by.id('exercise-select'));
     browser.waitForAngularEnabled(true);
-    browser.wait(
-      EC.visibilityOf(loginButton),
-      BROWSER_WAIT,
-      'timed out waiting for login button'
-    );
-    browser.waitForAngularEnabled(false);
-    // log in as admin
-    loginButton.click();
-    selectWindow(1);
-    this.loginToGoogle(GOOGLE_USERNAME, GOOGLE_PASSWORD);
-    selectWindow(0);
+    // browser.wait(
+    //   EC.visibilityOf(loginButton),
+    //   BROWSER_WAIT,
+    //   'timed out waiting for login button'
+    // );
+    // browser.waitForAngularEnabled(false);
+    // // log in as admin
+    // loginButton.click();
+    // selectWindow(1);
+    // this.loginToGoogle(GOOGLE_USERNAME, GOOGLE_PASSWORD);
+    // selectWindow(0);
     browser.wait(
       EC.elementToBeClickable(studentHistoryButton),
       BROWSER_WAIT,
       'timed out waiting for studentHistoryButton'
     );
     studentHistoryButton.click();
-    browser.sleep(1000);
     browser.wait(
       EC.visibilityOf(element(by.id('student-table'))),
       BROWSER_WAIT,
@@ -146,14 +142,18 @@ describe('Create Workout e2e test', () => {
       .all(by.className('mat-row'))
       .getWebElements();
 
+    console.log('Grabbed web elements');
+    console.log(webElements);
     webElements.forEach(async (webElement: WebElement, index) => {
       const text = await webElement.getText();
+      console.log('current text');
+      console.log(text);
       if (text.includes('Student Test')) {
         webElement.click();
       }
     });
-    browser.sleep(2000); // TODO: Fix to not use browser.sleep
-    studentDropDown.click();
+    browser.sleep(8000); // TODO: Fix to not use browser.sleep
+    exerciseDropDown.click();
     element
       .all(by.css('.mat-option'))
       .first()
@@ -163,22 +163,10 @@ describe('Create Workout e2e test', () => {
       .getText()
       .then(text => {
         expect(text).toContain('50');
-        // expect(text).toContain('ooga booga');
-        // expect(text).toContain('5');
-        // expect(text).toContain('10');
-        // expect(text).toContain('50');
-        // expect(text).toContain('hooga wooga');
-        // expect(text).toContain('take a load off');
+        expect(text).toContain('5');
+        expect(text).toContain('10');
+        expect(text).toContain('take a load off');
       });
-
-    // const elementFinderArray = await element.all(by.className('mat-row'));
-    // elementFinderArray.forEach(async (elementFinder: ElementFinder, index) => {
-    //   const text = await elementFinder.getText();
-    //   if (text.includes('Student Test')) {
-    //     elementFinder.click();
-    //   }
-    // });
-    browser.sleep(3000);
   };
 
   beforeAll(() => {
@@ -200,7 +188,7 @@ describe('Create Workout e2e test', () => {
     const groupSelect = element(by.id('group-select'));
     const dateSelect = element(by.id('date-input'));
     const createWorkoutButton = element(by.id('next-btn'));
-    const addButton = element(by.id('add-button'));
+    const addButton = element(by.id('add-exercise-button'));
     const nameInput = element(by.id('name-input'));
     const setsInput = element(by.id('sets-input'));
     const repsInput = element(by.id('reps-input'));
@@ -223,9 +211,9 @@ describe('Create Workout e2e test', () => {
     dateSelect.sendKeys(new Date().toDateString());
     createWorkoutButton.click();
     browser.wait(
-      EC.visibilityOf(element(by.id('add-button'))),
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
       3000,
-      'timed out waiting for add-button'
+      'timed out waiting for add-exercise-button'
     );
     addButton.click();
     browser.wait(EC.visibilityOf(nameInput));
@@ -240,12 +228,12 @@ describe('Create Workout e2e test', () => {
     commentsInput.click();
     commentsInput.sendKeys('hooga wooga');
     restInput.click();
-    restInput.sendKeys('take a load off');
+    restInput.sendKeys('30 seconds');
     saveExerciseButton.click();
     browser.wait(
-      EC.visibilityOf(element(by.id('add-button'))),
+      EC.visibilityOf(element(by.id('add-exercise-button'))),
       7000,
-      'timed out waiting for add-button 2x'
+      'timed out waiting for add-exercise-button 2x'
     );
     browser.wait(
       EC.elementToBeClickable(saveWorkoutButton),
@@ -259,16 +247,15 @@ describe('Create Workout e2e test', () => {
     // log in to student
     await browser.restart();
     browser.get('/');
-    checkStudentView();
-    browser.sleep(1000);
-    // log out of student
-    logoutButton.click();
-    await browser.restart();
-    browser.get('/');
-    checkStudentHistory();
+    addStudentExercise();
+    // // log out of student
+    // logoutButton.click();
+    // await browser.restart();
+    // browser.get('/');
+    // checkStudentHistory();
   });
 
-  it('should check student\'s history', () => {
+  fit('should check student\'s history', () => {
     checkStudentHistory();
   });
 });

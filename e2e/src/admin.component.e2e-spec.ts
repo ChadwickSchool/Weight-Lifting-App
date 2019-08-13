@@ -62,10 +62,7 @@ describe('Admin Component e2e test', () => {
     selectWindow(1);
     this.loginToGoogle();
     selectWindow(0);
-    browser.wait(
-      EC.visibilityOf(element(by.id('logout'))),
-      BROWSER_WAIT
-    );
+    browser.wait(EC.visibilityOf(element(by.id('logout'))), BROWSER_WAIT);
   });
 
   beforeEach(() => {
@@ -84,7 +81,7 @@ describe('Admin Component e2e test', () => {
     const comments = element(by.id('comments-input'));
     const deleteButton = element(by.id('delete'));
     browser.waitForAngularEnabled(false);
-    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
+    browser.sleep(2000); // TODO: Fix to not use browser.sleep (wait for dropdown to populate)
     groupSelect.click();
     element
       .all(by.css('.mat-option'))
@@ -148,7 +145,7 @@ describe('Admin Component e2e test', () => {
     const logoutButton = element(by.id('logout'));
     // fill out group and date
     browser.waitForAngularEnabled(false);
-    browser.sleep(2000);  //TODO: Fix to not use browser.sleep
+    browser.sleep(2000); // TODO: Fix to not use browser.sleep
     groupSelect.click();
     element
       .all(by.css('.mat-option'))

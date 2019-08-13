@@ -16,7 +16,6 @@ export class LoginGuard implements CanActivate {
     const loggedIn = !!user;
 
     if (!loggedIn) {
-      console.log('access denied');
       this.router.navigate(['']);
     }
 

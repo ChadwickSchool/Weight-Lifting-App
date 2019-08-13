@@ -27,9 +27,8 @@ export default class TestUtils {
     name = 'Test User',
     email = 'test@gmail.com',
     isAdmin = false,
-    groups?: Array<Group>
   ): User {
-    return new UserClass(uid, name, email, isAdmin, groups);
+    return new UserClass(uid, name, email, isAdmin);
   }
 
   static getTestRecommendedExercise(

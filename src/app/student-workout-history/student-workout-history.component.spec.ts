@@ -102,12 +102,11 @@ describe('StudentWorkoutHistoryComponent', () => {
   });
 
   it('should display exercises correctly in the dropdown', () => {
-    component.exerciseDataSource = [
-      TestUtils.getTestExercise('2', 'Ooga Booga', 1, 5, 20),
-      TestUtils.getTestExercise('1', 'Booga Wooga')
-    ];
+    component.exerciseNamesDataSource = new Set(['Ooga Booga', 'Booga Wooga']);
+    fixture.detectChanges();
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
+    fixture.detectChanges();
     const oogaElement = selectMenu.getOptionByKey(options, 'Ooga Booga');
     const woogaElement = selectMenu.getOptionByKey(options, 'Booga Wooga');
     expect(oogaElement).not.toBeNull();
@@ -120,20 +119,5 @@ describe('StudentWorkoutHistoryComponent', () => {
     );
     expect(studentExerciseTable.textContent).not.toContain('Ooga Booga');
     expect(studentExerciseTable.textContent).not.toContain('Booga Wooga');
-  });
-
-  it('should display a students previous exercises', () => {
-    component.exerciseDataSource = [
-      TestUtils.getTestExercise('2', 'Ooga Booga', 1, 5, 20),
-      TestUtils.getTestExercise()
-    ];
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-    selectMenu.getOptionByKey(options, 'Ooga Booga');
-    fixture.detectChanges();
-    const ooga = TestUtils.getTestExercise('2', 'Ooga Booga', 1, 5, 20);
-    fixture.detectChanges();
-    console.log('exercise: ' + component.exerciseDataSource);
-    expect(component.exerciseDataSource).toContain(ooga);
   });
 });

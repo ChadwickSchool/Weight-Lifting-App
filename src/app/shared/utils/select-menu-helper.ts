@@ -53,7 +53,6 @@ export class SelectMenuTestHelper {
   public getOptionByKey(options: HTMLElement[], key: string): HTMLElement {
     let result: HTMLElement = null;
     options.forEach((option: HTMLElement) => {
-      console.log('option: ' + option.innerText);
       if (option.innerText.trim() === key) {
         result = option;
       }

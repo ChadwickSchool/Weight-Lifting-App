@@ -8,7 +8,7 @@ describe('Student Component e2e tests', () => {
   const BROWSER_WAIT = 8000;
   const reps = element(by.id('reps-input'));
   const weight = element(by.id('weight-input'));
-  const comment = element(by.id('comment-input'));
+  const comment = element(by.id('comments-input'));
 
   const hasText = (elementFinder, queryText: string) => {
     const searchesForText = () => {
@@ -40,8 +40,21 @@ describe('Student Component e2e tests', () => {
     const handlesPromise = await browser.getAllWindowHandles();
     return browser.switchTo().window(handlesPromise[index]);
   };
+
+  const selectGroup = () => {
+    const groupSelect = element(by.id('group-select'));
+    const viewWorkout = element(by.id('workout-button'));
+    browser.sleep(3000); // TODO don't use sleep
+    groupSelect.click();
+    element
+      .all(by.css('.mat-option'))
+      .first()
+      .click();
+    viewWorkout.click();
+  };
+
   beforeAll(() => {
-    browser.get('/' + 'today-workout-student');
+    browser.get('/');
     this.emailInput = element(by.id('identifierId'));
     this.passwordInput = element(by.name('password'));
     this.emailNextButton = element(by.id('identifierNext'));
@@ -79,8 +92,14 @@ describe('Student Component e2e tests', () => {
       BROWSER_WAIT,
       'timed out waiting for Logout button to appear'
     );
-    element(by.id('workout-label')).click();
+    browser.wait(
+      ec.visibilityOf(element(by.id('home'))),
+      BROWSER_WAIT,
+      'timed out waiting for home button'
+    );
+    element(by.id('home')).click();
     browser.wait(ec.visibilityOf(element(by.css('.mat-select'))));
+    selectGroup();
   });
 
   afterEach(() => {
@@ -328,4 +347,6 @@ describe('Student Component e2e tests', () => {
       .last()
       .click();
   });
+
+  // TODO test that the student only sees today's exercises
 });

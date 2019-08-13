@@ -45,11 +45,6 @@ describe('StudentEntireWorkoutComponent', () => {
           exercise =>
             exercise.date.getMonth() === new Date('2019-07-26').getMonth()
         );
-      console.log('Name: ' + name);
-      console.log('All exercises');
-      console.log(this.exercises);
-      console.log('Filtered Exercises');
-      console.log(query);
       return of(query);
     },
 
@@ -72,13 +67,8 @@ describe('StudentEntireWorkoutComponent', () => {
         new Date('2019-06-14'),
         exercise.userComment
       );
-      console.log('Adding an exercise');
       this.exercises.push(newEntry);
-      console.log('This.exercises');
-      console.log(this.exercises);
       component.exerciseDataSource = this.exercises;
-      console.log('Component.exercise');
-      console.log(component.exerciseDataSource);
     }
   };
 

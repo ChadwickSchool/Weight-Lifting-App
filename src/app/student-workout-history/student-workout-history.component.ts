@@ -47,7 +47,6 @@ export class StudentWorkoutHistoryComponent implements OnInit {
   showExerciseNames() {
     this.exercisesService.getAllExercisesEver().subscribe(exercise => {
       exercise.forEach(e => {
-        console.log('It Worked');
         this.exerciseNamesDataSource.add(e.name);
       });
     });
@@ -59,5 +58,9 @@ export class StudentWorkoutHistoryComponent implements OnInit {
       .subscribe(exercises => {
         this.exerciseDataSource = exercises;
       });
+  }
+
+  convertToDate(time: any): Date {
+    return new Date(time);
   }
 }

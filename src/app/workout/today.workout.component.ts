@@ -11,10 +11,6 @@ import { WorkoutService } from '../services/workout.service';
 import { Group } from '../shared/models/group.model';
 import { CurrentGroupSelectedService } from '../services/current-group-selected.service';
 
-// export class ExpansionOverviewExample {
-//   panelOpenState = false;
-// }
-
 @Component({
   selector: 'wla-today-workout',
   templateUrl: './today.workout.component.html',
@@ -57,13 +53,10 @@ export class TodayWorkoutComponent implements OnInit {
 
   getSelectedRecExercise(): Observable<Array<RecommendedExercise>> {
     const result = new Subject<Array<RecommendedExercise>>();
-
-    console.log(result);
     return result.asObservable();
   }
 
   openDialog(exercise: Exercise): void {
-    console.log('selected exercise: ' + exercise.id);
     const dialogRef = this.dialog.open(EditExerciseComponent, {
       height: '400px',
       width: '600px',
@@ -123,6 +116,9 @@ export class TodayWorkoutComponent implements OnInit {
       this.setNumber++;
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
-    console.log('submit');
+  }
+
+  deleteExercise(exercise: Exercise): void {
+    this.exerciseService.deleteExercise(exercise);
   }
 }

@@ -123,11 +123,6 @@ describe('TodayWorkoutComponent', () => {
           (exercise: Exercise) =>
             exercise.date.getMonth() === new Date().getMonth()
         );
-      console.log('Name: ' + name);
-      console.log('All exercises');
-      console.log(this.exercises);
-      console.log('Filtered Exercises');
-      console.log(query);
       return of(query);
     },
 
@@ -142,13 +137,8 @@ describe('TodayWorkoutComponent', () => {
         new Date('2019-06-14'),
         exercise.userComment
       );
-      console.log('Adding an exercise');
       this.exercises.push(newEntry);
-      console.log('This.exercises');
-      console.log(this.exercises);
       component.exerciseDataSource = this.exercises;
-      console.log('Component.exercise');
-      console.log(component.exerciseDataSource);
     }
   };
 
@@ -288,6 +278,10 @@ describe('TodayWorkoutComponent', () => {
   it('should enable next set button when all fields are filled out', async () => {
     await fixture.whenStable();
     fixture.detectChanges();
+    const repsInput = componentDebug.query(By.css('#reps-input')).nativeElement;
+    const weightInput = componentDebug.query(By.css('#weight-input'))
+      .nativeElement;
+    const commentsInput = componentDebug.query(By.css('#comments-input')).nativeElement;
     const todaysWorkout = await workoutStub.getTodayWorkout(
       TestUtils.getTestGroup()
     );
@@ -298,6 +292,13 @@ describe('TodayWorkoutComponent', () => {
     selectMenu.triggerMenu();
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
+    fixture.detectChanges();
+    repsInput.value = '20';
+    repsInput.dispatchEvent(new Event('input'));
+    weightInput.value = '50';
+    weightInput.dispatchEvent(new Event('input'));
+    commentsInput.value = 'ooga booga';
+    commentsInput.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(
       buttonElement.attributes.getNamedItem('ng-reflect-disabled').value
@@ -332,8 +333,6 @@ describe('TodayWorkoutComponent', () => {
     componentElement.querySelector<HTMLButtonElement>('#next-btn').click();
     fixture.detectChanges();
     await fixture.whenStable();
-    console.log('exercises: ');
-    console.log(component.exerciseDataSource);
     expect(component.exerciseDataSource).not.toBeNull();
 
   });
@@ -352,13 +351,6 @@ describe('TodayWorkoutComponent', () => {
     options = selectMenu.getOptions();
     selectMenu.selectOptionByKey(options, 'Squats', false);
     fixture.detectChanges();
-
-    fixture.detectChanges();
-    console.log(component.exercise);
-    console.log(
-      componentElement.querySelector<HTMLElement>('#exercise-select')
-        .textContent
-    );
     component.exerciseDataSource.forEach((exercise: Exercise) => {
       expect(exercise.name).toEqual('Squats');
     });
@@ -409,27 +401,5 @@ describe('TodayWorkoutComponent', () => {
     weight.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(component.exercise.weight).toEqual(100);
-  });
-
-  it('should only get today\'s exercises', async () => {
-    await fixture.whenStable();
-    fixture.detectChanges();
-    const todaysWorkout = await workoutStub.getTodayWorkout(
-      TestUtils.getTestGroup()
-    );
-    component.recExercisesDropdownSource = todaysWorkout.recExercise;
-    selectMenu.triggerMenu();
-    options = selectMenu.getOptions();
-    selectMenu.selectOptionByKey(options, 'Bench Press', false);
-    fixture.detectChanges();
-    component.exerciseDataSource.forEach((exercise: Exercise) => {
-      expect(exercise.date.getDate()).toEqual(new Date('2019-07-26').getDate());
-      expect(exercise.date.getMonth()).toEqual(
-        new Date('2019-07-26').getMonth()
-      );
-      expect(exercise.date.getFullYear()).toEqual(
-        new Date('2019-07-26').getFullYear()
-      );
-    });
   });
 });
