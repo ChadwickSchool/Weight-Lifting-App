@@ -1,5 +1,10 @@
 import { browser, by, element, protractor } from 'protractor';
 import { STUDENT_USERNAME, STUDENT_PASSWORD } from './google-login-info';
+import * as admin from 'firebase-admin';
+import * as firebase from 'firebase';
+import { environment } from '../../src/environments/environment.test';
+import { AngularFirestoreDocument, DocumentReference } from '@angular/fire/firestore';
+import { User } from 'src/app/shared/models/user.model';
 
 describe('Student Component e2e tests', () => {
   const GOOGLE_USERNAME = STUDENT_USERNAME;
@@ -53,7 +58,39 @@ describe('Student Component e2e tests', () => {
     viewWorkout.click();
   };
 
-  beforeAll(() => {
+  beforeAll(done => {
+    admin.initializeApp({
+      credential: admin.credential.applicationDefault(),
+      databaseURL: environment.firebaseConfig.databaseURL
+    });
+    firebase.initializeApp(environment);
+
+    this.createFirebaseUser = async (id: string) => {
+      await admin
+        .auth()
+        .createUser({
+          email: 'student-component-user' + id + '@example.com',
+          password: 'secretPassword',
+          uid: id
+        })
+        .catch(() => {
+          done.fail('Error creating new user');
+        });
+    };
+
+    this.createWlaUser = (uid, email) => {
+      const userRef = firebase
+        .firestore()
+        .doc(`users/${uid}`);
+      const data = {
+        uid,
+        name: 'Tim',
+        email,
+        isAdmin: false
+      };
+      return userRef.set(data, {merge: true});
+    };
+
     browser.get('/');
     this.emailInput = element(by.id('identifierId'));
     this.passwordInput = element(by.name('password'));
