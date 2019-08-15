@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyCdMpbnOX2kT87GmhEPzbKz2UZQT8EEemo',
-    authDomain: 'test-app-c16d4.firebaseapp.com',
-    databaseURL: 'https://test-app-c16d4.firebaseio.com',
-    projectId: 'test-app-c16d4',
-    storageBucket: 'test-app-c16d4.appspot.com',
-    messagingSenderId: '532731549820',
-    appId: '1:532731549820:web:4a6bd3e81ea8b1f0'
+    apiKey: 'AIzaSyD7trwNDxzlXch_lxp_CRug8H3pD3o6SeQ',
+    authDomain: 'test-weight-lifting-app-26052.firebaseapp.com',
+    databaseURL: 'https://test-weight-lifting-app-26052.firebaseio.com',
+    projectId: 'test-weight-lifting-app-26052',
+    storageBucket: 'test-weight-lifting-app-26052.appspot.com',
+    messagingSenderId: '12372520831',
+    appId: '1:12372520831:web:c1cf4f754dba6654'
   }
 };
