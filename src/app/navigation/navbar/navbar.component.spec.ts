@@ -72,20 +72,4 @@ describe('NavbarComponent', () => {
     expect(element.innerText).not.toContain('Login');
     expect(element.innerText).toContain('Logout');
   });
-
-  it('should display Today\'s Workout when student is logged in', () => {
-    component.auth.googleSignin();
-    fixture.detectChanges();
-    const element = TestUtils.getElement(fixture);
-    expect(element.innerText).toContain('Today\'s Workout');
-  });
-
-  it('should display create workout when teacher is logged in', () => {
-    const user = TestUtils.getTestUser();
-    user.isAdmin = true;
-    component.auth.user$ = of(user);
-    fixture.detectChanges();
-    const element = TestUtils.getElement(fixture);
-    expect(element.innerText).toContain('Create Workout');
-  });
 });

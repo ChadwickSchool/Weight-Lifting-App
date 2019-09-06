@@ -42,22 +42,6 @@
         </li>
         <li>
           <a>
-            <mat-icon id="dashboard-icon" class="icon">fitness_center</mat-icon>
-            <div *ngIf="user.isAdmin; then admin; else student"></div>
-            <ng-template #admin>
-              <a routerLink="/today-workout-admin">
-                <span id="create-workout" class="label">Create Workout</span>
-              </a>
-            </ng-template>
-            <ng-template #student>
-              <a routerLink="/today-workout-student">
-                <span id="workout-label" class="label">Today's Workout</span>
-              </a>
-            </ng-template>
-          </a>
-        </li>
-        <li>
-          <a>
             <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
             <span class="label" id="logout" (click)="auth.signOut()"
               >Logout</span
