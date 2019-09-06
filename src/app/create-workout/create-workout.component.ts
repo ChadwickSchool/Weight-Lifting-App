@@ -24,8 +24,8 @@ export interface ExerciseData {
   sets: string;
   reps: string;
   weight: string;
-  coachComment: string;
   rest: string;
+  coachComment: string;
 }
 
 @Component({

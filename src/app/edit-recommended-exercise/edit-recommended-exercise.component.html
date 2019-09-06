@@ -16,6 +16,9 @@
       <mat-form-field>
           <input id="comments-input" matInput placeholder="Comments" type="text" [(ngModel)]="recommendedExercise.coachComment" name="coachComment">
       </mat-form-field>
+      <mat-form-field>
+        <input id="rest-input" matInput placeholder="Rest Time" type="text" [(ngModel)]="recommendedExercise.rest" name="rest">
+    </mat-form-field>
       <button id="submit-button" mat-raised-button type="submit" color="primary">Save</button>
     </form>
   </div>

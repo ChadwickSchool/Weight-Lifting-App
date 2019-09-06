@@ -25,6 +25,7 @@ export class EditRecommendedExerciseComponent implements OnInit {
     reps: this.data ? this.data.reps : '',
     weight: this.data ? this.data.weight : '',
     coachComment: this.data ? this.data.coachComment : '',
+    rest: this.data ? this.data.rest : ''
 
   };
 

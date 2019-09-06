@@ -27,8 +27,8 @@ export class RecommendedExerciseService {
       recommendedExercise.sets,
       recommendedExercise.reps,
       recommendedExercise.weight,
-      recommendedExercise.coachComment,
-      recommendedExercise.rest
+      recommendedExercise.rest,
+      recommendedExercise.coachComment
     );
     this.addedRecExercises.push(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
@@ -44,6 +44,7 @@ export class RecommendedExerciseService {
       sets: recommendedExercise.sets,
       reps: recommendedExercise.reps,
       weight: recommendedExercise.weight,
+      rest: recommendedExercise.rest,
       coachComment: recommendedExercise.coachComment
     };
 
