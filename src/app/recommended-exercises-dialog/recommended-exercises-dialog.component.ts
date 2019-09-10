@@ -43,7 +43,6 @@ export class RecommendedExercisesDialogComponent implements OnInit {
     if (this.recommendedExercise.rest === '') {
       this.recommendedExercise.rest = 'rest';
     }
-    console.log(this.recommendedExercise);
     this.recommendedExerciseService.addExercise(this.recommendedExercise);
   }
 

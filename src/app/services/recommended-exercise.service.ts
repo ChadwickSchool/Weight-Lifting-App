@@ -20,6 +20,9 @@ export class RecommendedExerciseService {
   }
 
   addExercise(recommendedExercise: any) {
+    console.log('Adding exercise');
+    const recExerciseRef: AngularFirestoreDocument<RecommendedExercise>
+    = this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`);
     const id = this.afs.createId();
     const recExercise = new RecommendedExerciseClass(
       id,
@@ -31,27 +34,34 @@ export class RecommendedExerciseService {
       recommendedExercise.coachComment
     );
     this.addedRecExercises.push(recExercise);
+    console.log(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
   }
 
   updateRecommendedExercise(recommendedExercise: RecommendedExercise) {
-    const recExerciseRef: AngularFirestoreDocument<RecommendedExercise>
-    = this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`);
+    const newRecExercise = new RecommendedExerciseClass(
+      recommendedExercise.uid,
+      recommendedExercise.name,
+      recommendedExercise.sets,
+      recommendedExercise.reps,
+      recommendedExercise.weight,
+      recommendedExercise.rest,
+      recommendedExercise.coachComment
+    );
 
-    const data = {
-      uid: recommendedExercise.uid,
-      name: recommendedExercise.name,
-      sets: recommendedExercise.sets,
-      reps: recommendedExercise.reps,
-      weight: recommendedExercise.weight,
-      rest: recommendedExercise.rest,
-      coachComment: recommendedExercise.coachComment
-    };
-
-    return recExerciseRef.set(data, { merge: true });
+    for (let i = 0; i < this.addedRecExercises.length; i++) {
+      if (recommendedExercise.uid === this.addedRecExercises[i].uid) {
+        this.addedRecExercises[i] = newRecExercise;
+      }
+    }
   }
 
   deleteRecommendedExercise(recommendedExercise: RecommendedExercise): void {
-    this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`).delete();
+    // this.afs.doc(`recommended-exercises/${recommendedExercise.uid}`).delete();
+    for (let i = 0; i < this.addedRecExercises.length; i++) {
+      if (recommendedExercise.uid === this.addedRecExercises[i].uid) {
+        this.addedRecExercises.splice(i, 1);
+      }
+    }
   }
 }

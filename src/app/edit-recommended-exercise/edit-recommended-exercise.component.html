@@ -19,7 +19,7 @@
       <mat-form-field>
         <input id="rest-input" matInput placeholder="Rest Time" type="text" [(ngModel)]="recommendedExercise.rest" name="rest">
     </mat-form-field>
-      <button id="submit-button" mat-raised-button type="submit" color="primary">Save</button>
+      <button id="submit-button" mat-raised-button type="submit" (click)="updateExercise()" color="primary">Save</button>
     </form>
   </div>
   <div mat-dialog-actions>

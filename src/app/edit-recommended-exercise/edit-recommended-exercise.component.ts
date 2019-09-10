@@ -24,8 +24,8 @@ export class EditRecommendedExerciseComponent implements OnInit {
     sets: this.data ? this.data.sets : '',
     reps: this.data ? this.data.reps : '',
     weight: this.data ? this.data.weight : '',
-    coachComment: this.data ? this.data.coachComment : '',
-    rest: this.data ? this.data.rest : ''
+    rest: this.data ? this.data.rest : '',
+    coachComment: this.data ? this.data.coachComment : ''
 
   };
 
@@ -46,6 +46,7 @@ export class EditRecommendedExerciseComponent implements OnInit {
       this.recommendedExercise.sets,
       this.recommendedExercise.reps,
       this.recommendedExercise.weight,
+      this.recommendedExercise.rest,
       this.recommendedExercise.coachComment
     ));
     this.submitForm();
