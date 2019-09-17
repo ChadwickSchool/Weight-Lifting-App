@@ -80,9 +80,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
     GroupService,
     CurrentDateSelectedService,
     CurrentGroupSelectedService,
-    LoginGuard,
-    WorkoutService,
-    AdminGuard
+    WorkoutService
   ],
   bootstrap: [AppComponent]
 })
