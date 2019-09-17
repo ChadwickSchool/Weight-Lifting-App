@@ -10,7 +10,7 @@ import {
 } from '@angular/fire/firestore';
 
 import { Observable, of } from 'rxjs';
-import { switchMap, first, map } from 'rxjs/operators';
+import { switchMap, first, map, take } from 'rxjs/operators';
 import UserClass from '../shared/models/user';
 
 @Injectable({ providedIn: 'root' })
@@ -58,7 +58,7 @@ export class AuthService {
 
   // Firebase User
   getAuthenticatedUser(): Promise<any> {
-    return this.afAuth.authState.pipe(first()).toPromise();
+    return this.afAuth.authState.pipe(take(1)).toPromise();
   }
 
   private createStudentUser(user) {

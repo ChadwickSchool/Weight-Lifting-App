@@ -31,10 +31,10 @@ import { CurrentDateSelectedService } from './services/current-date-selected.ser
 import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
 import { EditExerciseComponent } from './edit-exercise/edit-exercise.component';
 import { WorkoutService } from './services/workout.service';
-// import { AdminGuard } from './shared/guards/admin.guard';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentWorkoutHistoryComponent } from './student-workout-history/student-workout-history.component';
 import { EditRecommendedExerciseComponent } from './edit-recommended-exercise/edit-recommended-exercise.component';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -81,8 +81,8 @@ import { EditRecommendedExerciseComponent } from './edit-recommended-exercise/ed
     CurrentDateSelectedService,
     CurrentGroupSelectedService,
     LoginGuard,
-    WorkoutService
-    // AdminGuard
+    WorkoutService,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

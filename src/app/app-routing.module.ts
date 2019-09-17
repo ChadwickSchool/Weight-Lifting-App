@@ -10,23 +10,50 @@ import { LoginComponent } from './login/login.component';
 import { StudentEntireWorkoutComponent } from './student-entire-workout/student-entire-workout.component';
 import { StudentListComponent } from './student-list/student-list.component';
 import { StudentWorkoutHistoryComponent } from './student-workout-history/student-workout-history.component';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'today-workout-student', component: TodayWorkoutComponent},
-  {path: 'today-workout-admin', component: CreateWorkoutComponent},
-  {path: 'admin-home', component: AdminHomeComponent, canActivate: [LoginGuard]},
-  {path: 'student-home', component: StudentHomeComponent, canActivate: [LoginGuard]},
-  {path: 'student-entire-workout', component: StudentEntireWorkoutComponent, canActivate: [LoginGuard]},
-  {path: 'student-list', component: StudentListComponent, canActivate: [LoginGuard]},
-  {path: 'student-workout-history', component: StudentWorkoutHistoryComponent}
+  {
+    path: '',
+    component: LoginComponent,
+    canActivate: [LoginGuard],
+    children: [
+      { path: 'today-workout-student', component: TodayWorkoutComponent },
+      {
+        path: 'today-workout-admin',
+        component: CreateWorkoutComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'admin-home',
+        component: AdminHomeComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'student-home',
+        component: StudentHomeComponent
+      },
+      {
+        path: 'student-entire-workout',
+        component: StudentEntireWorkoutComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'student-list',
+        component: StudentListComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'student-workout-history',
+        component: StudentWorkoutHistoryComponent,
+        canActivate: [AdminGuard]
+      }
+    ]
+  }
 ];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forRoot(routes)
-  ]
+  imports: [CommonModule, RouterModule.forRoot(routes)]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

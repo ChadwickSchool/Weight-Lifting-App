@@ -5,7 +5,7 @@ import {
 } from '@angular/fire/firestore';
 import { User } from '../shared/models/user.model';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,20 @@ export class UserService {
   }
 
   async isAdmin(id: string): Promise<boolean> {
+    console.log('id is ' + id);
     let admin: boolean;
     await this.usersRef
       .doc<User>(id)
       .valueChanges()
-      .pipe(tap(user => (admin = user.isAdmin))).toPromise();
+      .pipe(
+        take(1),
+        tap(user => {
+          console.log(user);
+          admin = user.isAdmin;
+        })
+      )
+      .toPromise();
+    console.log('found admin');
     return admin;
   }
 }
