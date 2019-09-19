@@ -18,9 +18,10 @@ export class LoginGuard implements CanActivate, CanActivateChild {
     const user = await this.authService.getAuthenticatedUser();
     console.log(user);
     const loggedIn = !!user;
+    console.log(loggedIn);
 
     if (!loggedIn) {
-      this.router.navigate(['']);
+
     }
 
     return loggedIn;

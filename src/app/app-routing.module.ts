@@ -14,11 +14,14 @@ import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: '',
     canActivate: [LoginGuard],
     children: [
-      { path: 'today-workout-student', component: TodayWorkoutComponent },
+      { path: 'today-workout-student', component: TodayWorkoutComponent},
       {
         path: 'today-workout-admin',
         component: CreateWorkoutComponent,
