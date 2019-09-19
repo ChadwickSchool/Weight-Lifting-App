@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Assistant:600|Merriweather+Sans|Oxygen|Roboto+Condensed&display=swap");
+
+#google-logo {
+  height: 40px;
+  width: 40px;
+  margin-top: 10px;
+}
+
+#sign-in-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  border: 2px solid rgb(7, 39, 87);
+  border-radius: 5px;
+  background-color: rgb(255, 255, 255);
+  width: 280px;
+  color: rgb(7, 39, 87);
+  cursor: pointer;
+}
+
+#google-sign-in {
+  margin-top: 76px;
+}
