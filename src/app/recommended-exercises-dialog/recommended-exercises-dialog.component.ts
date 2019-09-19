@@ -38,10 +38,10 @@ export class RecommendedExercisesDialogComponent implements OnInit {
 
   addExercise(): void {
     if (this.recommendedExercise.coachComment === '') {
-      this.recommendedExercise.coachComment = 'comment';
+      this.recommendedExercise.coachComment = '';
     }
     if (this.recommendedExercise.rest === '') {
-      this.recommendedExercise.rest = 'rest';
+      this.recommendedExercise.rest = '';
     }
     this.recommendedExerciseService.addExercise(this.recommendedExercise);
   }
