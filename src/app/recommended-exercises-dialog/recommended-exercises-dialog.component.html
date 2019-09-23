@@ -3,7 +3,7 @@
 <div mat-dialog-content>
   <form class="recommended-exercises-form" id="recommended-exercises-form" (ngSubmit)="submitForm()">
     <mat-form-field>
-      <input id="name-input" matInput placeholder="Exercise Name" type="text" required [(ngModel)]="recommendedExercise.name" name="name">
+      <input (keydown)="onKeydown($event)" id="name-input" matInput placeholder="Exercise Name" type="text" required [(ngModel)]="recommendedExercise.name" name="name">
     </mat-form-field>
     <mat-form-field>
       <input id="sets-input" matInput placeholder="Number of Sets" type="text" required [(ngModel)]="recommendedExercise.sets" name="sets">

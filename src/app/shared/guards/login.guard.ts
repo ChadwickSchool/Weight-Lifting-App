@@ -16,9 +16,7 @@ export class LoginGuard implements CanActivate, CanActivateChild {
 
   async canActivate(): Promise<boolean> {
     const user = await this.authService.getAuthenticatedUser();
-    console.log(user);
     const loggedIn = !!user;
-    console.log(loggedIn);
 
     if (!loggedIn) {
 
@@ -29,7 +27,6 @@ export class LoginGuard implements CanActivate, CanActivateChild {
 
   async canActivateChild(): Promise<boolean> {
     const user = await this.authService.getAuthenticatedUser();
-    console.log('Child: ' + user);
     const loggedIn = !!user;
 
     if (!loggedIn) {

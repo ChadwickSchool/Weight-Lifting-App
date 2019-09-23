@@ -20,7 +20,6 @@ export class UserService {
   }
 
   async isAdmin(id: string): Promise<boolean> {
-    console.log('id is ' + id);
     let admin: boolean;
     await this.usersRef
       .doc<User>(id)
@@ -28,12 +27,10 @@ export class UserService {
       .pipe(
         take(1),
         tap(user => {
-          console.log(user);
           admin = user.isAdmin;
         })
       )
       .toPromise();
-    console.log('found admin');
     return admin;
   }
 }

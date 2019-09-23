@@ -12,9 +12,7 @@ export class AdminGuard implements CanActivate {
 
   async canActivate(): Promise<boolean> {
     const id = this.auth.userID;
-    console.log('Checking admin guard');
     const isAdmin = await this.userService.isAdmin(id);
-    console.log(isAdmin);
     return this.userService.isAdmin(id);
   }
 }
