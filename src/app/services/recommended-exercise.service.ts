@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
 
 import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
-import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+  AngularFirestoreCollection
+} from '@angular/fire/firestore';
 import RecommendedExerciseClass from '../shared/models/recommended-exercise';
 
 @Injectable()
@@ -12,16 +16,21 @@ export class RecommendedExerciseService {
   addedRecExercises: Array<RecommendedExercise>;
   recExercisesRef: AngularFirestoreCollection<RecommendedExercise>;
   constructor(private afs: AngularFirestore) {
-    this.recExercisesRef = this.afs.collection<RecommendedExercise>('recExercises');
-    this.recommendedExercises$ = new BehaviorSubject<Array<RecommendedExercise>>(null);
+    this.recExercisesRef = this.afs.collection<RecommendedExercise>(
+      'recExercises'
+    );
+    this.recommendedExercises$ = new BehaviorSubject<
+      Array<RecommendedExercise>
+    >(null);
     this.addedRecExercises = [];
   }
 
   getAddedExercises(): Observable<Array<RecommendedExercise>> {
+    this.recommendedExercises$.asObservable().subscribe(e => console.log(e));
     return this.recommendedExercises$.asObservable();
   }
 
-  addExercise(recommendedExercise: any) {
+  addExerciseLocal(recommendedExercise: any) {
     const id = this.afs.createId();
     const recExercise = new RecommendedExerciseClass(
       id,
@@ -34,7 +43,30 @@ export class RecommendedExerciseService {
     );
     this.addedRecExercises.push(recExercise);
     this.recommendedExercises$.next(this.addedRecExercises);
-    this.recExercisesRef.doc(id).set(Object.assign({}, recExercise));
+  }
+
+  addExerciseDatabase(recommendedExercise: Array<RecommendedExercise>) {
+    console.log(recommendedExercise);
+    for (let i = 0; i < recommendedExercise.length; i++) {
+      if (recommendedExercise[i].coachComment === '') {
+        recommendedExercise[i].coachComment = '';
+      }
+      if (recommendedExercise[i].rest === '') {
+        recommendedExercise[i].rest = '';
+      }
+      const id = this.afs.createId();
+      const recExercise = new RecommendedExerciseClass(
+        id,
+        recommendedExercise[i].name,
+        recommendedExercise[i].sets,
+        recommendedExercise[i].reps,
+        recommendedExercise[i].weight,
+        recommendedExercise[i].rest,
+        recommendedExercise[i].coachComment
+      );
+      // console.log(recExercise);
+      this.recExercisesRef.doc(id).set(Object.assign({}, recExercise));
+    }
   }
 
   updateRecommendedExercise(recommendedExercise: RecommendedExercise) {

@@ -93,8 +93,7 @@ export class CreateWorkoutComponent implements OnInit {
   }
 
   addRecExercise() {
-    console.log('We out here');
-    this.recExerciseService.addExercise(this.recExerciseService.recommendedExercises$.value);
+    this.recExerciseService.addExerciseDatabase(this.recExerciseService.recommendedExercises$.value);
   }
 
   deleteRecExercise(recommendedExercise: RecommendedExercise): void {

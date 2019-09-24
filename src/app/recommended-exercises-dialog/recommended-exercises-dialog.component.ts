@@ -1,8 +1,15 @@
-import { Component, Inject, OnInit, SystemJsNgModuleLoader } from '@angular/core';
+import {
+  Component,
+  Inject,
+  OnInit,
+  SystemJsNgModuleLoader
+} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DataService } from '../data/data.service';
 import { RecommendedExerciseService } from '../services/recommended-exercise.service';
-import RecommendedExerciseClass from '../shared/models/recommended-exercise';
+import { switchMap, tap } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
+import { RecommendedExercise } from '../shared/models/recommended-exercise.model';
 
 @Component({
   selector: 'wla-recommended-exercises-dialog',
@@ -10,12 +17,13 @@ import RecommendedExerciseClass from '../shared/models/recommended-exercise';
   styleUrls: ['./recommended-exercises-dialog.component.scss']
 })
 export class RecommendedExercisesDialogComponent implements OnInit {
-  private recExercises: Array<RecommendedExerciseClass>;
+  private recExercises: Array<RecommendedExercise>;
   constructor(
     public dialogRef: MatDialogRef<RecommendedExercisesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public dataService: DataService,
-    private recommendedExerciseService: RecommendedExerciseService  ) {}
+    private recommendedExerciseService: RecommendedExerciseService
+  ) {}
 
   recommendedExercise = {
     name: '',
@@ -45,13 +53,17 @@ export class RecommendedExercisesDialogComponent implements OnInit {
     if (this.recommendedExercise.rest === '') {
       this.recommendedExercise.rest = '';
     }
-    this.recommendedExerciseService.addExercise(this.recommendedExercise);
+    this.recommendedExerciseService.addExerciseLocal(this.recommendedExercise);
   }
 
-  async onKeydown(event) {
-    console.log('We did it');
-    this.recExercises = await this.recommendedExerciseService.getAddedExercises().toPromise();
-    console.log('Yeet:' + this.recExercises);
+  async onKeyUp(event: KeyboardEvent) {
+    console.log('we did it');
+    await fromEvent(event.target, 'keyup')
+      .pipe(
+      switchMap(async () => this.recExercises = await this.recommendedExerciseService
+      .getAddedExercises()
+      .toPromise()
+      )).toPromise();
+    console.log(this.recExercises);
   }
-
 }
