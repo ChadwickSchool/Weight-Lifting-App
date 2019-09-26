@@ -1,5 +1,6 @@
 <div class="dialog">
 <h1 mat-dialog-title>{{data}}</h1>
+<h1 *ngFor="let recExerciseName of recExerciseNames">{{recExerciseName}}</h1>
 <div mat-dialog-content>
   <form class="recommended-exercises-form" id="recommended-exercises-form" (ngSubmit)="submitForm()">
     <mat-form-field>

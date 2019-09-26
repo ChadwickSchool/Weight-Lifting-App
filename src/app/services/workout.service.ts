@@ -65,7 +65,6 @@ export class WorkoutService {
       dateCreated: workout.dateCreated,
       group: groupJSON
     };
-
     this.workoutsRef.doc(id).set(Object.assign({}, newWorkout));
   }
 }
