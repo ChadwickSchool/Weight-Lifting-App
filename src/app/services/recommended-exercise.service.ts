@@ -47,13 +47,14 @@ export class RecommendedExerciseService {
   }
 
   async getExercisesDatabase(): Promise<Array<string>> {
-    // this.afs.collection<RecommendedExercise>('recExercises').valueChanges().subscribe(e => console.log(e));
-    await this.afs.collection<RecommendedExercise>('recExercises').valueChanges().subscribe(e => e
-      .forEach(element => {
-      this.recExerciseNames.push(element.name);
-      }
-    ));
-    console.log(this.recExerciseNames);
+    this.recExerciseNames = [];
+    await this.afs.collection<RecommendedExercise>('recExercises').valueChanges().subscribe(e => {
+      e.forEach(element => {
+        this.recExerciseNames.push(element.name);
+        }
+      );
+    }
+    );
     return this.recExerciseNames;
   }
 
