@@ -89,6 +89,7 @@ export class CreateWorkoutComponent implements OnInit {
       this.group
     );
     this.addRecExercise();
+    this.recExerciseService.clearExerciseLocal();
     // this.router.navigate(['']);
   }
 

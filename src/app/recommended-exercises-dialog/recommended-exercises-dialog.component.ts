@@ -50,27 +50,27 @@ export class RecommendedExercisesDialogComponent implements OnInit {
         startWith(''),
         map(value => typeof value === 'string' ? value : value),
         map(name => name ? this._filter(name) : this.options.slice()),
-        tap(result => console.log(result))
+        // tap(result => console.log(result))
       );
 
   }
 
   async addExercises() {
     this.recExerciseNames = await this.recommendedExerciseService.getExercisesDatabase();
-    console.log(this.recExerciseNames);
+    // console.log(this.recExerciseNames);
   }
 
   displayFn(name?: string): string | undefined {
-    console.log('name ' + name);
+    // console.log('name ' + name);
     return name ? name : undefined;
   }
 
   private _filter(name: string): string[] {
     const filterValue = name.toLowerCase();
-    console.log('Filter value' + filterValue);
-    console.log(this.recExerciseNames);
+    // console.log('Filter value' + filterValue);
+    // console.log(this.recExerciseNames);
     const result = this.recExerciseNames.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
-    console.log('result: ' + result);
+    // console.log('result: ' + result);
     return result;
   }
 
@@ -91,5 +91,6 @@ export class RecommendedExercisesDialogComponent implements OnInit {
       this.recommendedExercise.rest = '';
     }
     this.recommendedExerciseService.addExerciseLocal(this.recommendedExercise);
+    console.log(this.recommendedExercise);
   }
 }

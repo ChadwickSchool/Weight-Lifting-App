@@ -63,7 +63,7 @@ import { AdminGuard } from './shared/guards/admin.guard';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
     RouterTestingModule,
     AppRoutingModule,
     StorageServiceModule
