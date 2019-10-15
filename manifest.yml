@@ -3,5 +3,6 @@ applications:
 - name: cf-wla
   memory: 512M
   instances: 1
-  buildpack: https://github.com/cloudfoundry/staticfile-buildpack.git
-  path: dist/workout-app
+  buildpacks:
+    - staticfile_buildpack
+  path: dist/public
