@@ -13,45 +13,48 @@ import { StudentWorkoutHistoryComponent } from './student-workout-history/studen
 import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  // },
   {
     path: '',
-    canActivate: [LoginGuard],
-    children: [
-      { path: 'today-workout-student', component: TodayWorkoutComponent},
-      {
-        path: 'today-workout-admin',
-        component: CreateWorkoutComponent,
-        canActivate: [AdminGuard]
-      },
-      {
-        path: 'admin-home',
-        component: AdminHomeComponent,
-        canActivate: [AdminGuard]
-      },
-      {
-        path: 'student-home',
-        component: StudentHomeComponent
-      },
-      {
-        path: 'student-entire-workout',
-        component: StudentEntireWorkoutComponent,
-        canActivate: [AdminGuard]
-      },
-      {
-        path: 'student-list',
-        component: StudentListComponent,
-        canActivate: [AdminGuard]
-      },
-      {
-        path: 'student-workout-history',
-        component: StudentWorkoutHistoryComponent,
-        canActivate: [AdminGuard]
-      }
-    ]
+    component: LoginComponent
+  },
+  {
+    path: 'today-workout-student',
+    component: TodayWorkoutComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'today-workout-admin',
+    component: CreateWorkoutComponent,
+    canActivate: [LoginGuard, AdminGuard]
+  },
+  {
+    path: 'admin-home',
+    component: AdminHomeComponent,
+    canActivate: [LoginGuard, AdminGuard]
+  },
+  {
+    path: 'student-home',
+    component: StudentHomeComponent,
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'student-entire-workout',
+    component: StudentEntireWorkoutComponent,
+    canActivate: [LoginGuard, AdminGuard]
+  },
+  {
+    path: 'student-list',
+    component: StudentListComponent,
+    canActivate: [LoginGuard, AdminGuard]
+  },
+  {
+    path: 'student-workout-history',
+    component: StudentWorkoutHistoryComponent,
+    canActivate: [LoginGuard, AdminGuard]
   }
 ];
 

@@ -156,13 +156,13 @@ describe('CreateWorkoutComponent', () => {
   it('should call save workout with all correct values', () => {
     component.group = new GroupClass('fortnite', '1');
     component.date = new Date('2019-08-01');
-    recommendedExerciseService.addExercise(
+    recommendedExerciseService.addExerciseLocal(
       TestUtils.getTestRecommendedExercise('1', 'squat')
     );
-    recommendedExerciseService.addExercise(
+    recommendedExerciseService.addExerciseLocal(
       TestUtils.getTestRecommendedExercise('2', 'benchpress')
     );
-    recommendedExerciseService.addExercise(
+    recommendedExerciseService.addExerciseLocal(
       TestUtils.getTestRecommendedExercise('3', 'pullups')
     );
     component.saveWorkout();

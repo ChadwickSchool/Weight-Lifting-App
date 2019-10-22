@@ -31,6 +31,15 @@ export class RecommendedExerciseService {
     return this.recommendedExercises$.asObservable();
   }
 
+  clearExerciseLocal() {
+    this.recommendedExercises$ = new BehaviorSubject<Array<RecommendedExercise>>(null);
+    this.addedRecExercises = [];
+  }
+
+  cheatcodeWorkout() {
+    return 100;
+  }
+
   addExerciseLocal(recommendedExercise: any) {
     const id = this.afs.createId();
     const recExercise = new RecommendedExerciseClass(
