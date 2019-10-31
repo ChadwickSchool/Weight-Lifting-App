@@ -36,10 +36,6 @@ export class RecommendedExerciseService {
     this.addedRecExercises = [];
   }
 
-  cheatcodeWorkout() {
-    return 100;
-  }
-
   addExerciseLocal(recommendedExercise: any) {
     const id = this.afs.createId();
     const recExercise = new RecommendedExerciseClass(
@@ -104,6 +100,7 @@ export class RecommendedExerciseService {
     for (let i = 0; i < this.addedRecExercises.length; i++) {
       if (recommendedExercise.uid === this.addedRecExercises[i].uid) {
         this.addedRecExercises[i] = newRecExercise;
+        this.recommendedExercises$[i] = newRecExercise;
       }
     }
   }
