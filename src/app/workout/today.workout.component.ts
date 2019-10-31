@@ -19,6 +19,7 @@ import { CurrentGroupSelectedService } from '../services/current-group-selected.
 export class TodayWorkoutComponent implements OnInit {
   recExercisesDataSource: Array<RecommendedExercise>;
   recExercisesDropdownSource: Array<RecommendedExercise>;
+  currentExerciseDataSource: Array<Exercise>;
   exerciseDataSource: Array<Exercise>;
   setNumber: number;
   selectedExercise: Subject<RecommendedExercise>;
@@ -29,7 +30,7 @@ export class TodayWorkoutComponent implements OnInit {
     private workoutService: WorkoutService,
     private groupSelectedService: CurrentGroupSelectedService
   ) {
-    this.setNumber = 1;
+    this.setNumber = 0;
   }
   exercise = {
     name: '',
@@ -44,7 +45,7 @@ export class TodayWorkoutComponent implements OnInit {
   async ngOnInit() {
     // this.showExercises();
     this.selectedGroup = this.groupSelectedService.getCurrentGroup();
-    // this.exerciseDataSource = of(null);
+    // this.currentExerciseDataSource = of(null);
     this.selectedExercise = new Subject<RecommendedExercise>();
     await this.workoutService
       .getTodayWorkout(this.selectedGroup)
@@ -63,7 +64,7 @@ export class TodayWorkoutComponent implements OnInit {
       data: exercise
     });
     this.exerciseService.getAddedExercises().subscribe(exercises => {
-      this.exerciseDataSource = exercises;
+      this.currentExerciseDataSource = exercises;
     });
   }
 
@@ -75,8 +76,34 @@ export class TodayWorkoutComponent implements OnInit {
     this.exerciseService
       .getExercises(this.exercise.name)
       .subscribe(exercises => {
-        this.exerciseDataSource = exercises;
+        this.currentExerciseDataSource = exercises;
       });
+  }
+
+  resetSetCounter() {
+    if (this.setNumber !== 0) {
+      // tslint:disable-next-line: no-unused-expression
+      console.log('data: ' + JSON.stringify(this.exerciseDataSource));
+      const found = this.exerciseDataSource.find(element => {
+        if (element.name === this.exercise.name) {
+          return true;
+        }
+        return false;
+      });
+      console.log('Found is');
+      console.log(found);
+      if (found) {
+        console.log('Found set: ' + found.setNumber);
+        this.setNumber = found.setNumber;
+      } else {
+        this.setNumber = 0;
+      }
+      console.log('set: ' + this.setNumber);
+      this.setNumber++;
+    } else {
+      this.setNumber = 1;
+    }
+    console.log('final set: ' + this.setNumber);
   }
 
   updateStudentTable() {
@@ -85,9 +112,8 @@ export class TodayWorkoutComponent implements OnInit {
     this.exerciseService
       .getExercises(this.exercise.name)
       .subscribe(exercises => {
-        this.exerciseDataSource = exercises;
+        this.currentExerciseDataSource = exercises;
       });
-
     this.workoutService
       .getTodayWorkout(this.selectedGroup)
       .then(
@@ -96,24 +122,19 @@ export class TodayWorkoutComponent implements OnInit {
             recExercise => recExercise.name === this.exercise.name
           ))
       );
+
+    this.updateDataSource();
+  }
+
+  updateDataSource(): void {
+    this.exerciseService.getAddedExercisesTimestap().subscribe(exercises => {
+      this.exerciseDataSource = exercises;
+    });
   }
 
   addExercise() {
     if (this.exercise.userComment === '') {
       this.exercise.userComment = 'none';
-    }
-
-    if (
-      this.setNumber >
-      Number(
-        this.recExercisesDropdownSource.find(
-          element => element.name === this.exercise.name
-        ).sets
-      )
-    ) {
-      this.setNumber = 1;
-    } else {
-      this.setNumber++;
     }
     this.exerciseService.addExercise(this.exercise, this.setNumber);
   }

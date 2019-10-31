@@ -76,7 +76,7 @@
     </mat-expansion-panel-header>
 
     <mat-table
-      [dataSource]="exerciseDataSource"
+      [dataSource]="currentExerciseDataSource"
       class="mat-elevation-z8"
       id="student-exercise-table"
     >
@@ -136,7 +136,7 @@
       <mat-form-field id="exercise-select">
         <mat-label>Select Your Current Exercise</mat-label>
         <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()" id="exercise-name-select">
-          <mat-option *ngFor="let recExercise of recExercisesDropdownSource" [value]="recExercise.name" matInput>
+          <mat-option (click)="resetSetCounter()" *ngFor="let recExercise of recExercisesDropdownSource" [value]="recExercise.name" matInput>
             {{ recExercise.name }}
           </mat-option>
         </mat-select>
@@ -162,7 +162,7 @@
         <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.userComment"
           name="comment"></textarea>
       </mat-form-field>
-      <button id="next-btn" type="submit" name="button" mat-raised-button color="primary"
+      <button (click)="resetSetCounter()" id="next-btn" type="submit" name="button" mat-raised-button color="primary"
         [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
         Next Set
       </button>

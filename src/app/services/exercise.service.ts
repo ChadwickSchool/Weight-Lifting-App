@@ -18,6 +18,7 @@ import { StudentService } from './student.service';
 export class ExerciseService {
   exercisesRef: AngularFirestoreCollection<Exercise>;
   exercises: Observable<Exercise[]>;
+  exercisesTimestamp: Observable<Exercise[]>;
   constructor(private afs: AngularFirestore, private authService: AuthService, private studentService: StudentService) {
     this.exercisesRef = afs.collection<Exercise>(
       'exercises'
@@ -27,6 +28,13 @@ export class ExerciseService {
 
   getAddedExercises(): Observable<Exercise[]> {
     return this.exercises;
+  }
+
+  getAddedExercisesTimestap(): Observable<Exercise[]> {
+    const query = this.afs.collection<Exercise>('exercises', ref => ref
+      .orderBy('date', 'desc')
+    );
+    return query.valueChanges();
   }
 
   getExercises(name: string): Observable<Exercise[]> {
