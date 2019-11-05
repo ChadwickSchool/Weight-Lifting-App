@@ -60,7 +60,7 @@ export class ExerciseService {
 
   getExercise(name: string): Observable<Exercise[]> {
     return this.afs.collection<Exercise>('exercises', ref => ref
-      .where('name', '==', name)).valueChanges();
+      .where('name', '==', name).orderBy('date', 'desc')).valueChanges();
   }
 
   addExercise(exercise: any, setNumber: number) {
