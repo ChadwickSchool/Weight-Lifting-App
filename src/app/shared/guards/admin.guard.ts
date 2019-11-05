@@ -8,11 +8,20 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(private auth: AuthService, private router: Router, private userService: UserService) {}
+  constructor(private authService: AuthService, private router: Router, private userService: UserService) {}
 
   async canActivate(): Promise<boolean> {
-    const id = this.auth.userID;
-    const isAdmin = await this.userService.isAdmin(id);
-    return this.userService.isAdmin(id);
+    const firebaseUser = await this.authService.getAuthenticatedUser();
+    const id = await firebaseUser.getIdToken();
+    // const isAdmin = await this.userService.isAdmin(id);
+    // console.log('isAdmin:' + isAdmin);
+    // if (isAdmin) {
+    //       console.log('Admin');
+    //       return true;
+    //     } else {
+    //       console.log('Student');
+    //       return false;
+    //     }
+    return true;
   }
 }
