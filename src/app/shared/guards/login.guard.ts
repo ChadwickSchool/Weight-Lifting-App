@@ -19,19 +19,9 @@ export class LoginGuard implements CanActivate {
     const firebaseUser = await this.authService.getAuthenticatedUser();
     const loggedIn = !!firebaseUser;
     const id = await firebaseUser.getIdToken();
-    // const isAdmin = await this.userService.isAdmin(id);
-    // console.log('isAdmin:' + isAdmin);
 
     if (!loggedIn) {
       this.router.navigate(['']);
-    // } else {
-    //   if (isAdmin) {
-    //     console.log('Going to admin');
-    //     this.router.navigate(['admin/home']);
-    //   } else {
-    //     console.log('Going to student');
-    //     this.router.navigate(['student/home']);
-    //   }
     }
     return loggedIn;
   }
