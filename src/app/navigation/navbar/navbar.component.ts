@@ -17,12 +17,12 @@ export class NavbarComponent implements OnInit {
   async googleSignIn() {
     await this.auth.googleSignin();
     const id = this.auth.userID;
-    // console.log(this.userService.isAdmin(id));
-    // console.log('id: ' + id);
-    if (this.userService.isAdmin(id)) {
-    this.router.navigate(['/admin-home']);
+    const isAdmin = await this.userService.isAdmin(id);
+    console.log('isAdmin:' + isAdmin);
+    if (isAdmin) {
+      this.router.navigate(['admin-home']);
     } else {
-      this.router.navigate(['/student-home']);
+      this.router.navigate(['student-home']);
     }
   }
 }

@@ -31,6 +31,11 @@ export class UserService {
         })
       )
       .toPromise();
+    console.log('admin: ' + admin);
     return admin;
+  }
+
+  async getCurrentUser(idToken: string): Promise<User> {
+    return await this.usersRef.doc<User>(idToken).valueChanges().toPromise();
   }
 }
