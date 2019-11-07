@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
     await this.auth.googleSignin();
     const id = this.auth.userID;
     const isAdmin = await this.userService.isAdmin(id);
-    console.log('isAdmin:' + isAdmin);
     if (isAdmin) {
       this.router.navigate(['admin-home']);
     } else {

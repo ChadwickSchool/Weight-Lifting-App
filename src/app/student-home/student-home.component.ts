@@ -10,7 +10,7 @@ import { CurrentGroupSelectedService } from '../services/current-group-selected.
   styleUrls: ['./student-home.component.scss']
 })
 export class StudentHomeComponent implements OnInit {
-  groupDataSource: Group;
+  groupDataSource: Array<Group>;
   isDisabled: boolean;
   constructor(
     private groupService: GroupService,
@@ -29,10 +29,10 @@ export class StudentHomeComponent implements OnInit {
     this.showGroups();
   }
 
-  showGroups() {
-    this.groupService.getAddedGroups().subscribe(group => {
-      this.groupDataSource = group;
-    });
+  async showGroups() {
+    console.log('Called showGroups');
+    this.groupDataSource = await this.groupService.getAddedGroupsDropdown();
+    console.log('groups: ' + this.groupDataSource);
   }
 
   setCurrentGroupSelected(group: Group) {

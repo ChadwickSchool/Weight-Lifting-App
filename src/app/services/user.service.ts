@@ -31,7 +31,6 @@ export class UserService {
         })
       )
       .toPromise();
-    console.log('admin: ' + admin);
     return admin;
   }
 

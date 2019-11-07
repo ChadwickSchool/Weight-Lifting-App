@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Group } from '../shared/models/group.model';
 import { Observable } from 'rxjs';
 import GroupClass from '../shared/models/group';
+import { take } from 'rxjs/operators';
 
 @Injectable()
 export class GroupService {
@@ -16,8 +17,13 @@ export class GroupService {
     this.groups = this.groupsRef.valueChanges();
   }
 
-  getAddedGroups(): Observable<any> {
+  getAddedGroups(): Observable<Group[]> {
     return this.groups;
+  }
+
+  getAddedGroupsDropdown(): Promise<Group[]> {
+    console.log('getAddedGroupsDropdown() called');
+    return this.groups.pipe(take(1)).toPromise();
   }
 
   addGroup(group: any) {

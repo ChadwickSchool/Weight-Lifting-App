@@ -25,7 +25,7 @@ export class AdminHomeComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.groups$ = this.groupService.getAddedGroups();
+    this.groups = this.groupService.getAddedGroups();
   }
 
   createWorkout() {}
