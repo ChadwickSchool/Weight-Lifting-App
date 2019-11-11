@@ -81,11 +81,14 @@ export class TodayWorkoutComponent implements OnInit {
   }
 
   resetSetCounter() {
+    const currentDate = Math.round((new Date().getTime()) / 1000);
     if (this.setNumber !== 0) {
       // tslint:disable-next-line: no-unused-expression
       console.log('data: ' + JSON.stringify(this.exerciseDataSource));
       const found = this.exerciseDataSource.find(element => {
-        if (element.name === this.exercise.name) {
+        console.log(element.date);
+        console.log(currentDate);
+        if (element.name === this.exercise.name && Number(element.date) === currentDate) {
           return true;
         }
         return false;
