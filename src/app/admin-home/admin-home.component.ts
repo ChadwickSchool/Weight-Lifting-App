@@ -12,7 +12,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
   styleUrls: ['./admin-home.component.scss']
 })
 export class AdminHomeComponent implements OnInit {
-  groups$: Observable<Array<Group>>;
+  groups: Array<Group>;
   constructor(
     private groupService: GroupService,
     private currentGroupSelectedService: CurrentGroupSelectedService,
@@ -24,8 +24,8 @@ export class AdminHomeComponent implements OnInit {
     id: ''
   };
 
-  ngOnInit() {
-    this.groups = this.groupService.getAddedGroups();
+  async ngOnInit() {
+    this.groups = await this.groupService.getAddedGroupsDropdown();
   }
 
   createWorkout() {}
