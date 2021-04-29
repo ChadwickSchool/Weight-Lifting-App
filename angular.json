@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "wla",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -56,6 +57,14 @@
                   "maximumError": "5mb"
                 }
               ]
+            },
+            "test": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
+              ]
             }
           }
         },
@@ -67,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "workout-app:build:production"
+            },
+            "test": {
+              "browserTarget": "workout-app:build:test"
             }
           }
         },
@@ -88,6 +100,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -115,10 +128,14 @@
           "configurations": {
             "production": {
               "devServerTarget": "workout-app:serve:production"
+            },
+            "test": {
+              "devServerTarget": "workout-app:serve:test"
             }
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "workout-app"
 }

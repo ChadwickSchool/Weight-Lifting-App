@@ -1,0 +1,64 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/">
+      Get Big
+    </a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="20px" class="navigation-items">
+      <ng-container *ngIf="auth.user$ | async as user; else guest">
+        <li>
+          <a>
+            <div *ngIf="user.isAdmin; then adminhome; else studenthome"></div>
+            <ng-template #adminhome>
+              <a routerLink="/admin-home" id="home">
+                <mat-icon id="home-icon" class="icon">home</mat-icon>
+                <span class="label">Home</span>
+              </a>
+            </ng-template>
+            <ng-template #studenthome>
+              <a routerLink="/student-home" id="home">
+                <mat-icon id="home-icon" class="icon">home</mat-icon>
+                <span class="label">Home</span>
+              </a>
+            </ng-template>
+          </a>
+        </li>
+        <li>
+          <a>
+            <div *ngIf="user.isAdmin; then adminview"></div>
+            <ng-template #adminview>
+              <a routerLink="/student-list">
+                <mat-icon id="history-icon" class="icon">view_list</mat-icon>
+                <span class="label" id="history-label">Student's Workout History</span>
+              </a>
+            </ng-template>
+          </a>
+        </li>
+        <li>
+          <a>
+            <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
+            <span routerLink="" class="label" id="logout" (click)="auth.signOut()"
+              >Logout</span
+            >
+          </a>
+        </li>
+      </ng-container>
+      <ng-template #guest>
+        <li>
+          <a>
+            <mat-icon id="input-icon" class="icon">account_circle</mat-icon>
+            <span class="label" id="login" (click)="googleSignIn()"
+              >Login</span
+            >
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+</mat-toolbar>

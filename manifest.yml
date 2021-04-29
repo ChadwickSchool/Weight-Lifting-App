@@ -1,0 +1,8 @@
+---
+applications:
+- name: cf-wla
+  memory: 512M
+  instances: 1
+  buildpacks:
+    - staticfile_buildpack
+  path: dist/public

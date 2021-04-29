@@ -1,0 +1,141 @@
+table {
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    justify-content: center;
+  }
+.example-form {
+    min-width: 150px;
+    width: 100%;
+  }
+#set-input-form {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.example-full-width {
+    width: 100%;
+}
+.reps {
+    margin-right: 3rem;
+}
+mat-expansion-panel {
+  width: 100%;
+}
+mat-panel-title {
+  justify-content: center;
+  text-transform: capitalize;
+}
+mat-option,
+mat-select {
+  text-transform: capitalize;
+}
+mat-raised-button {
+  margin-bottom: 1rem;
+  margin-right: 0rem;
+  margin-left: 4rem;
+  justify-content: center;
+}
+
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.52); }
+
+#group-select {
+  width: 20%;
+  margin: 1.5rem;
+}
+#exercise-select {
+  width: 100%;
+}
+#edit {
+  margin-right: 5rem;
+}
+#edit:hover,
+#delete:hover {
+  color: rgba(0, 0, 0, 0.70);
+
+}
+
+#entire-workout-btn {
+  margin: 1.5rem;
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle
+  }
+
+  .mat-table caption {
+    font-size: 1em;
+  }
+
+  .mat-table .mat-header-cell {
+
+    border: 10px solid;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  .mat-table .mat-row {
+    border-bottom: 5px solid #ddd;
+    display: block;
+  }
+
+  .mat-cell:first-of-type {
+    padding-left: 0px;
+  }
+
+  .mat-cell:last-of-type {
+    padding-right: 0px;
+  }
+  .mat-header-row, .mat-row {
+    padding: 0 24px;
+    min-height: 0px;
+  }
+
+  .mat-table .mat-row:nth-child(even) {background: rgb(245, 245, 245)}
+  .mat-table .mat-row:nth-child(odd) {background: #FFF}
+
+  .mat-table .mat-cell {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 1em;
+    text-align: right;
+    font-weight: bold;
+    height:30px;
+    margin-bottom: 4%;
+  }
+  .mat-table .mat-cell:before {
+    /*
+    * aria-label has no advantage, it won't be read inside a table
+    content: attr(aria-label);
+    */
+    content: attr(data-label);
+    float: left;
+    text-transform: uppercase;
+    font-weight: normal;
+
+    font-size: .85em;
+  }
+  .mat-table .mat-cell:last-child {
+    border-bottom: 0;
+  }
+
+  #student-exercise-table .mat-cell:last-child {
+    text-align: center;
+  }
+
+    .mat-table .mat-cell:first-child {
+    padding-top: 4%;
+  }
+
+  #edit{
+    margin-right: 6rem;
+  }
+  #set-input-form {
+    margin: 2rem;
+  }
+}

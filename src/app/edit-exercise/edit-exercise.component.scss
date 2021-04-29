@@ -1,0 +1,16 @@
+.exercises-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.exercises-form > * {
+  width: 100%;
+}
+
+.close{
+  width: 100%;
+}
+
+.mat-dialog-title {
+  text-transform: capitalize;
+}

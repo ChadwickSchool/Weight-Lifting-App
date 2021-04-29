@@ -1,0 +1,171 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+    <button
+    routerLink="/student-entire-workout"
+    type="submit"
+    name="button"
+    id="entire-workout-btn"
+    mat-raised-button
+    color="primary"
+  >
+    View Entire Workout
+  </button>
+  <mat-expansion-panel id="rec-exercises-expansion">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Recommended Workout
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-table
+      [dataSource]="recExercisesDataSource"
+      class="mat-elevation-z8"
+      id="recommended-exercises-table"
+    >
+      <!-- Exercise Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="name">
+          {{ row.name }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Sets Column -->
+      <ng-container matColumnDef="sets">
+        <mat-header-cell *matHeaderCellDef> Sets </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="sets">
+          {{ row.sets }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Reps Column -->
+      <ng-container matColumnDef="reps">
+        <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="reps">
+          {{ row.reps }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="weight">
+          {{ row.weight }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Rest Column -->
+      <ng-container matColumnDef="rest">
+        <mat-header-cell *matHeaderCellDef> Rest </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="rest">
+          {{ row.rest }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"> </mat-row>
+    </mat-table>
+  </mat-expansion-panel>
+  <mat-expansion-panel
+    id="exercises-expansion"
+    [disabled]="exercise.name === ''"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ exercise.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-table
+      [dataSource]="currentExerciseDataSource"
+      class="mat-elevation-z8"
+      id="student-exercise-table"
+    >
+
+      <!-- Sets Column -->
+      <ng-container matColumnDef="setNumber">
+        <mat-header-cell *matHeaderCellDef> Set Number </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="set number">
+          {{ row.setNumber }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Reps Column -->
+      <ng-container matColumnDef="reps">
+        <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="reps">
+          {{ row.reps }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="weight">
+          {{ row.weight }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Comments Column -->
+      <ng-container matColumnDef="comment">
+        <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="comment">
+          {{ row.userComment }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label=" ">
+          <mat-icon id="edit" class="material-icons md-dark md-inactive" (click)="openDialog(row)">edit</mat-icon>
+          <mat-icon id="delete" class="material-icons md-dark md-inactive" (click)="deleteExercise(row)">delete
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedExerciseColumns"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
+      </mat-row>
+    </mat-table>
+  </mat-expansion-panel>
+  <!-- <h2>Set {{ setNumber }}</h2> -->
+  <div fxFlex fxLayout="column" fxLayoutAlign="center center" id="set-input-form">
+    <form class="example-form" id="exercise-form" (ngSubmit)="submitForm()">
+      <mat-form-field id="exercise-select">
+        <mat-label>Select Your Current Exercise</mat-label>
+        <mat-select name="name" [(ngModel)]="exercise.name" (ngModelChange)="updateStudentTable()" id="exercise-name-select">
+          <mat-option (click)="resetSetCounter()" *ngFor="let recExercise of recExercisesDropdownSource" [value]="recExercise.name" matInput>
+            {{ recExercise.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div fxflex="row">
+        <mat-form-field class="example-half-width reps">
+          <input
+            type="number"
+            id="reps-input"
+            matInput
+            placeholder="Reps"
+            [(ngModel)]="exercise.reps"
+            name="reps"
+          />
+        </mat-form-field>
+        <span></span>
+        <mat-form-field class="example-half-width weight">
+          <input type="number" id="weight-input" matInput placeholder="Weight" [(ngModel)]="exercise.weight"
+            name="weight" />
+        </mat-form-field>
+      </div>
+      <mat-form-field class="example-full-width">
+        <textarea matInput id="comments-input" placeholder="Comments" [(ngModel)]="exercise.userComment"
+          name="comment"></textarea>
+      </mat-form-field>
+      <button (click)="resetSetCounter()" id="next-btn" type="submit" name="button" mat-raised-button color="primary"
+        [disabled]="exercise.name === '' || exercise.reps === 0 || exercise.weight === 0">
+        Next Set
+      </button>
+    </form>
+  </div>
+</div>

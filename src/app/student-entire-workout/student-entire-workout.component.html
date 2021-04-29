@@ -1,0 +1,51 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+
+  <h1>Your Workout</h1>
+
+  <mat-table [dataSource]="exerciseDataSource" class="mat-elevation-z8">
+    <!-- Exercise Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Exercise </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="name">
+        {{ row.name }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Sets Column -->
+    <ng-container matColumnDef="setNumber">
+      <mat-header-cell *matHeaderCellDef> Set Number </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="set number">
+        {{ row.setNumber }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Reps Column -->
+    <ng-container matColumnDef="reps">
+      <mat-header-cell *matHeaderCellDef> Reps </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="reps">
+        {{ row.reps }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="weight">
+        {{ row.weight }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="comments">
+      <mat-header-cell *matHeaderCellDef> Comments </mat-header-cell>
+      <mat-cell *matCellDef="let row" data-label="comments">
+        {{ row.userComment }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedExerciseColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedExerciseColumns">
+    </mat-row>
+  </mat-table>
+  <button routerLink="/today-workout-student" type="submit" name="button" mat-raised-button color="primary">Back</button>
+</div>

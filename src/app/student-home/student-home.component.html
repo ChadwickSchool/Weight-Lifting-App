@@ -1,0 +1,18 @@
+<div fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h1 id="home">Home</h1>
+  <mat-form-field id="group-form-field">
+    <mat-label>Select Your Group</mat-label>
+    <mat-select id="group-select" [(value)]="group.name">
+      <mat-option
+        id="group-options"
+        *ngFor="let group of groupDataSource"
+        [value]="group.name"
+        (click)="isDisabled = false"
+        (click)="setCurrentGroupSelected(group)"
+      >
+        {{ group.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button id="workout-button" routerLink='/today-workout-student' button="submit" mat-raised-button color="primary" [disabled]="isDisabled">See Today's Workout</button>
+</div>

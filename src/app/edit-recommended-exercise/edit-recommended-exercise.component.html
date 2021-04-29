@@ -1,0 +1,28 @@
+<div class="dialog">
+  <div mat-dialog-content>
+    <form class="recommended-exercises-form" id="recommended-exercises-form" (ngSubmit)="updateExercise()">
+      <mat-form-field>
+        <input id="name-input" matInput placeholder="Exercise Name" type="text" required [(ngModel)]="recommendedExercise.name" name="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input id="sets-input" matInput placeholder="Number of Sets" type="text" required [(ngModel)]="recommendedExercise.sets" name="sets">
+      </mat-form-field>
+      <mat-form-field>
+          <input id="reps-input" matInput placeholder="Number of Reps" type="text" required [(ngModel)]="recommendedExercise.reps" name="reps">
+      </mat-form-field>
+      <mat-form-field>
+          <input id="weight-input" matInput placeholder="Weight Range" type="text" required [(ngModel)]="recommendedExercise.weight" name="weight">
+      </mat-form-field>
+      <mat-form-field>
+          <input id="comments-input" matInput placeholder="Comments" type="text" [(ngModel)]="recommendedExercise.coachComment" name="coachComment">
+      </mat-form-field>
+      <mat-form-field>
+        <input id="rest-input" matInput placeholder="Rest Time" type="text" [(ngModel)]="recommendedExercise.rest" name="rest">
+    </mat-form-field>
+      <button id="submit-button" mat-raised-button type="submit" (click)="updateExercise()" color="primary">Save</button>
+    </form>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button class="close" (click)="closeDialog()" color="warn">Cancel</button>
+  </div>
+  </div>
